@@ -1,25 +1,40 @@
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-function addTransaction(id, date, description, category, amount, type) {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td>${date}</td>
-    <td>${description}</td>
-    <td>${category}</td>
-    <td>$${amount.toFixed(2)}</td>
-    <td><button class="delete-btn">Delete</button></td>
-  `;
-  document.getElementById("transactionList").appendChild(row);
+transactions.forEach(transaction => {
+  addTransaction(
+    transaction.id,
+    transaction.date,
+    transaction.description,
+    transaction.category,
+    transaction.amount,
+    transaction.type
+  );
+});
+function createTransaction(date, description, category, amount, type) {
+  const newTransaction = {
+    id: Date.now(),
+    date,
+    description,
+    category,
+    amount,
+    type
+  };
+  transactions.push(newTransaction);
+  localStorage.setItem("transactions", JSON.stringify(transactions));
 
-  // Delete handler
-  row.querySelector(".delete-btn").addEventListener("click", () => {
-    row.remove();
-    transactions = transactions.filter(t => t.id !== id);
-    calculateMetrics();
-    updateMetrics();
-    refreshCharts();
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-  });
+  addTransaction(
+    newTransaction.id,
+    newTransaction.date,
+    newTransaction.description,
+    newTransaction.category,
+    newTransaction.amount,
+    newTransaction.type
+  );
+
+  calculateMetrics();
+  updateMetrics();
+  refreshCharts();
 }
+createTransaction("2026-06-27", "Groceries", "Food", 50, "expense");
 function calculateMetrics() {
   income = 0;
   expenses = 0;
@@ -34,19 +49,6 @@ function calculateMetrics() {
 
   balance = income - expenses;
 }
-transactions.push({
-  id: Date.now(),
-  date: "2026-06-27",
-  description: "Groceries",
-  category: "Food",
-  amount: 50,
-  type: "expense"
-});
-localStorage.setItem("transactions", JSON.stringify(transactions));
-addTransaction(transactions[transactions.length - 1].id, "2026-06-27", "Groceries", "Food", 50, "expense");
-transactions.forEach(transaction => {
-  addTransaction(transaction.id, transaction.date, transaction.description, transaction.category, transaction.amount, transaction.type);
-});
 calculateMetrics();
 updateMetrics();
 refreshCharts();
