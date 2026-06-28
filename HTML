@@ -1,66 +1,84 @@
-<p id="income">$0.00</p>
-<p id="expenses">$0.00</p>
-<p id="savings">$0.00</p>
-<h3>Income</h3>
-<button id="addTransactionBtn">+ Add Transaction</button>
-<button id="addBudgetBtn">+ Add Budget</button>
-<button id="exportCsvBtn">Export CSV</button>
-<button id="importCsvBtn">Import CSV</button>
-<section class="metrics">
-  <div class="card">
-    <h2>Current Balance</h2>
+<div class="card">
+    <h3>Current Balance</h3>
     <p id="balance">$0.00</p>
-  </div>
-  <div class="card">
-    <h2>Income</h2>
-    <p id="income">$0.00</p>
-  </div>
-  <div class="card">
-    <h2>Expenses</h2>
-    <p id="expenses">$0.00</p>
-  </div>
-  <div class="card">
-    <h2>Savings</h2>
-    <p id="savings">$0.00</p>
-  </div>
-</section>
-<section class="transactions">
-  <h2>Recent Transactions</h2>
-  <table id="transactionTable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Amount</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="transactionList">
-      <!-- JavaScript will insert rows here -->
-    </tbody>
-  </table>
-</section>
-<section class="charts">
-  <h2>Expense Chart</h2>
-  <canvas id="expenseChart"></canvas>
+</div>
 
-  <h2>Income vs Expense Chart</h2>
-  <canvas id="incomeChart"></canvas>
+<div class="card">
+    <h3>Income</h3>
+    <p id="income">$0.00</p>
+</div>
+
+<div class="card">
+    <h3>Expenses</h3>
+    <p id="expenses">$0.00</p>
+</div>
+
+<div class="card">
+    <h3>Savings</h3>
+    <p id="savings">$0.00</p>
+</div>
+<li><a href="#dashboard">Dashboard</a></li>
+<li><a href="#transactions">Transactions</a></li>
+<li><a href="#analytics">Analytics</a></li>
+<li><a href="#budgets">Budgets</a></li>
+<li><a href="#settings">Settings</a></li>
+<section class="quick-actions">
+
+    <button id="addTransactionBtn">
+        + Add Transaction
+    </button>
+
+    <button id="addBudgetBtn">
+        + Add Budget
+    </button>
+
+    <button id="exportCsvBtn">
+        Export CSV
+    </button>
+
+    <button id="importCsvBtn">
+        Import CSV
+    </button>
+
 </section>
-<aside class="sidebar">
-  <img src="assets/images/logo.png" alt="Smart Finance Dashboard Logo">
-  <nav>
-    <ul>
-      <li>Dashboard</li>
-      <li>Transactions</li>
-      <li>Analytics</li>
-      <li>Budgets</li>
-      <li>Settings</li>
-    </ul>
-  </nav>
-  <div class="profile">
-    👤 John Kalumba <br>
-    <span>Front-End Developer</span>
-  </div>
-</aside>
+<tbody id="transactionList">
+
+<tr>
+
+<td colspan="5">
+
+No transactions yet.
+
+</td>
+
+</tr>
+
+</tbody>
+<section id="dashboard" class="metrics">
+
+<section id="analytics" class="charts">
+
+<section id="transactions" class="transactions">
+
+<section id="budgets">
+
+<section id="settings">
+<body>
+
+Aside
+
+Header
+
+Main
+
+    Dashboard
+
+    Quick Actions
+
+    Charts
+
+    Transactions
+
+Footer
+
+</body>
