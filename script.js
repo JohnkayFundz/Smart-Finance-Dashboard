@@ -1,19 +1,5 @@
-const toggleDarkModeBtn = document.getElementById("toggleDarkModeBtn");
-
-toggleDarkModeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
-});
-
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "dark") {
-  document.body.classList.add("dark");
-}
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-function addTransaction(id, date, description, category, amount) {
+function addTransaction(id, date, description, category, amount, type) {
   const row = document.createElement("tr");
   row.innerHTML = `
     <td>${date}</td>
@@ -24,6 +10,7 @@ function addTransaction(id, date, description, category, amount) {
   `;
   document.getElementById("transactionList").appendChild(row);
 
+  // Delete handler
   row.querySelector(".delete-btn").addEventListener("click", () => {
     row.remove();
     transactions = transactions.filter(t => t.id !== id);
@@ -33,13 +20,32 @@ function addTransaction(id, date, description, category, amount) {
     localStorage.setItem("transactions", JSON.stringify(transactions));
   });
 }
+function calculateMetrics() {
+  income = 0;
+  expenses = 0;
+
+  transactions.forEach(transaction => {
+    if (transaction.type === "income") {
+      income += transaction.amount;
+    } else {
+      expenses += transaction.amount;
+    }
+  });
+
+  balance = income - expenses;
+}
 transactions.push({
   id: Date.now(),
-  date,
-  description,
-  category,
-  amount,
-  type: "expense" // or "income"
+  date: "2026-06-27",
+  description: "Groceries",
+  category: "Food",
+  amount: 50,
+  type: "expense"
+});
+localStorage.setItem("transactions", JSON.stringify(transactions));
+addTransaction(transactions[transactions.length - 1].id, "2026-06-27", "Groceries", "Food", 50, "expense");
+transactions.forEach(transaction => {
+  addTransaction(transaction.id, transaction.date, transaction.description, transaction.category, transaction.amount, transaction.type);
 });
 calculateMetrics();
 updateMetrics();
