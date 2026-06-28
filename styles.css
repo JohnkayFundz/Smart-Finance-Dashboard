@@ -1,51 +1,56 @@
 :root {
-    --primary: #2563eb;
-    --sidebar: #1e293b;
-    --background: #f8fafc;
-    --card: #ffffff;
-    --text: #1f2937;
-    --border: #e5e7eb;
-    --shadow: 0 8px 24px rgba(0,0,0,.08);
-    --radius: 12px;
-}font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}.sidebar{
-    width:260px;
-    min-height:100vh;
-    background:var(--sidebar);
-    color:white;
-    padding:30px;
-}.card:hover{
-    transform:translateY(-4px);
-}.metrics{
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
-    gap:20px;
-}button:hover{
-
-transform:translateY(-2px);
-
-}.chart-card{
-
-background:white;
-
-padding:20px;
-
-border-radius:12px;
-
-box-shadow:var(--shadow);
-
-}body.dark{
-
---background:#0f172a;
-
---card:#1e293b;
-
---text:#f8fafc;
-
+  --primary: #2563eb;       /* Accent color */
+  --sidebar: #1e293b;       /* Sidebar background */
+  --background: #f8fafc;    /* Page background */
+  --card: #ffffff;          /* Card background */
+  --text: #1f2937;          /* Default text */
+  --border: #e5e7eb;        /* Border color */
+  --shadow: 0 8px 24px rgba(0,0,0,.08); /* Card shadow */
+  --radius: 12px;           /* Border radius */
 }
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: var(--sidebar);
+  color: white;
+  padding: 30px;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+button:hover {
+  transform: translateY(-2px);
+}
+button {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.chart-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+body.dark {
+  --background: #0f172a;
+  --card: #1e293b;
+  --text: #f8fafc;
+}
+document.body.classList.toggle("dark");
