@@ -1,84 +1,109 @@
-<div class="card">
-    <h3>Current Balance</h3>
-    <p id="balance">$0.00</p>
-</div>
-
-<div class="card">
-    <h3>Income</h3>
-    <p id="income">$0.00</p>
-</div>
-
-<div class="card">
-    <h3>Expenses</h3>
-    <p id="expenses">$0.00</p>
-</div>
-
-<div class="card">
-    <h3>Savings</h3>
-    <p id="savings">$0.00</p>
-</div>
-<li><a href="#dashboard">Dashboard</a></li>
-<li><a href="#transactions">Transactions</a></li>
-<li><a href="#analytics">Analytics</a></li>
-<li><a href="#budgets">Budgets</a></li>
-<li><a href="#settings">Settings</a></li>
-<section class="quick-actions">
-
-    <button id="addTransactionBtn">
-        + Add Transaction
-    </button>
-
-    <button id="addBudgetBtn">
-        + Add Budget
-    </button>
-
-    <button id="exportCsvBtn">
-        Export CSV
-    </button>
-
-    <button id="importCsvBtn">
-        Import CSV
-    </button>
-
-</section>
-<tbody id="transactionList">
-
-<tr>
-
-<td colspan="5">
-
-No transactions yet.
-
-</td>
-
-</tr>
-
-</tbody>
-<section id="dashboard" class="metrics">
-
-<section id="analytics" class="charts">
-
-<section id="transactions" class="transactions">
-
-<section id="budgets">
-
-<section id="settings">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Finance Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
 <body>
+  <aside class="sidebar">
+    <img src="assets/images/logo.png" alt="Smart Finance Dashboard Logo">
+    <nav>
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#transactions">Transactions</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#budgets">Budgets</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </nav>
+    <div class="profile">
+      👤 John Kalumba <br>
+      <span>Front-End Developer</span>
+    </div>
+  </aside>
+  <header class="header">
+    <h1>Welcome, John 👋</h1>
+  </header>
+  <main class="main-content">
 
-Aside
+    <!-- Dashboard Metrics -->
+    <section id="dashboard" class="metrics">
+      <div class="card">
+        <h3>Current Balance</h3>
+        <p id="balance">$0.00</p>
+      </div>
+      <div class="card">
+        <h3>Income</h3>
+        <p id="income">$0.00</p>
+      </div>
+      <div class="card">
+        <h3>Expenses</h3>
+        <p id="expenses">$0.00</p>
+      </div>
+      <div class="card">
+        <h3>Savings</h3>
+        <p id="savings">$0.00</p>
+      </div>
+    </section>
 
-Header
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <button id="addTransactionBtn">+ Add Transaction</button>
+      <button id="addBudgetBtn">+ Add Budget</button>
+      <button id="exportCsvBtn">Export CSV</button>
+      <button id="importCsvBtn">Import CSV</button>
+    </section>
 
-Main
+    <!-- Charts -->
+    <section id="analytics" class="charts">
+      <h2>Expense Chart</h2>
+      <canvas id="expenseChart"></canvas>
 
-    Dashboard
+      <h2>Income vs Expense Chart</h2>
+      <canvas id="incomeChart"></canvas>
+    </section>
 
-    Quick Actions
+    <!-- Transactions -->
+    <section id="transactions" class="transactions">
+      <h2>Recent Transactions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="transactionList">
+          <tr>
+            <td colspan="5">No transactions yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-    Charts
+    <!-- Budgets -->
+    <section id="budgets">
+      <h2>Budgets</h2>
+      <p>No budgets yet.</p>
+    </section>
 
-    Transactions
+    <!-- Settings -->
+    <section id="settings">
+      <h2>Settings</h2>
+      <p>Configuration options go here.</p>
+    </section>
 
-Footer
-
+  </main>
+  <footer class="footer">
+    <p>&copy; 2026 Smart Finance Dashboard</p>
+  </footer>
 </body>
+</html>
