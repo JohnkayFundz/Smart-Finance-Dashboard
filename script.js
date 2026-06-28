@@ -1,54 +1,29 @@
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-transactions.forEach(transaction => {
-  addTransaction(
-    transaction.id,
-    transaction.date,
-    transaction.description,
-    transaction.category,
-    transaction.amount,
-    transaction.type
-  );
-});
-function createTransaction(date, description, category, amount, type) {
-  const newTransaction = {
-    id: Date.now(),
-    date,
-    description,
-    category,
-    amount,
-    type
-  };
+let income = 0;
+let expenses = 0;
+let balance = 0;
+transactions.push(newTransaction);
+saveTransactions();
+if (!description.trim()) {
+  alert("Description is required.");
+  return;
+}
 
-  transactions.push(newTransaction);
-  localStorage.setItem("transactions", JSON.stringify(transactions));
+if (amount <= 0) {
+  alert("Amount must be greater than zero.");
+  return;
+}
 
-  addTransaction(
-    newTransaction.id,
-    newTransaction.date,
-    newTransaction.description,
-    newTransaction.category,
-    newTransaction.amount,
-    newTransaction.type
-  );
-
+if (!type) {
+  alert("Please choose Income or Expense.");
+  return;
+}renderTransactions();
+calculateMetrics();
+updateMetrics();
+refreshCharts();function init() {
+  renderTransactions();
   calculateMetrics();
   updateMetrics();
   refreshCharts();
 }
-function calculateMetrics() {
-  income = 0;
-  expenses = 0;
 
-  transactions.forEach(transaction => {
-    if (transaction.type === "income") {
-      income += transaction.amount;
-    } else {
-      expenses += transaction.amount;
-    }
-  });
-
-  balance = income - expenses;
-}
-calculateMetrics();
-updateMetrics();
-refreshCharts();
+init();
