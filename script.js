@@ -18,6 +18,7 @@ function createTransaction(date, description, category, amount, type) {
     amount,
     type
   };
+
   transactions.push(newTransaction);
   localStorage.setItem("transactions", JSON.stringify(transactions));
 
@@ -34,7 +35,6 @@ function createTransaction(date, description, category, amount, type) {
   updateMetrics();
   refreshCharts();
 }
-createTransaction("2026-06-27", "Groceries", "Food", 50, "expense");
 function calculateMetrics() {
   income = 0;
   expenses = 0;
