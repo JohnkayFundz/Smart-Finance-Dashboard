@@ -1,23 +1,30 @@
-function renderBudgetSummary() {
-  const summarySection = document.getElementById("budgetSummary");
-  summarySection.innerHTML = "";
+const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
 
-  const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
-  const totalSpent = transactions
-    .filter(t => t.type.toLowerCase() === "expense")
+const totalSpent = transactions
+    .filter(t => t.type?.toLowerCase() === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
-  const remaining = totalBudget - totalSpent;
 
-  const summaries = [
-    { title: "Total Budget", value: `$${totalBudget.toFixed(2)}` },
-    { title: "Total Spent", value: `$${totalSpent.toFixed(2)}` },
-    { title: "Remaining", value: `$${remaining.toFixed(2)}` }
-  ];
+const remaining = totalBudget - totalSpent;
 
-  summaries.forEach(s => {
-    const card = document.createElement("div");
-    card.className = "summary-card";
-    card.innerHTML = `<h3>${s.title}</h3><span>${s.value}</span>`;
-    summarySection.appendChild(card);
-  });
-}
+budgetSection.innerHTML = `
+<h2>Budgets</h2>
+
+<div class="budget-summary">
+
+    <div class="summary-card total-budget">
+        <h3>Total Budget</h3>
+        <span>$${totalBudget.toFixed(2)}</span>
+    </div>
+
+    <div class="summary-card total-spent">
+        <h3>Total Spent</h3>
+        <span>$${totalSpent.toFixed(2)}</span>
+    </div>
+
+    <div class="summary-card remaining">
+        <h3>Remaining</h3>
+        <span>$${remaining.toFixed(2)}</span>
+    </div>
+
+</div>
+`;
