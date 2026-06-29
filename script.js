@@ -1,32 +1,34 @@
-const rawPercentage = budget.amount > 0
-    ? (spent / budget.amount) * 100
-    : 0;
+list.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-budget")) {
+    const id = e.target.dataset.id;
+    if (confirm("Delete this budget?")) {
+      budgets = budgets.filter(b => b.id != id);
+      localStorage.setItem("budgets", JSON.stringify(budgets));
+      renderBudgets();
+    }
+  }
 
-const percentage = Math.min(rawPercentage, 100);let status = "good";
+  if (e.target.classList.contains("edit-budget")) {
+    const id = e.target.dataset.id;
+    const budget = budgets.find(b => b.id == id);
 
-if (rawPercentage >= 100) {
-    status = "danger";
-} else if (rawPercentage >= 80) {
-    status = "warning";
-}const remaining = budget.amount - spent;
+    document.getElementById("budgetName").value = budget.name;
+    document.getElementById("budgetAmount").value = budget.amount;
+    document.getElementById("budgetCategory").value = budget.category;
 
-const remainingText =
-    remaining < 0
-        ? `- $${Math.abs(remaining).toFixed(2)}`
-        : `$${remaining.toFixed(2)}`;function getCategoryExpenses(category) {
-    return transactions
-        .filter(t =>
-            t.type?.toLowerCase() === "expense" &&
-            t.category === category
-        )
-        .reduce((total, t) => total + t.amount, 0);
-}🍔 Food Budget
-Food
+    budgetModal.style.display = "block";
 
-Spent        $180.00
-Budget       $300.00
-Remaining    $120.00
+    budgetForm.onsubmit = (e) => {
+      e.preventDefault();
+      budget.name = document.getElementById("budgetName").value;
+      budget.amount = parseFloat(document.getElementById("budgetAmount").value);
+      budget.category = document.getElementById("budgetCategory").value;
 
-████████░░ 60%
-
-[✏ Edit]   [🗑 Delete]
+      localStorage.setItem("budgets", JSON.stringify(budgets));
+      renderBudgets();
+      budgetForm.reset();
+      budgetModal.style.display = "none";
+      budgetForm.onsubmit = defaultBudgetSubmit;
+    };
+  }
+});
