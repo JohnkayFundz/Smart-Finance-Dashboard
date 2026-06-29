@@ -1,49 +1,32 @@
-const spent = getCategoryExpenses(budget.category);
-const percentage = Math.min((spent / budget.amount) * 100, 100);
-const remaining = budget.amount - spent;
+const rawPercentage = budget.amount > 0
+    ? (spent / budget.amount) * 100
+    : 0;
 
-let status = "good";
-if (percentage >= 100) {
-  status = "danger";
-} else if (percentage >= 80) {
-  status = "warning";
-}
+const percentage = Math.min(rawPercentage, 100);let status = "good";
 
-const item = document.createElement("div");
-item.className = "budget-card";
-item.innerHTML = `
-  <div class="budget-header">
-    <div>
-      <h3>${budget.name}</h3>
-      <small>${budget.category}</small>
-    </div>
-    <span class="budget-status ${status}">
-      ${percentage.toFixed(0)}%
-    </span>
-  </div>
+if (rawPercentage >= 100) {
+    status = "danger";
+} else if (rawPercentage >= 80) {
+    status = "warning";
+}const remaining = budget.amount - spent;
 
-  <div class="budget-info">
-    <span>Spent</span>
-    <strong>$${spent.toFixed(2)}</strong>
-  </div>
+const remainingText =
+    remaining < 0
+        ? `- $${Math.abs(remaining).toFixed(2)}`
+        : `$${remaining.toFixed(2)}`;function getCategoryExpenses(category) {
+    return transactions
+        .filter(t =>
+            t.type?.toLowerCase() === "expense" &&
+            t.category === category
+        )
+        .reduce((total, t) => total + t.amount, 0);
+}🍔 Food Budget
+Food
 
-  <div class="budget-info">
-    <span>Remaining</span>
-    <strong>$${remaining.toFixed(2)}</strong>
-  </div>
+Spent        $180.00
+Budget       $300.00
+Remaining    $120.00
 
-  <div class="progress">
-    <div class="progress-fill ${status}" style="width:${percentage}%"></div>
-  </div>
+████████░░ 60%
 
-  <div class="budget-actions">
-    <button class="edit-budget">✏ Edit</button>
-    <button class="delete-budget">🗑 Delete</button>
-  </div>
-`;
-list.appendChild(item);
-function getCategoryExpenses(category) {
-  return transactions
-    .filter(t => t.type?.toLowerCase() === "expense" && t.category === category)
-    .reduce((total, t) => total + t.amount, 0);
-}
+[✏ Edit]   [🗑 Delete]
