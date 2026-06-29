@@ -1,30 +1,25 @@
+function saveBudgets() {
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+}saveBudgets();
+refreshDashboard();budgetModal.classList.add("show");budgetModal.classList.remove("show");// State
 let budgets = JSON.parse(localStorage.getItem("budgets")) || [];
 let editingBudgetId = null;
+
+// Storage
 function saveBudgets() {
-  localStorage.setItem("budgets", JSON.stringify(budgets));
+    localStorage.setItem("budgets", JSON.stringify(budgets));
 }
+
+// Helpers
 function getCategoryExpenses(category) {
-  return transactions
-    .filter(t => t.type?.toLowerCase() === "expense" && t.category === category)
-    .reduce((sum, t) => sum + t.amount, 0);
+    // ...
 }
+
+// Dashboard
 function refreshDashboard() {
-  renderTransactions();
-  renderBudgets();
-  calculateMetrics();
-  updateMetrics();
-  refreshCharts();
-}
-function saveBudgets() {
-  localStorage.setItem("budgets", JSON.stringify(budgets));
-  refreshDashboard();
-}
-#budgetModal {
-  display: none;
-  opacity: 0;
-  transition: opacity .3s ease;
-}
-#budgetModal.show {
-  display: block;
-  opacity: 1;
+    renderTransactions();
+    renderBudgets();
+    calculateMetrics();
+    updateMetrics();
+    refreshCharts();
 }
