@@ -1,15 +1,4 @@
-.progress-fill.good { background: #27ae60; }   /* green */
-.progress-fill.warning { background: #f39c12; } /* orange */
-.progress-fill.danger { background: #e74c3c; }  /* red */
 .progress-fill {
   transition: width .4s ease, background .3s ease;
 }
-.summary-card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-.summary-card h3 { margin-bottom: 10px; font-size: 1rem; }
-.summary-card span { font-size: 1.5rem; font-weight: bold; }
+<span class="budget-status ${status}-text">${percentage.toFixed(0)}%</span>
