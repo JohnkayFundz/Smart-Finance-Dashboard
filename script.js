@@ -1,34 +1,15 @@
-list.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-budget")) {
-    const id = e.target.dataset.id;
-    if (confirm("Delete this budget?")) {
-      budgets = budgets.filter(b => b.id != id);
-      localStorage.setItem("budgets", JSON.stringify(budgets));
-      renderBudgets();
-    }
-  }
+const id = Number(deleteBtn.dataset.id);const id = Number(editBtn.dataset.id);const id = Number(editBtn.dataset.id);if (!budget) return;editingBudgetId = id;
 
-  if (e.target.classList.contains("edit-budget")) {
-    const id = e.target.dataset.id;
-    const budget = budgets.find(b => b.id == id);
+budgetName.value = budget.name;
+budgetAmount.value = budget.amount;
+budgetCategory.value = budget.category;
 
-    document.getElementById("budgetName").value = budget.name;
-    document.getElementById("budgetAmount").value = budget.amount;
-    document.getElementById("budgetCategory").value = budget.category;
+budgetModal.style.display = "block";localStorage.setItem("budgets", JSON.stringify(budgets));function saveBudgets() {
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+}saveBudgets();
+renderBudgets();budgetModal.classList.add("show");budgetModal.classList.remove("show");list.addEventListener("click", (e) => {
+    const deleteBtn = e.target.closest(".delete-budget");
+    const editBtn = e.target.closest(".edit-budget");
 
-    budgetModal.style.display = "block";
-
-    budgetForm.onsubmit = (e) => {
-      e.preventDefault();
-      budget.name = document.getElementById("budgetName").value;
-      budget.amount = parseFloat(document.getElementById("budgetAmount").value);
-      budget.category = document.getElementById("budgetCategory").value;
-
-      localStorage.setItem("budgets", JSON.stringify(budgets));
-      renderBudgets();
-      budgetForm.reset();
-      budgetModal.style.display = "none";
-      budgetForm.onsubmit = defaultBudgetSubmit;
-    };
-  }
+    // Handle actions...
 });
