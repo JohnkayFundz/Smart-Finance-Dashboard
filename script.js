@@ -1,69 +1,31 @@
-function refreshDashboard() {
-    loadData();
-
-    if (typeof renderTransactions === "function") renderTransactions();
-    if (typeof renderBudgets === "function") renderBudgets();
-    if (typeof calculateMetrics === "function") calculateMetrics();
-    if (typeof updateMetrics === "function") updateMetrics();
-    if (typeof refreshCharts === "function") refreshCharts();
-}budgets.push(newBudget);
-
-saveBudgets();
-refreshDashboard();}
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadData();
-    refreshDashboard();
-});
-
-function getCategoryExpenses(category = "") {
-    ...
-}const TRANSACTION_TYPES = {
-    INCOME: "income",
-    EXPENSE: "expense"
-};
+const TRANSACTION_TYPES = { ... };
 
 let budgets = [];
 let transactions = [];
 
-function loadData() {
-    try {
-        budgets = JSON.parse(localStorage.getItem("budgets")) || [];
-        transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-    } catch (error) {
-        console.error("Failed to load data:", error);
-        budgets = [];
-        transactions = [];
-    }
-}
+function loadData() { ... }
 
-function saveTransactions() {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-}
+function saveTransactions() { ... }
 
-function saveBudgets() {
-    localStorage.setItem("budgets", JSON.stringify(budgets));
-}
+function saveBudgets() { ... }
 
-function getCategoryExpenses(category = "") {
-    return transactions
-        .filter(transaction =>
-            transaction.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
-            transaction.category?.toLowerCase() === category.toLowerCase()
-        )
-        .reduce((total, transaction) => total + Number(transaction.amount || 0), 0);
-}
+function getCategoryExpenses(category = "") { ... }
 
-function refreshDashboard() {
-    loadData();
-
-    if (typeof renderTransactions === "function") renderTransactions();
-    if (typeof renderBudgets === "function") renderBudgets();
-    if (typeof calculateMetrics === "function") calculateMetrics();
-    if (typeof updateMetrics === "function") updateMetrics();
-    if (typeof refreshCharts === "function") refreshCharts();
-}
+function refreshDashboard() { ... }
 
 document.addEventListener("DOMContentLoaded", () => {
+    refreshDashboard();
+});budgetForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const newBudget = {
+        id: Date.now(),
+        category,
+        amount
+    };
+
+    budgets.push(newBudget);
+
+    saveBudgets();
     refreshDashboard();
 });
