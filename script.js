@@ -1,4 +1,24 @@
-const TRANSACTION_TYPES = {
+function refreshDashboard() {
+    loadData();
+
+    if (typeof renderTransactions === "function") renderTransactions();
+    if (typeof renderBudgets === "function") renderBudgets();
+    if (typeof calculateMetrics === "function") calculateMetrics();
+    if (typeof updateMetrics === "function") updateMetrics();
+    if (typeof refreshCharts === "function") refreshCharts();
+}budgets.push(newBudget);
+
+saveBudgets();
+refreshDashboard();}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadData();
+    refreshDashboard();
+});
+
+function getCategoryExpenses(category = "") {
+    ...
+}const TRANSACTION_TYPES = {
     INCOME: "income",
     EXPENSE: "expense"
 };
@@ -17,27 +37,33 @@ function loadData() {
     }
 }
 
-function saveData() {
-    localStorage.setItem("budgets", JSON.stringify(budgets));
+function saveTransactions() {
     localStorage.setItem("transactions", JSON.stringify(transactions));
+}
+
+function saveBudgets() {
+    localStorage.setItem("budgets", JSON.stringify(budgets));
 }
 
 function getCategoryExpenses(category = "") {
     return transactions
-        .filter(t =>
-            t.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
-            t.category?.toLowerCase() === category.toLowerCase()
+        .filter(transaction =>
+            transaction.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
+            transaction.category?.toLowerCase() === category.toLowerCase()
         )
-        .reduce((sum, t) => sum + Number(t.amount || 0), 0);
+        .reduce((total, transaction) => total + Number(transaction.amount || 0), 0);
 }
 
 function refreshDashboard() {
     loadData();
-    renderTransactions?.();
-    renderBudgets?.();
-    calculateMetrics?.();
-    updateMetrics?.();
-    refreshCharts?.();
+
+    if (typeof renderTransactions === "function") renderTransactions();
+    if (typeof renderBudgets === "function") renderBudgets();
+    if (typeof calculateMetrics === "function") calculateMetrics();
+    if (typeof updateMetrics === "function") updateMetrics();
+    if (typeof refreshCharts === "function") refreshCharts();
 }
 
-document.addEventListener("DOMContentLoaded", refreshDashboard);
+document.addEventListener("DOMContentLoaded", () => {
+    refreshDashboard();
+});
