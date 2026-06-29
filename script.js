@@ -26,12 +26,4 @@ function refreshDashboard() {
     calculateMetrics();
     updateMetrics();
     refreshCharts();
-}renderTransactions();
-renderBudgets();
-calculateMetrics();
-updateMetrics();
-refreshCharts();renderTransactions?.();
-renderBudgets?.();
-calculateMetrics?.();
-updateMetrics?.();
-refreshCharts?.();
+}refreshDashboard();
