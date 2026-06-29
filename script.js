@@ -1,61 +1,51 @@
-const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
-
-const totalSpent = transactions
-    .filter(t => t.type?.toLowerCase() === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);
-
-const remaining = totalBudget - totalSpent;
-
-budgetSection.innerHTML = `
-<h2>Budgets</h2>
-
-<div class="budget-summary">
-
-    <div class="summary-card total-budget">
-        <h3>Total Budget</h3>
-        <span>$${totalBudget.toFixed(2)}</span>
-    </div>
-
-    <div class="summary-card total-spent">
-        <h3>Total Spent</h3>
-        <span>$${totalSpent.toFixed(2)}</span>
-    </div>
-
-    <div class="summary-card remaining">
-        <h3>Remaining</h3>
-        <span>$${remaining.toFixed(2)}</span>
-    </div>
-
-</div>
-`;
-const list = document.createElement("div");
-list.className = "budget-list";
-
 budgets.forEach(budget => {
-    // Create each budget card here...
-    list.appendChild(item);
+  const spent = getCategoryExpenses(budget.category);
+  const percentage = Math.min((spent / budget.amount) * 100, 100);
+  const remaining = budget.amount - spent;
+
+  let status = "good";
+  if (percentage >= 100) {
+    status = "danger";
+  } else if (percentage >= 80) {
+    status = "warning";
+  }
+
+  const item = document.createElement("div");
+  item.className = "budget-card";
+  item.innerHTML = `
+    <div class="budget-header">
+      <div>
+        <h3>${budget.name}</h3>
+        <small>${budget.category}</small>
+      </div>
+      <span class="budget-status ${status}">
+        ${percentage.toFixed(0)}%
+      </span>
+    </div>
+
+    <div class="budget-info">
+      <span>Spent</span>
+      <strong>$${spent.toFixed(2)}</strong>
+    </div>
+
+    <div class="budget-info">
+      <span>Remaining</span>
+      <strong>$${remaining.toFixed(2)}</strong>
+    </div>
+
+    <div class="progress">
+      <div class="progress-fill ${status}" style="width:${percentage}%"></div>
+    </div>
+
+    <div class="budget-actions">
+      <button class="edit-budget">✏ Edit</button>
+      <button class="delete-budget">🗑 Delete</button>
+    </div>
+  `;
+  list.appendChild(item);
 });
-
-budgetSection.appendChild(list);Budgets
-──────────────────────────────
-
-┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-│ Total Budget │ │ Total Spent  │ │ Remaining    │
-│   $1500      │ │    $980      │ │    $520      │
-└──────────────┘ └──────────────┘ └──────────────┘
-
-┌───────────────────────────────┐
-│ 🍔 Food Budget         60%     │
-│ Spent:      $180             │
-│ Remaining:  $120             │
-│ ████████░░                 │
-│ [Edit]      [Delete]         │
-└───────────────────────────────┘
-
-┌───────────────────────────────┐
-│ 🚗 Transport Budget     90%    │
-│ Spent:      $180             │
-│ Remaining:  $20              │
-│ █████████░                 │
-│ [Edit]      [Delete]         │
-└───────────────────────────────┘
+function getCategoryExpenses(category) {
+  return transactions
+    .filter(t => t.type?.toLowerCase() === "expense" && t.category === category)
+    .reduce((total, t) => total + t.amount, 0);
+}
