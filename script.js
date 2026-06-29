@@ -1,83 +1,52 @@
-function renderBudgets() {
-  const budgetSection = document.getElementById("budgets");
-  budgetSection.innerHTML = "<h2>Budgets</h2>";
+let editingBudgetId = null;item.querySelector(".edit-budget").addEventListener("click", () => {
 
-  if (budgets.length === 0) {
-    budgetSection.innerHTML += "<p>No budgets yet.</p>";
-    return;
-  }
+    editingBudgetId = budget.id;
 
-  const list = document.createElement("ul");
-  budgets.forEach(budget => {
-    const item = document.createElement("li");
-    item.innerHTML = `
-      ${budget.name} (${budget.category}): $${budget.amount.toFixed(2)}
-      <button class="edit-budget">Edit</button>
-      <button class="delete-budget">Delete</button>
-    `;
-    list.appendChild(item);
+    budgetName.value = budget.name;
+    budgetAmount.value = budget.amount;
+    budgetCategory.value = budget.category;
 
-    // Delete handler
-    item.querySelector(".delete-budget").addEventListener("click", () => {
-      if (confirm("Delete this budget?")) {
-        budgets = budgets.filter(b => b.id !== budget.id);
-        localStorage.setItem("budgets", JSON.stringify(budgets));
-        renderBudgets();
-      }
-    });
+    budgetModal.classList.add("show");
+});budgetForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    // Edit handler
-    item.querySelector(".edit-budget").addEventListener("click", () => {
-      document.getElementById("budgetName").value = budget.name;
-      document.getElementById("budgetAmount").value = budget.amount;
-      document.getElementById("budgetCategory").value = budget.category;
+    const name = budgetName.value.trim();
+    const amount = Number(budgetAmount.value);
+    const category = budgetCategory.value;
 
-      // Open modal
-      budgetModal.style.display = "block";
+    if (!name || amount <= 0 || !category) {
+        alert("Please fill all fields correctly.");
+        return;
+    }
 
-      // Replace submit handler temporarily
-      budgetForm.onsubmit = (e) => {
-        e.preventDefault();
-        budget.name = document.getElementById("budgetName").value;
-        budget.amount = parseFloat(document.getElementById("budgetAmount").value);
-        budget.category = document.getElementById("budgetCategory").value;
+    if (editingBudgetId) {
 
-        localStorage.setItem("budgets", JSON.stringify(budgets));
-        renderBudgets();
-        budgetForm.reset();
-        budgetModal.style.display = "none";
+        const budget = budgets.find(b => b.id === editingBudgetId);
 
-        // Restore default submit handler
-        budgetForm.onsubmit = defaultBudgetSubmit;
-      };
-    });
-  });
-  budgetSection.appendChild(list);
-}
-function defaultBudgetSubmit(e) {
-  e.preventDefault();
+        budget.name = name;
+        budget.amount = amount;
+        budget.category = category;
 
-  const name = document.getElementById("budgetName").value;
-  const amount = parseFloat(document.getElementById("budgetAmount").value);
-  const category = document.getElementById("budgetCategory").value;
+        editingBudgetId = null;
 
-  if (!name.trim() || amount <= 0 || !category.trim()) {
-    alert("Please fill all fields correctly.");
-    return;
-  }
+    } else {
 
-  const newBudget = {
-    id: Date.now(),
-    name,
-    amount,
-    category
-  };
+        budgets.push({
+            id: Date.now(),
+            name,
+            amount,
+            category
+        });
 
-  budgets.push(newBudget);
-  localStorage.setItem("budgets", JSON.stringify(budgets));
-  renderBudgets();
-  budgetForm.reset();
-  budgetModal.style.display = "none";
-}
+    }
 
-budgetForm.onsubmit = defaultBudgetSubmit;
+    localStorage.setItem("budgets", JSON.stringify(budgets));
+
+    budgetForm.reset();
+    budgetModal.classList.remove("show");
+
+    renderBudgets();
+});budgets = budgets.filter(b => b.id !== budget.id);
+
+saveBudgets();
+renderBudgets();
