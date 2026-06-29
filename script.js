@@ -4,15 +4,18 @@ const TRANSACTION_TYPES = {
 };
 
 let budgets = [];
+let transactions = [];
 
 try {
     budgets = JSON.parse(localStorage.getItem("budgets")) || [];
-} catch (error) {
+    transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+} catch {
     budgets = [];
+    transactions = [];
 }
 
 function getCategoryExpenses(category) {
-    return (transactions || [])
+    return transactions
         .filter(t =>
             t.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
             t.category?.toLowerCase() === category.toLowerCase()
@@ -21,14 +24,11 @@ function getCategoryExpenses(category) {
 }
 
 function refreshDashboard() {
-    renderTransactions();
-    renderBudgets();
-    calculateMetrics();
-    updateMetrics();
-    refreshCharts();
+    renderTransactions?.();
+    renderBudgets?.();
+    calculateMetrics?.();
+    updateMetrics?.();
+    refreshCharts?.();
 }
 
-// Initialize the dashboard
-refreshDashboard();document.addEventListener("DOMContentLoaded", () => {
-    refreshDashboard();
-});
+document.addEventListener("DOMContentLoaded", refreshDashboard);
