@@ -1,54 +1,13 @@
-const spent = getCategoryExpenses(budget.category);
-
-const percentage = Math.min((spent / budget.amount) * 100, 100);
-
+if (t.type.toLowerCase() === "expense" && t.category === category)
 const remaining = budget.amount - spent;
-
-let status = "good";
-
-if (percentage >= 100) {
-    status = "danger";
-} else if (percentage >= 80) {
-    status = "warning";
-}
-item.innerHTML = `
-<div class="budget-card">
-
-    <div class="budget-header">
-        <div>
-            <h3>${budget.name}</h3>
-            <small>${budget.category}</small>
-        </div>
-
-        <span class="budget-status ${status}">
-            ${percentage.toFixed(0)}%
-        </span>
-    </div>
-
-    <div class="budget-info">
-        <span>Spent</span>
-        <strong>$${spent.toFixed(2)}</strong>
-    </div>
-
-    <div class="budget-info">
-        <span>Remaining</span>
-        <strong>$${remaining.toFixed(2)}</strong>
-    </div>
-
-    <div class="progress">
-        <div class="progress-fill ${status}"
-             style="width:${percentage}%">
-        </div>
-    </div>
-
-    <div class="budget-actions">
-        <button class="edit-budget">✏ Edit</button>
-        <button class="delete-budget">🗑 Delete</button>
-    </div>
-
-</div>
-`;function getCategoryExpenses(category) {
-    return transactions
-        .filter(t => t.type === "Expense" && t.category === category)
-        .reduce((total, t) => total + t.amount, 0);
-}
+const remainingText = remaining < 0 ? `- $${Math.abs(remaining).toFixed(2)}` : `$${remaining.toFixed(2)}`;
+.progress-fill.good { background: #27ae60; }   /* green */
+.progress-fill.warning { background: #f39c12; } /* orange */
+.progress-fill.danger { background: #e74c3c; }  /* red */
+const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
+const totalSpent = transactions.filter(t => t.type.toLowerCase() === "expense")
+                               .reduce((sum, t) => sum + t.amount, 0);
+budgetSection.innerHTML = `
+  <h2>Budgets</h2>
+  <p>Total Budget: $${totalBudget.toFixed(2)} | Total Spent: $${totalSpent.toFixed(2)}</p>
+`;
