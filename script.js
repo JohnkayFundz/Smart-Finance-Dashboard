@@ -1,38 +1,23 @@
-function getCategoryExpenses(category) {
-    return transactions
-        .filter(t =>
-            t.type?.toLowerCase() === "expense" &&
-            t.category === category
-        )
-        .reduce((sum, t) => sum + t.amount, 0);
-}<strong class="${remaining < 0 ? "danger-text" : ""}">
-    ${remainingText}
-</strong>const totalBudget = budgets.reduce(
-    (sum, b) => sum + b.amount,
-    0
-);
+function renderBudgetSummary() {
+  const summarySection = document.getElementById("budgetSummary");
+  summarySection.innerHTML = "";
 
-const totalSpent = transactions
-    .filter(t => t.type?.toLowerCase() === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);budgetSection.innerHTML = `
-<h2>Budgets</h2>
+  const totalBudget = budgets.reduce((sum, b) => sum + b.amount, 0);
+  const totalSpent = transactions
+    .filter(t => t.type.toLowerCase() === "expense")
+    .reduce((sum, t) => sum + t.amount, 0);
+  const remaining = totalBudget - totalSpent;
 
-<div class="budget-summary">
+  const summaries = [
+    { title: "Total Budget", value: `$${totalBudget.toFixed(2)}` },
+    { title: "Total Spent", value: `$${totalSpent.toFixed(2)}` },
+    { title: "Remaining", value: `$${remaining.toFixed(2)}` }
+  ];
 
-    <div class="summary-card">
-        <h3>Total Budget</h3>
-        <span>$${totalBudget.toFixed(2)}</span>
-    </div>
-
-    <div class="summary-card">
-        <h3>Total Spent</h3>
-        <span>$${totalSpent.toFixed(2)}</span>
-    </div>
-
-    <div class="summary-card">
-        <h3>Remaining</h3>
-        <span>$${(totalBudget - totalSpent).toFixed(2)}</span>
-    </div>
-
-</div>
-`;
+  summaries.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "summary-card";
+    card.innerHTML = `<h3>${s.title}</h3><span>${s.value}</span>`;
+    summarySection.appendChild(card);
+  });
+}
