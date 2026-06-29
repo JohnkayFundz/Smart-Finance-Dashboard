@@ -1,7 +1,9 @@
 const STORAGE_KEYS = {
     BUDGETS: "budgets",
     TRANSACTIONS: "transactions"
-};function loadData() {
+};
+
+function loadData() {
     try {
         budgets = JSON.parse(localStorage.getItem(STORAGE_KEYS.BUDGETS)) || [];
         transactions = JSON.parse(localStorage.getItem(STORAGE_KEYS.TRANSACTIONS)) || [];
@@ -24,4 +26,14 @@ function saveBudgets() {
         STORAGE_KEYS.BUDGETS,
         JSON.stringify(budgets)
     );
+}function saveData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function saveTransactions() {
+    saveData(STORAGE_KEYS.TRANSACTIONS, transactions);
+}
+
+function saveBudgets() {
+    saveData(STORAGE_KEYS.BUDGETS, budgets);
 }
