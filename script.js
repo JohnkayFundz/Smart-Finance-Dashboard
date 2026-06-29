@@ -36,11 +36,30 @@ function refreshDashboard() {
     calculateMetrics();
     updateMetrics();
     refreshCharts();
-}saveBudgets();
-refreshDashboard();
+}
 
-budgetModal.classList.add("show");
-budgetModal.classList.remove("show");budgets.push(newBudget);
+// ===========================
+// Modal
+// ===========================
+
+function openBudgetModal() {
+    budgetModal.classList.add("show");
+}
+
+function closeBudgetModal() {
+    editingBudgetId = null;
+    budgetForm.reset();
+    budgetModal.classList.remove("show");
+}const newBudget = {
+    id: Date.now(),
+    name,
+    amount,
+    category,
+    createdAt: new Date().toISOString(),
+    updatedAt: null
+};
+
+budgets.push(newBudget);
 
 saveBudgets();
 closeBudgetModal();
@@ -51,13 +70,36 @@ budget.updatedAt = new Date().toISOString();
 
 saveBudgets();
 closeBudgetModal();
-refreshDashboard();budgetModal.classList.add("show");budgetModal.classList.remove("show");js/
+refreshDashboard();budgets = budgets.filter(b => b.id !== id);
+
+saveBudgets();
+refreshDashboard();saveBudgets();
+refreshDashboard();
+
+budgetModal.classList.add("show");
+budgetModal.classList.remove("show");expense-tracker/
 │
-├── app.js
-├── storage.js
-├── transactions.js
-├── budgets.js
-├── dashboard.js
-├── charts.js
-├── ui.js
-└── utils.js
+├── index.html
+│
+├── css/
+│   ├── style.css
+│   ├── dashboard.css
+│   ├── budget.css
+│   ├── modal.css
+│   └── darkmode.css
+│
+├── js/
+│   ├── app.js            // Start the app
+│   ├── storage.js        // LocalStorage helpers
+│   ├── transactions.js   // Transactions
+│   ├── budgets.js        // Budget logic
+│   ├── dashboard.js      // Metrics & summary
+│   ├── charts.js         // Charts
+│   ├── ui.js             // Modals & UI helpers
+│   └── utils.js          // Shared helper functions
+│
+├── assets/
+│   ├── icons/
+│   └── images/
+│
+└── README.md
