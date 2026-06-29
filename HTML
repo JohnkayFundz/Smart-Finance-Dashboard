@@ -1,3 +1,17 @@
-<div class="progress">
-    <div class="progress-fill good" style="width:60%"></div>
+<div class="budget-info">
+    <span>Remaining</span>
+    <strong class="${remaining < 0 ? 'danger-text' : ''}">
+        ${remainingText}
+    </strong>
+</div><div class="budget-info">
+    <span>Budget</span>
+    <strong>$${budget.amount.toFixed(2)}</strong>
+</div><div class="budget-actions">
+    <button class="edit-budget" data-id="${budget.id}">
+        ✏ Edit
+    </button>
+
+    <button class="delete-budget" data-id="${budget.id}">
+        🗑 Delete
+    </button>
 </div>
