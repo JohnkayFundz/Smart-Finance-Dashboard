@@ -15,36 +15,29 @@ function loadData() {
         budgets = [];
         transactions = [];
     }
-}document.addEventListener("DOMContentLoaded", () => {
-    loadData();
-    refreshDashboard();
-});function getCategoryExpenses(category = "") {
-    return transactions
-        .filter(transaction =>
-            transaction.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
-            transaction.category?.toLowerCase() === category.toLowerCase()
-        )
-        .reduce((total, transaction) => total + Number(transaction.amount || 0), 0);
-}function refreshDashboard() {
-    if (typeof renderTransactions === "function") renderTransactions();
-    if (typeof renderBudgets === "function") renderBudgets();
-    if (typeof calculateMetrics === "function") calculateMetrics();
-    if (typeof updateMetrics === "function") updateMetrics();
-    if (typeof refreshCharts === "function") refreshCharts();
-}function refreshDashboard() {
-    loadData();
+}
 
-    if (typeof renderTransactions === "function") renderTransactions();
-    if (typeof renderBudgets === "function") renderBudgets();
-    if (typeof calculateMetrics === "function") calculateMetrics();
-    if (typeof updateMetrics === "function") updateMetrics();
-    if (typeof refreshCharts === "function") refreshCharts();
-}function saveTransactions() {
+function saveData() {
+    localStorage.setItem("budgets", JSON.stringify(budgets));
     localStorage.setItem("transactions", JSON.stringify(transactions));
 }
 
-function saveBudgets() {
-    localStorage.setItem("budgets", JSON.stringify(budgets));
-}saveTransactions();
-refreshDashboard();saveBudgets();
-refreshDashboard();
+function getCategoryExpenses(category = "") {
+    return transactions
+        .filter(t =>
+            t.type?.toLowerCase() === TRANSACTION_TYPES.EXPENSE &&
+            t.category?.toLowerCase() === category.toLowerCase()
+        )
+        .reduce((sum, t) => sum + Number(t.amount || 0), 0);
+}
+
+function refreshDashboard() {
+    loadData();
+    renderTransactions?.();
+    renderBudgets?.();
+    calculateMetrics?.();
+    updateMetrics?.();
+    refreshCharts?.();
+}
+
+document.addEventListener("DOMContentLoaded", refreshDashboard);
