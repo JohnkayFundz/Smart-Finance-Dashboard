@@ -1,78 +1,85 @@
-document.addEventListener("DOMContentLoaded", () => {
+export const elements = {};
+
+export function cacheElements() {
+    elements.budgetList = document.getElementById(DOM_IDS.BUDGET_LIST);
+    elements.transactionList = document.getElementById(DOM_IDS.TRANSACTION_LIST);
+    elements.metrics = document.getElementById(DOM_IDS.METRICS);
+}document.addEventListener("DOMContentLoaded", () => {
+    cacheElements();
     loadData();
+    initializeUI();
     refreshDashboard();
-});
+});export function createButton(text, className, id) {
+    const button = document.createElement("button");
 
-export function refreshDashboard() {
-    renderTransactions();
-    renderBudgets();
-    calculateMetrics();
-    updateMetrics();
-    refreshCharts();
-}const li = document.createElement("li");
+    button.textContent = text;
+    button.className = className;
+    button.dataset.id = id;
 
-const strong = document.createElement("strong");
-strong.textContent = budget.name;
-
-const text = document.createTextNode(
-    ` - ${budget.category} : ${currency.format(budget.amount)} `
+    return button;
+}const editBtn = createButton(
+    "Edit",
+    "edit-budget-btn",
+    budget.id
 );
 
-const editBtn = document.createElement("button");
-editBtn.textContent = "Edit";
-editBtn.dataset.id = budget.id;
-editBtn.className = "edit-budget-btn";
+const deleteBtn = createButton(
+    "Delete",
+    "delete-budget-btn",
+    budget.id
+);function createBudgetItem(budget) {
+    const li = document.createElement("li");
 
-const deleteBtn = document.createElement("button");
-deleteBtn.textContent = "Delete";
-deleteBtn.dataset.id = budget.id;
-deleteBtn.className = "delete-budget-btn";
+    ...
+    return li;
+}budgets.forEach(budget => {
+    budgetList.append(createBudgetItem(budget));
+});export const CSS = {
+    EDIT_BUDGET: "edit-budget-btn",
+    DELETE_BUDGET: "delete-budget-btn",
+    EDIT_TRANSACTION: "edit-transaction-btn",
+    DELETE_TRANSACTION: "delete-transaction-btn"
+};export const DOM_IDS = Object.freeze({
+    METRICS: "metrics",
+    BUDGET_LIST: "budgetList",
+    TRANSACTION_LIST: "transactionList"
+});
 
-li.append(strong, text, editBtn, deleteBtn);export const currency = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN"
-});currency.format(budget.amount)budgetList.addEventListener("click", e => {
-    const button = e.target.closest("button");
+export const TRANSACTION_TYPES = Object.freeze({
+    INCOME: "income",
+    EXPENSE: "expense"
+});if (!button) return;
 
-    if (!button) return;
+if (button.classList.contains(CSS.EDIT_BUDGET)) {
+    ...
+    return;
+}
 
-    const id = button.dataset.id;
+if (button.classList.contains(CSS.DELETE_BUDGET)) {
+    ...
+}saveBudgets();
 
-    if (button.classList.contains("edit-budget-btn")) {
-        ...
-    }
+loadBudgets();
 
-    if (button.classList.contains("delete-budget-btn")) {
-        ...
-    }
-});import { budgets, deleteBudget } from "./budget.js";
+saveTransactions();
 
-import {
-    transactions,
-    deleteTransaction
-} from "./transaction.js";export function initializeUI() {
-    const budgetList = document.getElementById(DOM_IDS.BUDGET_LIST);
+loadTransactions();class BudgetManager {
+    add() {}
 
-    budgetList.addEventListener("click", handleBudgetClick);
+    edit() {}
 
-    const transactionList =
-        document.getElementById(DOM_IDS.TRANSACTION_LIST);
+    delete() {}
 
-    transactionList.addEventListener(
-        "click",
-        handleTransactionClick
-    );
-}loadData();
-
-initializeUI();
-
-refreshDashboard();export const elements = {
-    budgetList:
-        document.getElementById(DOM_IDS.BUDGET_LIST),
-
-    transactionList:
-        document.getElementById(DOM_IDS.TRANSACTION_LIST),
-
-    metrics:
-        document.getElementById(DOM_IDS.METRICS)
-};
+    getAll() {}
+}js/
+│
+├── app.js              // Entry point
+├── storage.js          // localStorage
+├── helpers.js          // Utilities
+├── constants.js        // DOM IDs, CSS classes, transaction types
+├── budget.js           // Budget logic
+├── transaction.js      // Transaction logic
+├── dashboard.js        // Metrics and totals
+├── charts.js           // Chart rendering
+├── ui.js               // Rendering and event handling
+└── modal.js            // Modal logic
