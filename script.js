@@ -8,18 +8,17 @@ function saveData(key, data) {
 }
 
 function loadStorage(key) {
-    return JSON.parse(localStorage.getItem(key)) || [];
+    try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (error) {
+        console.error(`Failed to load "${key}" from localStorage:`, error);
+        return [];
+    }
 }
 
 function loadData() {
-    try {
-        budgets = loadStorage(STORAGE_KEYS.BUDGETS);
-        transactions = loadStorage(STORAGE_KEYS.TRANSACTIONS);
-    } catch (error) {
-        console.error("Failed to load data:", error);
-        budgets = [];
-        transactions = [];
-    }
+    budgets = loadStorage(STORAGE_KEYS.BUDGETS);
+    transactions = loadStorage(STORAGE_KEYS.TRANSACTIONS);
 }
 
 function saveTransactions() {
@@ -28,7 +27,4 @@ function saveTransactions() {
 
 function saveBudgets() {
     saveData(STORAGE_KEYS.BUDGETS, budgets);
-}function loadData() {
-    budgets = loadStorage(STORAGE_KEYS.BUDGETS);
-    transactions = loadStorage(STORAGE_KEYS.TRANSACTIONS);
 }
