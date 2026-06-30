@@ -30,7 +30,18 @@ function saveBudgets() {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
-function saveTransactions() {
+function loadStorage(key) {
+    return JSON.parse(localStorage.getItem(key)) || [];
+}function loadData() {
+    try {
+        budgets = loadStorage(STORAGE_KEYS.BUDGETS);
+        transactions = loadStorage(STORAGE_KEYS.TRANSACTIONS);
+    } catch (error) {
+        console.error("Failed to load data:", error);
+        budgets = [];
+        transactions = [];
+    }
+}function saveTransactions() {
     saveData(STORAGE_KEYS.TRANSACTIONS, transactions);
 }
 
