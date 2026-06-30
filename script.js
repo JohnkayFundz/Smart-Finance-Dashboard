@@ -1,85 +1,72 @@
-export const elements = {};
-
-export function cacheElements() {
-    elements.budgetList = document.getElementById(DOM_IDS.BUDGET_LIST);
-    elements.transactionList = document.getElementById(DOM_IDS.TRANSACTION_LIST);
-    elements.metrics = document.getElementById(DOM_IDS.METRICS);
-}document.addEventListener("DOMContentLoaded", () => {
-    cacheElements();
-    loadData();
-    initializeUI();
-    refreshDashboard();
-});export function createButton(text, className, id) {
-    const button = document.createElement("button");
-
-    button.textContent = text;
-    button.className = className;
-    button.dataset.id = id;
-
-    return button;
-}const editBtn = createButton(
-    "Edit",
-    "edit-budget-btn",
-    budget.id
-);
-
-const deleteBtn = createButton(
-    "Delete",
-    "delete-budget-btn",
-    budget.id
-);function createBudgetItem(budget) {
-    const li = document.createElement("li");
-
-    ...
-    return li;
-}budgets.forEach(budget => {
-    budgetList.append(createBudgetItem(budget));
-});export const CSS = {
+export const CSS = Object.freeze({
     EDIT_BUDGET: "edit-budget-btn",
     DELETE_BUDGET: "delete-budget-btn",
     EDIT_TRANSACTION: "edit-transaction-btn",
     DELETE_TRANSACTION: "delete-transaction-btn"
-};export const DOM_IDS = Object.freeze({
-    METRICS: "metrics",
-    BUDGET_LIST: "budgetList",
-    TRANSACTION_LIST: "transactionList"
-});
-
-export const TRANSACTION_TYPES = Object.freeze({
-    INCOME: "income",
-    EXPENSE: "expense"
-});if (!button) return;
-
-if (button.classList.contains(CSS.EDIT_BUDGET)) {
-    ...
-    return;
+});export function createId() {
+    return crypto.randomUUID();
 }
 
-if (button.classList.contains(CSS.DELETE_BUDGET)) {
+export const currency = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN"
+});
+
+export function createButton(text, className, id) {
+    const button = document.createElement("button");
+    button.textContent = text;
+    button.className = className;
+    button.dataset.id = id;
+    return button;
+}
+
+export function isPositiveNumber(value) {
+    return Number(value) > 0;
+}export function renderBudgets() {
+    elements.budgetList.replaceChildren();
+
+    budgets.forEach(budget => {
+        elements.budgetList.append(createBudgetItem(budget));
+    });
+}budgetList.replaceChildren();/**
+ * Creates a new budget list item.
+ * @param {Object} budget
+ * @returns {HTMLLIElement}
+ */
+function createBudgetItem(budget) {
     ...
-}saveBudgets();
+}const budgets = [];
 
-loadBudgets();
-
-saveTransactions();
-
-loadTransactions();class BudgetManager {
-    add() {}
-
-    edit() {}
-
-    delete() {}
-
-    getAll() {}
-}js/
+export function getBudgets() {
+    return budgets;
+}export function loadBudgets() {
+    try {
+        return JSON.parse(localStorage.getItem("budgets")) ?? [];
+    } catch {
+        return [];
+    }
+}User Action
+      │
+      ▼
+budget.js / transaction.js
+      │
+      ▼
+storage.js
+      │
+      ▼
+refreshDashboard()
+      │
+      ▼
+UI + Charts + Metricsjs/
 │
-├── app.js              // Entry point
-├── storage.js          // localStorage
-├── helpers.js          // Utilities
-├── constants.js        // DOM IDs, CSS classes, transaction types
-├── budget.js           // Budget logic
-├── transaction.js      // Transaction logic
-├── dashboard.js        // Metrics and totals
+├── app.js              // Application bootstrap
+├── constants.js        // IDs, CSS classes, enums
+├── helpers.js          // Utility functions
+├── storage.js          // localStorage access
+├── budget.js           // Budget state and actions
+├── transaction.js      // Transaction state and actions
+├── dashboard.js        // Totals and metrics
 ├── charts.js           // Chart rendering
-├── ui.js               // Rendering and event handling
-└── modal.js            // Modal logic
+├── ui.js               // DOM rendering
+├── modal.js            // Modal handling
+└── validation.js       // Input validation
