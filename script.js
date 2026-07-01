@@ -1,50 +1,56 @@
-js/
-│
-├── state.jsexport const state = {
-    budgets: [],
-    transactions: [],
-    filters: {}
-};saveBudgets()
-loadBudgets()
-
-saveTransactions()
-loadTransactions()validateBudget()
-
-validateTransaction()
-
-validateAmount()
-
-validateDate()budgetList.addEventListener("click", ...)js/
-│
-├── app.js
-│
-├── core/
-│   ├── state.js
-│   ├── storage.js
-│   ├── constants.js
-│   └── helpers.js
-│
-├── features/
-│   ├── budget.js
-│   ├── transaction.js
-│   └── dashboard.js
-│
-├── ui/
-│   ├── ui.js
-│   ├── modal.js
-│   └── charts.js
-│
-└── validation/
-    └── validation.jsUser Action
+User Action
       │
       ▼
 budget.js / transaction.js
       │
       ▼
-storage.js
+Update state
       │
-      ▼
-refreshDashboard()
-      │
-      ▼
-UI + Charts + Metrics
+      ├──────────────┐
+      ▼              ▼
+storage.js     dashboard.js
+      │              │
+      ▼              ▼
+Save Data     Calculate Metrics
+      │              │
+      └──────┬───────┘
+             ▼
+          ui.js
+             │
+             ▼
+ Render Lists + Chartsjs/
+├── app.js
+├── core/
+├── features/
+├── ui/
+├── validation/
+└── services/export const state = {
+    budgets: [],
+    transactions: [],
+    filters: {
+        category: "all",
+        type: "all",
+        search: "",
+        dateRange: null
+    },
+    ui: {
+        editingBudgetId: null,
+        editingTransactionId: null,
+        darkMode: false
+    }
+};export function validateBudget(budget) {
+    return {
+        valid: true,
+        errors: {}
+    };
+}
+
+export function validateTransaction(transaction) {
+    return {
+        valid: true,
+        errors: {}
+    };
+}budgetList.addEventListener("click", ...)const button = event.target.closest("button");
+if (!button) return;
+
+// Handle edit/delete based on class or data attributes
