@@ -1,45 +1,41 @@
-import { load } from "./storage.js";
-import { STORAGE_KEYS } from "./constants.js";
-
-export const state = {
-    budgets: load(STORAGE_KEYS.BUDGETS),
-    transactions: load(STORAGE_KEYS.TRANSACTIONS)
-};import { state } from "../../core/state.js";
-
-export function addTransaction(transaction) {
-    state.transactions.push(transaction);
-}
-
-export function getTransactions() {
-    return state.transactions;
-}export function updateTransaction(updatedTransaction) {
-    const index = state.transactions.findIndex(
-        transaction => transaction.id === updatedTransaction.id
-    );
-
-    if (index !== -1) {
-        state.transactions[index] = updatedTransaction;
-    }
-}
-
-export function deleteTransaction(id) {
-    state.transactions = state.transactions.filter(
-        transaction => transaction.id !== id
-    );
-}export function refresh() {
-    save(STORAGE_KEYS.BUDGETS, state.budgets);
-    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
-
-    updateDashboard();
-    updateCharts();
-    renderUI();
-}User Action
+js/
+│
+├── app.js                  ← Application orchestrator
+│
+├── core/
+│   ├── state.js            ← Single source of truth
+│   ├── storage.js          ← localStorage wrapper
+│   ├── constants.js
+│   └── helpers.js
+│
+├── features/
+│   ├── budgets/
+│   │   ├── budget.js       ← Business logic (CRUD)
+│   │   ├── budget-ui.js    ← DOM/events
+│   │   └── budget-validation.js
+│   │
+│   ├── transactions/
+│   │   ├── transaction.js
+│   │   ├── transaction-ui.js
+│   │   └── transaction-validation.js
+│   │
+│   └── dashboard/
+│       └── dashboard.js
+│
+├── services/
+│   ├── chartService.js
+│   ├── exportService.js
+│   └── reportService.js
+│
+└── shared/
+    ├── modal.js
+    └── ui.jsUser Action
       │
       ▼
 budget-ui.js
       │
       ▼
-budget.js
+budget.js          ← updates state
       │
       ▼
 state.js
@@ -50,26 +46,8 @@ app.refresh()
       ├──► storage.save()
       ├──► dashboard.calculate()
       ├──► chartService.update()
-      └──► ui.render()// budget.js
-export function addBudget(budget) {
-    state.budgets.push(budget);
-}
-
-export function updateBudget(updatedBudget) {
-    // mutate state
-}
-
-export function deleteBudget(id) {
-    // mutate state
-}// transaction.js
-export function addTransaction(transaction) {
-    state.transactions.push(transaction);
-}
-
-export function updateTransaction(transaction) {
-    // mutate state
-}
-
-export function deleteTransaction(id) {
-    // mutate state
-}
+      └──► ui.render()export const state = {
+    budgets: load(STORAGE_KEYS.BUDGETS),
+    transactions: load(STORAGE_KEYS.TRANSACTIONS),
+    theme: load(STORAGE_KEYS.THEME) ?? "light"
+};
