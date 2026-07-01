@@ -1,53 +1,70 @@
-Browser loads app
+Application starts
         │
         ▼
-app.initialize()
+initialize()
         │
-        ├──► load state
-        ├──► apply theme
-        ├──► calculate dashboard
-        ├──► build charts
-        └──► render UI
+        ├── Load modules
+        ├── Apply initial theme
+        ├── Render initial dashboard
+        ├── Create charts
+        └── Render UI
 
-──────────────────────────────────────
+──────────────────────────────
 
-User Action
+User changes data
         │
         ▼
-budget-ui.js / transaction-ui.js
+refresh()
         │
-        ▼
-budget.js / transaction.js
-        │
-        ▼
-state.js updated
-        │
-        ▼
-app.refresh()
-        │
-        ├──► save state
-        ├──► update dashboard
-        ├──► update charts
-        ├──► apply theme (if changed)
-        └──► render UIexport function initialize() {
-    refreshTheme();
-    refreshDashboard();
-    refreshCharts();
-    refreshUI();
-}import { state } from "../../core/state.js";
-
-export function applyTheme(theme = state.theme) {
-    document.documentElement.dataset.theme = theme;
+        ├── Save state
+        ├── Recalculate dashboard
+        ├── Update charts
+        ├── Apply theme
+        └── Update UIexport function setTheme(theme) {
+    state.theme = theme;
+    applyTheme(theme);
 }
 
 export function toggleTheme() {
-    state.theme = state.theme === "light"
-        ? "dark"
-        : "light";
+    setTheme(
+        state.theme === "light" ? "dark" : "light"
+    );
+}Browser
+   │
+   ▼
+main.js
+   │
+   ▼
+app.initialize()
+   │
+   ├── refreshTheme()
+   ├── refreshDashboard()
+   ├── refreshCharts()
+   └── refreshUI()
 
-    applyTheme();
-}js/
-├── app.js
+────────────────────────────────────
+
+User Action
+   │
+   ▼
+budget-ui.js / transaction-ui.js
+   │
+   ▼
+budget.js / transaction.js
+   │
+   ▼
+state.js
+   │
+   ▼
+app.refresh()
+   │
+   ├── refreshStorage()
+   ├── refreshDashboard()
+   ├── refreshCharts()
+   ├── refreshTheme()
+   └── refreshUI()js/
+├── main.js        ← Entry point
+├── app.js         ← Application lifecycle
 ├── core/
 ├── features/
 ├── services/
