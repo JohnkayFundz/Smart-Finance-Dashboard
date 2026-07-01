@@ -1,11 +1,24 @@
-<strong class="${remaining < 0 ? 'danger-text' : ''}">
+<strong class="${remaining < 0 ? 'budget-danger' : 'budget-safe'}">
     ${remainingText}
 </strong>
+
 <div class="budget-info">
     <span>Budget</span>
-    <strong>$${budget.amount.toFixed(2)}</strong>
+    <strong>${currency.format(Number(budget.amount) || 0)}</strong>
 </div>
+
 <div class="budget-actions">
-    <button class="edit-budget" data-id="${budget.id}">✏ Edit</button>
-    <button class="delete-budget" data-id="${budget.id}">🗑 Delete</button>
+    <button
+        class="edit-budget"
+        data-id="${budget.id}"
+        aria-label="Edit ${budget.name} budget">
+        ✏ Edit
+    </button>
+
+    <button
+        class="delete-budget"
+        data-id="${budget.id}"
+        aria-label="Delete ${budget.name} budget">
+        🗑 Delete
+    </button>
 </div>
