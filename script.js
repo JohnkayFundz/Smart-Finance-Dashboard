@@ -1,4 +1,19 @@
-Browser
+UI
+ │
+ ▼
+Feature
+ │
+ ▼
+State
+ │
+ ▼
+dispatch("state:changed")
+ │
+ ▼
+Event Listener
+ │
+ ▼
+refresh()Browser
     │
     ▼
 main.js
@@ -23,7 +38,7 @@ budget-ui.js / transaction-ui.js
 budget.js / transaction.js
     │
     ▼
-state updated
+state.js updated
     │
     ▼
 refresh()
@@ -32,40 +47,7 @@ refresh()
     ├── Update dashboard
     ├── Update charts
     ├── Apply theme
-    └── Render UIstate updated
-      │
-      ▼
-state:changed
-      ├── Dashboard updates
-      ├── Charts update
-      ├── Notifications update
-      ├── Activity log updates
-      ├── Analytics update
-      └── Auto-savejs/
-│
-├── main.js                 # Entry point
-├── app.js                  # initialize() & refresh()
-│
-├── core/
-│   ├── state.js            # Global state
-│   ├── storage.js          # Persistence
-│   ├── constants.js
-│   └── helpers.js
-│
-├── features/
-│   ├── budgets/
-│   ├── transactions/
-│   ├── dashboard/
-│   └── theme/
-│
-├── services/
-│   ├── chartService.js
-│   ├── exportService.js
-│   └── reportService.js
-│
-└── shared/
-    ├── modal.js
-    └── ui.jsexport function setTheme(theme) {
+    └── Render UIexport function setTheme(theme) {
     state.theme = theme;
     applyTheme(theme);
 }
@@ -74,4 +56,15 @@ export function toggleTheme() {
     setTheme(
         state.theme === "light" ? "dark" : "light"
     );
-}
+}js/
+│
+├── main.js
+├── app.js
+│
+├── core/
+│
+├── features/
+│
+├── services/
+│
+└── shared/
