@@ -1,56 +1,67 @@
 User Action
       │
       ▼
-budget.js / transaction.js
+budget.js
       │
       ▼
 Update state
       │
-      ├──────────────┐
-      ▼              ▼
-storage.js     dashboard.js
-      │              │
-      ▼              ▼
-Save Data     Calculate Metrics
-      │              │
-      └──────┬───────┘
-             ▼
-          ui.js
-             │
-             ▼
- Render Lists + Chartsjs/
-├── app.js
-├── core/
-├── features/
-├── ui/
-├── validation/
-└── services/export const state = {
-    budgets: [],
-    transactions: [],
-    filters: {
-        category: "all",
-        type: "all",
-        search: "",
-        dateRange: null
-    },
-    ui: {
-        editingBudgetId: null,
-        editingTransactionId: null,
-        darkMode: false
+      ▼
+app.refresh()
+      │
+      ├────────► storage.save()
+      │
+      ├────────► dashboard.calculate()
+      │
+      └────────► ui.render()export function validateBudget(budget) {
+    const errors = {};
+
+    if (!budget.name?.trim()) {
+        errors.name = "Budget name is required.";
     }
-};export function validateBudget(budget) {
-    return {
-        valid: true,
-        errors: {}
-    };
-}
 
-export function validateTransaction(transaction) {
-    return {
-        valid: true,
-        errors: {}
-    };
-}budgetList.addEventListener("click", ...)const button = event.target.closest("button");
-if (!button) return;
+    if (Number(budget.amount) <= 0) {
+        errors.amount = "Budget amount must be greater than zero.";
+    }
 
-// Handle edit/delete based on class or data attributes
+    return {
+        valid: Object.keys(errors).length === 0,
+        errors
+    };
+}const button = event.target.closest("button");
+if (!button) return;js/
+│
+├── app.js
+│
+├── core/
+│   ├── state.js
+│   ├── storage.js
+│   ├── constants.js
+│   └── helpers.js
+│
+├── features/
+│   ├── budgets/
+│   │   ├── budget.js
+│   │   ├── budget-ui.js
+│   │   └── budget-validation.js
+│   │
+│   ├── transactions/
+│   │   ├── transaction.js
+│   │   ├── transaction-ui.js
+│   │   └── transaction-validation.js
+│   │
+│   └── dashboard/
+│       └── dashboard.js
+│
+├── services/
+│   ├── chartService.js
+│   ├── exportService.js
+│   └── reportService.js
+│
+└── shared/
+    ├── modal.js
+    └── ui.jsexport const STORAGE_KEYS = Object.freeze({
+    BUDGETS: "budgets",
+    TRANSACTIONS: "transactions",
+    THEME: "theme"
+});localStorage.getItem(STORAGE_KEYS.BUDGETS);
