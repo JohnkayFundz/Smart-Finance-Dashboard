@@ -1,18 +1,29 @@
 js/
 │
-├── app.js
+├── app.js                  # Application orchestrator
 │
 ├── core/
-│   ├── state.js
-│   ├── storage.js
+│   ├── state.js            # Global application state
+│   ├── storage.js          # localStorage abstraction
 │   ├── constants.js
 │   └── helpers.js
 │
 ├── features/
 │   ├── budgets/
+│   │   ├── budget.js
+│   │   ├── budget-ui.js
+│   │   └── budget-validation.js
+│   │
 │   ├── transactions/
+│   │   ├── transaction.js
+│   │   ├── transaction-ui.js
+│   │   └── transaction-validation.js
+│   │
 │   ├── dashboard/
+│   │   └── dashboard.js
+│   │
 │   └── theme/
+│       └── theme.js
 │
 ├── services/
 │   ├── chartService.js
@@ -21,38 +32,7 @@ js/
 │
 └── shared/
     ├── modal.js
-    └── ui.jsimport { state } from "./core/state.js";
-import { save } from "./core/storage.js";
-import { STORAGE_KEYS } from "./core/constants.js";
-
-import { updateDashboard } from "./features/dashboard/dashboard.js";
-import { updateCharts } from "./services/chartService.js";
-import { renderUI } from "./shared/ui.js";
-
-function refreshStorage() {
-    save(STORAGE_KEYS.BUDGETS, state.budgets);
-    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
-    save(STORAGE_KEYS.THEME, state.theme);
-}
-
-function refreshDashboard() {
-    updateDashboard();
-}
-
-function refreshCharts() {
-    updateCharts();
-}
-
-function refreshUI() {
-    renderUI();
-}
-
-export function refresh() {
-    refreshStorage();
-    refreshDashboard();
-    refreshCharts();
-    refreshUI();
-}User Action
+    └── ui.jsUser Action
       │
       ▼
 budget-ui.js
@@ -89,4 +69,37 @@ app.refresh()
     budgets: load(STORAGE_KEYS.BUDGETS, []),
     transactions: load(STORAGE_KEYS.TRANSACTIONS, []),
     theme: load(STORAGE_KEYS.THEME, "light")
-};
+};function refreshStorage() {
+    save(STORAGE_KEYS.BUDGETS, state.budgets);
+    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
+    save(STORAGE_KEYS.THEME, state.theme);
+}
+
+function refreshDashboard() {
+    updateDashboard();
+}
+
+function refreshCharts() {
+    updateCharts();
+}
+
+function refreshUI() {
+    renderUI();
+}
+
+export function refresh() {
+    refreshStorage();
+    refreshDashboard();
+    refreshCharts();
+    refreshUI();
+}export function refresh({
+    storage = true,
+    dashboard = true,
+    charts = true,
+    ui = true
+} = {}) {
+    if (storage) refreshStorage();
+    if (dashboard) refreshDashboard();
+    if (charts) refreshCharts();
+    if (ui) refreshUI();
+}
