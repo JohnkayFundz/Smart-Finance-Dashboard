@@ -23,7 +23,7 @@ budget-ui.js / transaction-ui.js
 budget.js / transaction.js
     │
     ▼
-state.js updated
+state updated
     │
     ▼
 refresh()
@@ -32,14 +32,23 @@ refresh()
     ├── Update dashboard
     ├── Update charts
     ├── Apply theme
-    └── Render UIjs/
+    └── Render UIstate updated
+      │
+      ▼
+state:changed
+      ├── Dashboard updates
+      ├── Charts update
+      ├── Notifications update
+      ├── Activity log updates
+      ├── Analytics update
+      └── Auto-savejs/
 │
 ├── main.js                 # Entry point
-├── app.js                  # Application lifecycle
+├── app.js                  # initialize() & refresh()
 │
 ├── core/
-│   ├── state.js
-│   ├── storage.js
+│   ├── state.js            # Global state
+│   ├── storage.js          # Persistence
 │   ├── constants.js
 │   └── helpers.js
 │
@@ -65,16 +74,4 @@ export function toggleTheme() {
     setTheme(
         state.theme === "light" ? "dark" : "light"
     );
-}budget.js
-      │
-      ▼
-state updated
-      │
-      ▼
-dispatch("state:changed")
-      │
-      ▼
-app.js listens
-      │
-      ▼
-refresh()
+}
