@@ -1,22 +1,4 @@
-export function refresh() {
-    refreshStorage();
-    refreshDashboard();
-    refreshCharts();
-    refreshUI();
-}export function refresh({
-    storage = true,
-    dashboard = true,
-    charts = true,
-    ui = true
-} = {}) {
-    if (storage) refreshStorage();
-    if (dashboard) refreshDashboard();
-    if (charts) refreshCharts();
-    if (ui) refreshUI();
-}refresh({
-    dashboard: false,
-    charts: false
-});const refreshers = {
+const refreshers = {
     storage() {
         save(STORAGE_KEYS.BUDGETS, state.budgets);
         save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
@@ -31,16 +13,27 @@ export function refresh() {
         updateCharts();
     },
 
+    theme() {
+        applyTheme(state.theme);
+    },
+
     ui() {
         renderUI();
     }
 };
 
-export function refresh() {
-    refreshers.storage();
-    refreshers.dashboard();
-    refreshers.charts();
-    refreshers.ui();
+export function refresh({
+    storage = true,
+    dashboard = true,
+    charts = true,
+    theme = true,
+    ui = true
+} = {}) {
+    if (storage) refreshers.storage();
+    if (dashboard) refreshers.dashboard();
+    if (charts) refreshers.charts();
+    if (theme) refreshers.theme();
+    if (ui) refreshers.ui();
 }User Action
       │
       ▼
@@ -50,20 +43,7 @@ budget-ui.js
 budget.js / transaction.js
       │
       ▼
-state.js
+state.js (updated)
       │
       ▼
-app.refresh()
-      │
-      ├──► refreshStorage()
-      │       └──► localStorage
-      │
-      ├──► refreshDashboard()
-      │
-      ├──► refreshCharts()
-      │
-      ├──► refreshTheme()
-      │
-      └──► refreshUI()function refreshTheme() {
-    applyTheme(state.theme);
-}
+app.refresh(...)
