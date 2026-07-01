@@ -1,4 +1,39 @@
-Browser
+js/
+│
+├── main.js                 # Application entry point
+├── app.js                  # Application lifecycle (initialize, refresh)
+│
+├── core/
+│   ├── state.js            # Global application state
+│   ├── storage.js          # localStorage wrapper
+│   ├── constants.js        # App constants
+│   └── helpers.js          # Shared utility functions
+│
+├── features/
+│   ├── budgets/
+│   │   ├── budget.js
+│   │   ├── budget-ui.js
+│   │   └── budget-validation.js
+│   │
+│   ├── transactions/
+│   │   ├── transaction.js
+│   │   ├── transaction-ui.js
+│   │   └── transaction-validation.js
+│   │
+│   ├── dashboard/
+│   │   └── dashboard.js
+│   │
+│   └── theme/
+│       └── theme.js
+│
+├── services/
+│   ├── chartService.js
+│   ├── exportService.js
+│   └── reportService.js
+│
+└── shared/
+    ├── modal.js
+    └── ui.jsBrowser
     │
     ▼
 main.js
@@ -23,7 +58,7 @@ budget-ui.js / transaction-ui.js
 budget.js / transaction.js
     │
     ▼
-state.js updated
+Update state
     │
     ▼
 refresh()
@@ -32,36 +67,4 @@ refresh()
     ├── Update dashboard
     ├── Update charts
     ├── Apply theme
-    └── Render UIUI
- │
- ▼
-Feature
- │
- ▼
-State
- │
- ▼
-dispatch("state:changed")
- │
- ▼
-Event Listener
- │
- ▼
-refresh()export function setTheme(theme) {
-    state.theme = theme;
-    applyTheme(theme);
-}
-
-export function toggleTheme() {
-    setTheme(
-        state.theme === "light" ? "dark" : "light"
-    );
-}js/
-│
-├── main.js          # Entry point
-├── app.js           # Application lifecycle
-│
-├── core/            # State, storage, constants, helpers
-├── features/        # Budgets, transactions, dashboard, theme
-├── services/        # Charts, exports, reports
-└── shared/          # Shared UI components and utilities
+    └── Render UI
