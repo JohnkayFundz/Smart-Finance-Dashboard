@@ -1,49 +1,56 @@
-const refreshers = {
-    storage() {
-        save(STORAGE_KEYS.BUDGETS, state.budgets);
-        save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
-        save(STORAGE_KEYS.THEME, state.theme);
-    },
+function refreshStorage() {
+    save(STORAGE_KEYS.BUDGETS, state.budgets);
+    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
+    save(STORAGE_KEYS.THEME, state.theme);
+}
 
-    dashboard() {
-        updateDashboard();
-    },
+function refreshDashboard() {
+    updateDashboard();
+}
 
-    charts() {
-        updateCharts();
-    },
+function refreshCharts() {
+    updateCharts();
+}
 
-    theme() {
-        applyTheme(state.theme);
-    },
+function refreshTheme() {
+    applyTheme(state.theme);
+}
 
-    ui() {
-        renderUI();
-    }
-};
+function refreshUI() {
+    renderUI();
+}
 
-export function refresh({
-    storage = true,
-    dashboard = true,
-    charts = true,
-    theme = true,
-    ui = true
-} = {}) {
-    if (storage) refreshers.storage();
-    if (dashboard) refreshers.dashboard();
-    if (charts) refreshers.charts();
-    if (theme) refreshers.theme();
-    if (ui) refreshers.ui();
+export function refresh() {
+    refreshStorage();
+    refreshDashboard();
+    refreshCharts();
+    refreshTheme();
+    refreshUI();
+}features/
+└── theme/
+    └── theme.js// theme.js
+export function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+}import { applyTheme } from "./features/theme/theme.js";
+
+function refreshTheme() {
+    applyTheme(state.theme);
 }User Action
       │
       ▼
-budget-ui.js
+budget-ui.js / transaction-ui.js
       │
       ▼
 budget.js / transaction.js
       │
       ▼
-state.js (updated)
+state.js
       │
       ▼
-app.refresh(...)
+app.refresh()
+      │
+      ├──► refreshStorage()
+      ├──► refreshDashboard()
+      ├──► refreshCharts()
+      ├──► refreshTheme()
+      └──► refreshUI()
