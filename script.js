@@ -1,51 +1,16 @@
-js/
-│
-├── main.js                 # Application entry point
-├── app.js                  # Application lifecycle (initialize, refresh)
-│
-├── core/
-│   ├── state.js            # Global application state
-│   ├── storage.js          # localStorage wrapper
-│   ├── constants.js        # App constants
-│   └── helpers.js          # Shared utility functions
-│
-├── features/
-│   ├── budgets/
-│   │   ├── budget.js
-│   │   ├── budget-ui.js
-│   │   └── budget-validation.js
-│   │
-│   ├── transactions/
-│   │   ├── transaction.js
-│   │   ├── transaction-ui.js
-│   │   └── transaction-validation.js
-│   │
-│   ├── dashboard/
-│   │   └── dashboard.js
-│   │
-│   └── theme/
-│       └── theme.js
-│
-├── services/
-│   ├── chartService.js
-│   ├── exportService.js
-│   └── reportService.js
-│
-└── shared/
-    ├── modal.js
-    └── ui.jsBrowser
+Browser
     │
     ▼
 main.js
     │
     ▼
-initialize()
+app.initialize()
     │
     ├── Load state
     ├── Apply theme
+    ├── Render UI
     ├── Calculate dashboard
-    ├── Render charts
-    └── Render UI
+    └── Render charts
 
 ──────────────────────────────────────
 
@@ -61,10 +26,34 @@ budget.js / transaction.js
 Update state
     │
     ▼
-refresh()
+app.refresh()
     │
     ├── Persist state
-    ├── Update dashboard
-    ├── Update charts
     ├── Apply theme
-    └── Render UI
+    ├── Render UI
+    ├── Update dashboard
+    └── Update chartsjs/
+│
+├── main.js                 # Entry point
+├── app.js                  # initialize() and refresh()
+│
+├── core/
+│   ├── state.js
+│   ├── storage.js
+│   ├── constants.js
+│   └── helpers.js
+│
+├── features/
+│   ├── budgets/
+│   ├── transactions/
+│   ├── dashboard/
+│   └── theme/
+│
+├── services/
+│   ├── chartService.js
+│   ├── exportService.js
+│   └── reportService.js
+│
+└── shared/
+    ├── modal.js
+    └── ui.js
