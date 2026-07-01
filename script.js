@@ -1,11 +1,25 @@
-js/
+┌─────────────────────────────────────────────────────────────┐
+│                         Browser                             │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+                      main.js
+                           │
+                           ▼
+                      initialize()
+                           │
+      ┌────────────────────┼────────────────────┐
+      ▼                    ▼                    ▼
+   core/              features/           services/
+      │                    │                    │
+      └───────────────► shared UI ◄─────────────┘js/
 │
-├── main.js
-├── app.js
+├── main.js                 # Starts the application
+├── app.js                  # initialize() and refresh()
 │
 ├── core/
-│   ├── state.js
-│   ├── storage.js
+│   ├── state.js            # Single source of truth
+│   ├── storage.js          # Persistence layer
 │   ├── constants.js
 │   └── helpers.js
 │
@@ -18,7 +32,8 @@ js/
 │   ├── recurring/
 │   ├── search/
 │   ├── filters/
-│   └── categories/
+│   ├── categories/
+│   └── notifications/
 │
 ├── services/
 │   ├── chartService.js
@@ -31,9 +46,9 @@ js/
 └── shared/
     ├── modal.js
     ├── ui.js
-    └── components/Application Startup
-──────────────────
-
+    └── components/Browser
+    │
+    ▼
 main.js
     │
     ▼
@@ -41,18 +56,15 @@ initialize()
     │
     ├── Load persisted state
     ├── Apply theme
-    ├── Build dashboard
-    ├── Build charts
-    └── Render UI
-
-
-Application Runtime
-───────────────────
-
-User Action
+    ├── Calculate dashboard
+    ├── Render charts
+    └── Render UIUser Action
       │
       ▼
-Feature module
+budget-ui.js / transaction-ui.js
+      │
+      ▼
+budget.js / transaction.js
       │
       ▼
 Update state
@@ -61,10 +73,16 @@ Update state
 refresh()
       │
       ├── Persist state
-      ├── Refresh dashboard
-      ├── Refresh charts
+      ├── Update dashboard
+      ├── Update charts
       ├── Apply theme
-      └── Refresh UIUI
+      └── Render UIrefresh() {
+    // Persist application state
+    // Synchronize dashboard
+    // Synchronize charts
+    // Synchronize theme
+    // Synchronize UI
+}UI
  │
  ▼
 Features
