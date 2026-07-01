@@ -1,29 +1,18 @@
 js/
 │
-├── app.js                  # Application orchestrator
+├── app.js
 │
 ├── core/
-│   ├── state.js            # Global application state
-│   ├── storage.js          # localStorage abstraction
+│   ├── state.js
+│   ├── storage.js
 │   ├── constants.js
 │   └── helpers.js
 │
 ├── features/
 │   ├── budgets/
-│   │   ├── budget.js
-│   │   ├── budget-ui.js
-│   │   └── budget-validation.js
-│   │
 │   ├── transactions/
-│   │   ├── transaction.js
-│   │   ├── transaction-ui.js
-│   │   └── transaction-validation.js
-│   │
 │   ├── dashboard/
-│   │   └── dashboard.js
-│   │
 │   └── theme/
-│       └── theme.js
 │
 ├── services/
 │   ├── chartService.js
@@ -32,7 +21,38 @@ js/
 │
 └── shared/
     ├── modal.js
-    └── ui.jsUser Action
+    └── ui.jsimport { state } from "./core/state.js";
+import { save } from "./core/storage.js";
+import { STORAGE_KEYS } from "./core/constants.js";
+
+import { updateDashboard } from "./features/dashboard/dashboard.js";
+import { updateCharts } from "./services/chartService.js";
+import { renderUI } from "./shared/ui.js";
+
+function refreshStorage() {
+    save(STORAGE_KEYS.BUDGETS, state.budgets);
+    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
+    save(STORAGE_KEYS.THEME, state.theme);
+}
+
+function refreshDashboard() {
+    updateDashboard();
+}
+
+function refreshCharts() {
+    updateCharts();
+}
+
+function refreshUI() {
+    renderUI();
+}
+
+export function refresh() {
+    refreshStorage();
+    refreshDashboard();
+    refreshCharts();
+    refreshUI();
+}User Action
       │
       ▼
 budget-ui.js
@@ -46,10 +66,14 @@ state.js
       ▼
 app.refresh()
       │
-      ├──► storage.save()
-      ├──► dashboard.calculate()
-      ├──► chartService.update()
-      └──► ui.render()export function load(key, defaultValue = null) {
+      ├──► refreshStorage()
+      │       └──► localStorage
+      │
+      ├──► refreshDashboard()
+      │
+      ├──► refreshCharts()
+      │
+      └──► refreshUI()export function load(key, defaultValue = null) {
     try {
         const value = localStorage.getItem(key);
 
@@ -59,21 +83,10 @@ app.refresh()
     } catch {
         return defaultValue;
     }
-}import { load } from "./storage.js";
-import { STORAGE_KEYS } from "./constants.js";
-
-export const state = {
+}export function save(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}export const state = {
     budgets: load(STORAGE_KEYS.BUDGETS, []),
     transactions: load(STORAGE_KEYS.TRANSACTIONS, []),
     theme: load(STORAGE_KEYS.THEME, "light")
-};export function refresh() {
-    save(STORAGE_KEYS.BUDGETS, state.budgets);
-    save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
-
-    updateDashboard();
-    updateCharts();
-    renderUI();
-}refreshStorage();
-refreshDashboard();
-refreshCharts();
-refreshUI();
+};
