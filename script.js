@@ -1,52 +1,35 @@
-┌─────────────────────────────────────────────────────────────┐
-│                         Browser                             │
-└─────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                         Browser                              │
+└──────────────────────────────────────────────────────────────┘
                            │
                            ▼
-                      main.js
+                        main.js
                            │
                            ▼
-                      initialize()
+                         app.js
+                  (initialize / refresh)
                            │
-      ┌────────────────────┼────────────────────┐
-      ▼                    ▼                    ▼
-   core/              features/           services/
-      │                    │                    │
-      └───────────────► shared UI ◄─────────────┘js/
-│
-├── main.js                 # Starts the application
-├── app.js                  # initialize() and refresh()
-│
-├── core/
-│   ├── state.js            # Single source of truth
-│   ├── storage.js          # Persistence layer
-│   ├── constants.js
-│   └── helpers.js
-│
-├── features/
-│   ├── budgets/
-│   ├── transactions/
-│   ├── dashboard/
-│   ├── theme/
-│   ├── goals/
-│   ├── recurring/
-│   ├── search/
-│   ├── filters/
-│   ├── categories/
-│   └── notifications/
-│
-├── services/
-│   ├── chartService.js
-│   ├── exportService.js
-│   ├── importService.js
-│   ├── reportService.js
-│   ├── notificationService.js
-│   └── backupService.js
-│
-└── shared/
-    ├── modal.js
-    ├── ui.js
-    └── components/Browser
+        ┌──────────────────┼──────────────────┐
+        ▼                  ▼                  ▼
+     Features            Core             Services
+        │                  │                  │
+        └──────────────┬───┴──────────────┬───┘
+                       ▼                  ▼
+                 Shared Components     Storage✔ Features → Core
+✔ Features → Services
+✔ Features → Shared
+
+✔ App → Features
+✔ App → Core
+✔ App → Services
+
+✖ Core → Features
+✖ Services → Features
+✖ Shared → Features
+✖ Features → Features (prefer keeping them independent)Application Startup
+────────────────────────────────
+
+Browser
     │
     ▼
 main.js
@@ -58,37 +41,28 @@ initialize()
     ├── Apply theme
     ├── Calculate dashboard
     ├── Render charts
-    └── Render UIUser Action
-      │
-      ▼
-budget-ui.js / transaction-ui.js
-      │
-      ▼
-budget.js / transaction.js
-      │
-      ▼
+    └── Render UI
+
+
+Application Runtime
+────────────────────────────────
+
+User Action
+    │
+    ▼
+Feature UI
+    │
+    ▼
+Feature Logic
+    │
+    ▼
 Update state
-      │
-      ▼
-refresh()
-      │
-      ├── Persist state
-      ├── Update dashboard
-      ├── Update charts
-      ├── Apply theme
-      └── Render UIrefresh() {
-    // Persist application state
-    // Synchronize dashboard
-    // Synchronize charts
-    // Synchronize theme
-    // Synchronize UI
-}UI
- │
- ▼
-Features
- │
- ▼
-Core
- │
- ▼
-Services
+    │
+    ▼
+app.refresh()
+    │
+    ├── Persist state
+    ├── Update dashboard
+    ├── Update charts
+    ├── Apply theme
+    └── Render UI
