@@ -4,12 +4,6 @@ import { STORAGE_KEYS } from "./constants.js";
 export const state = {
     budgets: load(STORAGE_KEYS.BUDGETS),
     transactions: load(STORAGE_KEYS.TRANSACTIONS)
-};import { load } from "./storage.js";
-import { STORAGE_KEYS } from "./constants.js";
-
-export const state = {
-    budgets: load(STORAGE_KEYS.BUDGETS),
-    transactions: load(STORAGE_KEYS.TRANSACTIONS)
 };import { state } from "../../core/state.js";
 
 export function addTransaction(transaction) {
@@ -18,14 +12,21 @@ export function addTransaction(transaction) {
 
 export function getTransactions() {
     return state.transactions;
-}import { state } from "./core/state.js";
-import { save } from "./core/storage.js";
-import { STORAGE_KEYS } from "./core/constants.js";
-import { updateDashboard } from "./features/dashboard/dashboard.js";
-import { updateCharts } from "./services/chartService.js";
-import { renderUI } from "./shared/ui.js";
+}export function updateTransaction(updatedTransaction) {
+    const index = state.transactions.findIndex(
+        transaction => transaction.id === updatedTransaction.id
+    );
 
-export function refresh() {
+    if (index !== -1) {
+        state.transactions[index] = updatedTransaction;
+    }
+}
+
+export function deleteTransaction(id) {
+    state.transactions = state.transactions.filter(
+        transaction => transaction.id !== id
+    );
+}export function refresh() {
     save(STORAGE_KEYS.BUDGETS, state.budgets);
     save(STORAGE_KEYS.TRANSACTIONS, state.transactions);
 
@@ -49,4 +50,26 @@ app.refresh()
       ├──► storage.save()
       ├──► dashboard.calculate()
       ├──► chartService.update()
-      └──► ui.render()
+      └──► ui.render()// budget.js
+export function addBudget(budget) {
+    state.budgets.push(budget);
+}
+
+export function updateBudget(updatedBudget) {
+    // mutate state
+}
+
+export function deleteBudget(id) {
+    // mutate state
+}// transaction.js
+export function addTransaction(transaction) {
+    state.transactions.push(transaction);
+}
+
+export function updateTransaction(transaction) {
+    // mutate state
+}
+
+export function deleteTransaction(id) {
+    // mutate state
+}
