@@ -1,41 +1,34 @@
-js/
-│
-├── app.js                  ← Application orchestrator
-│
-├── core/
-│   ├── state.js            ← Single source of truth
-│   ├── storage.js          ← localStorage wrapper
-│   ├── constants.js
-│   └── helpers.js
-│
-├── features/
-│   ├── budgets/
-│   │   ├── budget.js       ← Business logic (CRUD)
-│   │   ├── budget-ui.js    ← DOM/events
-│   │   └── budget-validation.js
-│   │
-│   ├── transactions/
-│   │   ├── transaction.js
-│   │   ├── transaction-ui.js
-│   │   └── transaction-validation.js
-│   │
-│   └── dashboard/
-│       └── dashboard.js
-│
-├── services/
-│   ├── chartService.js
-│   ├── exportService.js
-│   └── reportService.js
-│
-└── shared/
-    ├── modal.js
-    └── ui.jsUser Action
+export function load(key, defaultValue = null) {
+    try {
+        const data = localStorage.getItem(key);
+
+        return data ? JSON.parse(data) : defaultValue;
+    } catch {
+        return defaultValue;
+    }
+}export const state = {
+    budgets: load(STORAGE_KEYS.BUDGETS, []),
+    transactions: load(STORAGE_KEYS.TRANSACTIONS, []),
+    theme: load(STORAGE_KEYS.THEME, "light")
+};export function loadArray(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key)) ?? [];
+    } catch {
+        return [];
+    }
+}
+
+export function loadValue(key, defaultValue) {
+    return JSON.parse(localStorage.getItem(key)) ?? defaultValue;
+}state.theme = "dark";
+
+save(STORAGE_KEYS.THEME, state.theme);User Action
       │
       ▼
 budget-ui.js
       │
       ▼
-budget.js          ← updates state
+budget.js
       │
       ▼
 state.js
@@ -46,8 +39,4 @@ app.refresh()
       ├──► storage.save()
       ├──► dashboard.calculate()
       ├──► chartService.update()
-      └──► ui.render()export const state = {
-    budgets: load(STORAGE_KEYS.BUDGETS),
-    transactions: load(STORAGE_KEYS.TRANSACTIONS),
-    theme: load(STORAGE_KEYS.THEME) ?? "light"
-};
+      └──► ui.render()
