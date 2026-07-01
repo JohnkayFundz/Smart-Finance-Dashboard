@@ -1,19 +1,4 @@
-UI
- │
- ▼
-Feature
- │
- ▼
-State
- │
- ▼
-dispatch("state:changed")
- │
- ▼
-Event Listener
- │
- ▼
-refresh()Browser
+Browser
     │
     ▼
 main.js
@@ -47,7 +32,22 @@ refresh()
     ├── Update dashboard
     ├── Update charts
     ├── Apply theme
-    └── Render UIexport function setTheme(theme) {
+    └── Render UIUI
+ │
+ ▼
+Feature
+ │
+ ▼
+State
+ │
+ ▼
+dispatch("state:changed")
+ │
+ ▼
+Event Listener
+ │
+ ▼
+refresh()export function setTheme(theme) {
     state.theme = theme;
     applyTheme(theme);
 }
@@ -58,13 +58,10 @@ export function toggleTheme() {
     );
 }js/
 │
-├── main.js
-├── app.js
+├── main.js          # Entry point
+├── app.js           # Application lifecycle
 │
-├── core/
-│
-├── features/
-│
-├── services/
-│
-└── shared/
+├── core/            # State, storage, constants, helpers
+├── features/        # Budgets, transactions, dashboard, theme
+├── services/        # Charts, exports, reports
+└── shared/          # Shared UI components and utilities
