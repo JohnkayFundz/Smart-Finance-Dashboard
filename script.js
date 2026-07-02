@@ -1,27 +1,43 @@
-src/
-│
-├── main.js
-├── app.js
-│
-├── core/
-│   ├── state.js
-│   ├── constants.js
-│   ├── helpers.js
-│   └── config.js
-│
-├── events/
-│   ├── bus.js
-│   └── names.js
-│
-├── services/
-├── shared/
-├── features/
-└── assets/import { emit } from "../events/bus.js";
-import { EVENTS } from "../events/names.js";on()
-off()
-once()
-emit()
-clear()export function refresh(mode = "full") {
+core/
+├── state.js
+├── constants.js
+├── events.js
+├── eventNames.js
+├── helpers.js
+└── config.js                 Browser
+                    │
+                    ▼
+                 main.js
+                    │
+                    ▼
+                  app.js
+                    │
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+    Features     Services     Shared
+        │           │           │
+        └───────────┼───────────┘
+                    ▼
+                  CoreTransaction Added
+        │
+        ▼
+Update Core State
+        │
+        ▼
+app.refresh()
+        │
+        ├── refreshStorage()
+        ├── refreshDashboard()
+        ├── refreshCharts()
+        ├── refreshTheme()
+        └── refreshUI()
+                 │
+                 ▼
+        emit(DASHBOARD_UPDATED)
+                 │
+     ┌───────────┼───────────┐
+     ▼           ▼           ▼
+ Logger     Analytics   Notificationsexport function refresh(mode = "full") {
     const options = REFRESH[mode] ?? REFRESH.full;
 
     if (options.storage) refreshStorage();
@@ -29,44 +45,55 @@ clear()export function refresh(mode = "full") {
     if (options.charts) refreshCharts();
     if (options.theme) refreshTheme();
     if (options.ui) refreshUI();
-}const pipeline = [
-    ["storage", refreshStorage],
-    ["dashboard", refreshDashboard],
-    ["charts", refreshCharts],
-    ["theme", refreshTheme],
-    ["ui", refreshUI]
-];
+}✓ on()
+✓ off()
+✓ once()
+✓ emit()
+✓ clear()dashboard:updated
+charts:rendered
+storage:saved
 
-export function refresh(mode = "full") {
-    const options = REFRESH[mode] ?? REFRESH.full;
+transaction:added
+transaction:updated
+transaction:deleted
 
-    for (const [key, task] of pipeline) {
-        if (options[key]) {
-            task();
-        }
-    }
-}                     Browser
-                        │
-                        ▼
-                     main.js
-                        │
-                        ▼
-                     app.js
-              (Application Lifecycle)
-                        │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
-    Features         Services         Shared
-        │               │                │
-        └───────────────┼────────────────┘
-                        ▼
-                      Core
-                 (Application State)
+budget:created
 
-             ───────────────────────
+theme:changed
 
-                  Event Bus Layer
-              (Notifications Only)
-
-             Logger • Analytics •
-             Notifications • DevTools
+export:finishedrefresh:dashboard
+refresh:charts
+refresh:storageBrowser
+    │
+    ▼
+main.js
+    │
+    ▼
+app.initialize()
+    │
+    ▼
+Application
+    │
+    ▼
+User Interaction
+    │
+    ▼
+Feature
+    │
+    ▼
+Update Core State
+    │
+    ▼
+app.refresh()
+    │
+    ├── Storage Service
+    ├── Dashboard Service
+    ├── Charts Service
+    ├── Theme Service
+    └── UI Renderer
+             │
+             ▼
+      Semantic Events
+             │
+      Logger / Analytics /
+      Notifications / DevTools
