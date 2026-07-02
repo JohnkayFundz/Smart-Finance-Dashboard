@@ -29,16 +29,14 @@ Services
 └──► Core
 
 Shared
-└──► Core (only when needed)Feature A
-     │
-     ▼
-Update State
-     │
-     ▼
-app.refresh()
-     ▲
-     │
-Feature B automatically re-rendersBrowser
+└──► Core (only if required)Core ─────────► Features
+Core ─────────► Services
+
+Services ─────► Features
+
+Shared ───────► Features
+
+Feature A ────► Feature BBrowser
     │
     ▼
 main.js
@@ -69,7 +67,20 @@ app.refresh()
      ├── Update dashboard
      ├── Update charts
      ├── Apply theme
-     └── Render affected UIsrc/
+     └── Render affected UIUser
+   │
+   ▼
+Feature
+   │
+   ▼
+Core State
+   │
+   ▼
+app.refresh()Core State
+      │
+      ├────────► Features
+      ├────────► Services
+      └────────► Sharedsrc/
 │
 ├── main.js
 ├── app.js
@@ -85,10 +96,10 @@ app.refresh()
 ├── services/
 │   ├── dashboard.js
 │   ├── charts.js
+│   ├── reports.js
 │   ├── theme.js
 │   ├── export.js
-│   ├── import.js
-│   └── reports.js
+│   └── import.js
 │
 ├── shared/
 │   ├── ui.js
@@ -100,31 +111,41 @@ app.refresh()
 │
 ├── features/
 │   ├── transactions/
-│   │   ├── transactions.js
-│   │   ├── transactionForm.js
-│   │   └── transactionTable.js
-│   │
 │   ├── budgets/
 │   ├── goals/
 │   ├── categories/
 │   └── settings/
 │
-└── assets/Browser
-    │
-    ▼
-Feature UI
-    │
-    ▼
-Feature Logic
-    │
-    ▼
-Core State
-    │
-    ▼
-app.refresh()
-    │
-    ├── Storage
-    ├── Dashboard
-    ├── Charts
-    ├── Theme
-    └── UI
+└── assets/                     Browser
+                         │
+                         ▼
+                      main.js
+                         │
+                         ▼
+                  app.initialize()
+                         │
+                         ▼
+                    Application
+                         │
+                         ▼
+                  User Interaction
+                         │
+                         ▼
+                     Feature UI
+                         │
+                         ▼
+                   Feature Logic
+                         │
+                         ▼
+                  Update Core State
+                         │
+                         ▼
+                    app.refresh()
+         ┌────────────┼────────────┬────────────┬────────────┐
+         ▼            ▼            ▼            ▼            ▼
+     Storage     Dashboard      Charts       Theme         UIapp.refresh()
+├── refreshStorage()
+├── refreshDashboard()
+├── refreshCharts()
+├── refreshTheme()
+└── refreshUI()
