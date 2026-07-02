@@ -1,23 +1,6 @@
-transaction:added
-transaction:updated
-transaction:deleted
+const listeners = new Map();
 
-budget:created
-budget:updated
-budget:deleted
-
-goal:completed
-goal:deleted
-
-category:created
-settings:changedstorage:saved
-dashboard:updated
-charts:rendered
-theme:changed
-ui:rendered
-
-app:initialized
-app:refreshedconst listeners = new Map();export function on(event, handler) {
+export function on(event, handler) {
     if (!listeners.has(event)) {
         listeners.set(event, new Set());
     }
@@ -29,9 +12,16 @@ export function off(event, handler) {
     listeners.get(event)?.delete(handler);
 }
 
+export function once(event, handler) {
+    function wrapper(payload) {
+        off(event, wrapper);
+        handler(payload);
+    }
+
+    on(event, wrapper);
+}
+
 export function emit(event, payload) {
-    listeners.get(event)?.forEach(handler => handler(payload));
-}export function emit(event, payload) {
     listeners.get(event)?.forEach(handler => {
         try {
             handler(payload);
@@ -39,10 +29,7 @@ export function emit(event, payload) {
             console.error(`Error handling "${event}"`, error);
         }
     });
-}export const EVENTS = Object.freeze({
-    APP_INITIALIZED: "app:initialized",
-    APP_REFRESHED: "app:refreshed",
-
+}emit(EVENTS.DASHBOARD_UPDATED, dashboard);export const EVENTS = Object.freeze({
     STORAGE_SAVED: "storage:saved",
 
     DASHBOARD_UPDATED: "dashboard:updated",
@@ -59,22 +46,60 @@ export function emit(event, payload) {
 
     BUDGET_CREATED: "budget:created",
     BUDGET_UPDATED: "budget:updated",
-    BUDGET_DELETED: "budget:deleted"
-});emit(EVENTS.DASHBOARD_UPDATED, dashboard);refreshStorage();
-refreshDashboard();
-refreshCharts();
-refreshTheme();
-refreshUI();Browser
-    │
-    ▼
-main.js
-    │
-    ▼
-app.js
-    │
-    ├──────────────┬──────────────┬──────────────┐
-    ▼              ▼              ▼              ▼
-Features       Services       Shared          Core
-                                    ▲
-                                    │
-                               Event Bus
+    BUDGET_DELETED: "budget:deleted",
+
+    GOAL_COMPLETED: "goal:completed",
+
+    EXPORT_FINISHED: "export:finished",
+    IMPORT_FINISHED: "import:finished"
+});transaction:added
+transaction:deleted
+
+budget:updated
+
+dashboard:updated
+
+charts:rendered
+
+storage:saved
+
+theme:changed
+
+export:finished
+
+import:finishedrefresh:dashboard
+refresh:charts
+refresh:storageexport function refresh(mode = "full") {
+    const options = REFRESH[mode] ?? REFRESH.full;
+
+    if (options.storage) refreshStorage();
+    if (options.dashboard) refreshDashboard();
+    if (options.charts) refreshCharts();
+    if (options.theme) refreshTheme();
+    if (options.ui) refreshUI();
+}Transaction added
+        │
+        ▼
+Update state
+        │
+        ▼
+app.refresh()
+        │
+        ├── refreshStorage()
+        ├── refreshDashboard()
+        ├── refreshCharts()
+        ├── refreshTheme()
+        └── refreshUI()
+
+dashboard.js
+        │
+        ▼
+emit("dashboard:updated")
+
+Notification module
+Analytics module
+Logger module
+Developer tools
+        ▲
+        │
+listen if interested
