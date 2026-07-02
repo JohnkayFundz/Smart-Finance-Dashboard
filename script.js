@@ -1,41 +1,25 @@
-src/
-│
-├── main.js
-├── app.js
-│
-├── core/
-│   ├── state.js
-│   ├── constants.js
-│   ├── events.js
-│   ├── eventNames.js
-│   ├── helpers.js
-│   └── config.js
-│
-├── services/
-│
-├── shared/
-│
-├── features/
-│
-└── assets/app.js
+app.js
 ├──► Features
 ├──► Services
 ├──► Shared
 └──► Core
 
 Features
+├──► Core
 ├──► Services
-├──► Shared
-└──► Core
+└──► Shared
 
 Services
 └──► Core
 
 Shared
-└──► Core
+└──► CoreCore ─────────► *
 
-Core
-└──► (nothing)Browser
+Services ─────► Features
+
+Shared ───────► Features
+
+Feature A ────► Feature BBrowser
     │
     ▼
 main.js
@@ -43,11 +27,8 @@ main.js
     ▼
 app.initialize()
     │
-    ├── Load state
-    ├── Apply theme
-    ├── Calculate dashboard
-    ├── Render charts
-    └── Render UIUser
+    ▼
+User Action
     │
     ▼
 Feature
@@ -62,24 +43,18 @@ app.refresh()
     ├── Dashboard Service
     ├── Charts Service
     ├── Theme Service
-    └── UI Rendererexport function refresh(mode = "full") {
-    const options = REFRESH[mode] ?? REFRESH.full;
-
-    if (options.storage) refreshStorage();
-    if (options.dashboard) refreshDashboard();
-    if (options.charts) refreshCharts();
-    if (options.theme) refreshTheme();
-    if (options.ui) refreshUI();
-}refreshDashboard()
+    └── UI RendererDashboard Service
         │
         ▼
 dashboard updated
         │
         ▼
-emit(DASHBOARD_UPDATED)app.refresh()
+emit(DASHBOARD_UPDATED)
         │
-        ▼
-emit(refresh:dashboard)on()
+        ├── Logger
+        ├── Analytics
+        ├── Notifications
+        └── DevToolson()
 off()
 once()
 emit()
@@ -102,20 +77,30 @@ ui:rendered
 export:finished
 import:finishedrefresh:dashboard
 refresh:charts
-refresh:storageDashboard updated
-        │
-        ▼
-emit(dashboard:updated)
-        │
-        ├── Logger
-        ├── Analytics
-        ├── Notifications
-        └── Developer ToolsTransaction added
-        │
-        ▼
-emit(transaction:added)
-        │
-        ├── Save storage
-        ├── Update dashboard
-        ├── Update charts
-        └── Render UI
+refresh:storage                 Browser
+                     │
+                     ▼
+                  main.js
+                     │
+                     ▼
+                   app.js
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+    Features     Services      Shared
+        │            │            │
+        └────────────┼────────────┘
+                     ▼
+                   Core
+                     │
+          (Single Source of Truth)
+                     │
+                     ▼
+              Refresh Pipeline
+                     │
+                     ▼
+              Semantic Events
+                     │
+      ┌──────────────┼──────────────┐
+      ▼              ▼              ▼
+   Logger       Analytics     Notifications
