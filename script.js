@@ -1,4 +1,70 @@
-src/
+refresh("transaction");
+refresh("budget");
+refresh("theme");
+refresh("settings");
+refresh("full");const REFRESH = {
+    full: {
+        storage: true,
+        dashboard: true,
+        charts: true,
+        theme: true,
+        ui: true
+    },
+
+    transaction: {
+        storage: true,
+        dashboard: true,
+        charts: true,
+        ui: true
+    },
+
+    budget: {
+        storage: true,
+        dashboard: true,
+        charts: true,
+        ui: true
+    },
+
+    theme: {
+        storage: true,
+        theme: true,
+        ui: true
+    },
+
+    settings: {
+        storage: true,
+        theme: true,
+        ui: true
+    }
+};
+
+export function refresh(mode = "full") {
+    const options = REFRESH[mode];
+
+    if (options.storage) refreshStorage();
+    if (options.dashboard) refreshDashboard();
+    if (options.charts) refreshCharts();
+    if (options.theme) refreshTheme();
+    if (options.ui) refreshUI();
+}addTransaction(transaction);
+
+refresh("transaction");shared/
+│
+├── ui/
+│   ├── dashboard.js
+│   ├── sidebar.js
+│   ├── navbar.js
+│   ├── tables.js
+│   ├── cards.js
+│   └── index.js
+│
+├── modal.js
+├── form.js
+├── formatter.js
+└── validation.jsrefreshUI();renderDashboard();
+renderSidebar();
+renderTables();
+renderCards();src/
 │
 ├── main.js
 ├── app.js
@@ -6,8 +72,8 @@ src/
 ├── core/
 │   ├── state.js
 │   ├── constants.js
-│   ├── helpers.js
 │   ├── config.js
+│   ├── helpers.js
 │   └── events.js
 │
 ├── services/
@@ -20,9 +86,14 @@ src/
 │   └── import.js
 │
 ├── shared/
-│   ├── ui.js
+│   ├── ui/
+│   │   ├── dashboard.js
+│   │   ├── tables.js
+│   │   ├── cards.js
+│   │   ├── sidebar.js
+│   │   └── index.js
+│   │
 │   ├── modal.js
-│   ├── table.js
 │   ├── form.js
 │   ├── formatter.js
 │   └── validation.js
@@ -34,22 +105,4 @@ src/
 │   ├── categories/
 │   └── settings/
 │
-└── assets/app.refresh()
-│
-├── services.storage.save(state)
-├── services.dashboard.calculate(state)
-├── services.charts.render(state)
-├── services.theme.apply(state)
-└── shared.ui.render(state)app.refresh({
-  storage: true,
-  dashboard: true,
-  charts: false,
-  theme: false,
-  ui: true
-});export function refresh(options = {}) {
-    if (options.storage) refreshStorage();
-    if (options.dashboard) refreshDashboard();
-    if (options.charts) refreshCharts();
-    if (options.theme) refreshTheme();
-    if (options.ui) refreshUI();
-}
+└── assets/
