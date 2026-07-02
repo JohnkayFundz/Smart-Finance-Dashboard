@@ -1,33 +1,38 @@
-┌──────────────────────────────────────────────────────────────┐
-│                         Browser                              │
-└──────────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-                        main.js
-                           │
-                           ▼
-                         app.js
-                  (initialize / refresh)
-                           │
-        ┌──────────────────┼──────────────────┐
-        ▼                  ▼                  ▼
-     Features            Core             Services
-        │                  │                  │
-        └──────────────┬───┴──────────────┬───┘
-                       ▼                  ▼
-                 Shared Components     Storage✔ Features → Core
-✔ Features → Services
-✔ Features → Shared
+                     Browser
+                        │
+                        ▼
+                     main.js
+                        │
+                        ▼
+                     app.js
+             (initialize / refresh)
+                        │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+    Features         Services         Shared
+        │               │                ▲
+        └───────────────┼────────────────┘
+                        ▼
+                      Core
+               (state, storage,
+             constants, helpers)✓ app.js → Features
+✓ app.js → Services
+✓ app.js → Core
+✓ app.js → Shared
 
-✔ App → Features
-✔ App → Core
-✔ App → Services
+✓ Features → Core
+✓ Features → Services
+✓ Features → Shared
 
-✖ Core → Features
-✖ Services → Features
-✖ Shared → Features
-✖ Features → Features (prefer keeping them independent)Application Startup
-────────────────────────────────
+✓ Services → Core
+✓ Shared → Core (only if necessary)
+
+✗ Core → Features
+✗ Core → Services
+✗ Services → Features
+✗ Shared → Features
+✗ Feature ↔ Feature (avoid direct dependencies)Application Startup
+────────────────────────────────────
 
 Browser
     │
@@ -35,7 +40,7 @@ Browser
 main.js
     │
     ▼
-initialize()
+app.initialize()
     │
     ├── Load persisted state
     ├── Apply theme
@@ -43,9 +48,9 @@ initialize()
     ├── Render charts
     └── Render UI
 
+────────────────────────────────────
 
 Application Runtime
-────────────────────────────────
 
 User Action
     │
