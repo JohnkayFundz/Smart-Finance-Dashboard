@@ -29,14 +29,14 @@ Services
 └──► Core
 
 Shared
-└──► Core (only if required)Core ─────────► Features
-Core ─────────► Services
+└──► CoreCore ───────► Features
+Core ───────► Services
 
-Services ─────► Features
+Services ───► Features
 
-Shared ───────► Features
+Shared ─────► Features
 
-Feature A ────► Feature BBrowser
+Feature A ──► Feature BBrowser
     │
     ▼
 main.js
@@ -49,7 +49,7 @@ app.initialize()
     ├── Apply theme
     ├── Calculate dashboard
     ├── Render charts
-    └── Render all UIUser Action
+    └── Render UIUser Action
      │
      ▼
 Feature UI
@@ -78,9 +78,15 @@ Core State
    ▼
 app.refresh()Core State
       │
-      ├────────► Features
-      ├────────► Services
-      └────────► Sharedsrc/
+      ├──► Features
+      ├──► Services
+      └──► Sharedapp.refresh()
+│
+├── refreshStorage()
+├── refreshDashboard()
+├── refreshCharts()
+├── refreshTheme()
+└── refreshUI()src/
 │
 ├── main.js
 ├── app.js
@@ -116,36 +122,4 @@ app.refresh()Core State
 │   ├── categories/
 │   └── settings/
 │
-└── assets/                     Browser
-                         │
-                         ▼
-                      main.js
-                         │
-                         ▼
-                  app.initialize()
-                         │
-                         ▼
-                    Application
-                         │
-                         ▼
-                  User Interaction
-                         │
-                         ▼
-                     Feature UI
-                         │
-                         ▼
-                   Feature Logic
-                         │
-                         ▼
-                  Update Core State
-                         │
-                         ▼
-                    app.refresh()
-         ┌────────────┼────────────┬────────────┬────────────┐
-         ▼            ▼            ▼            ▼            ▼
-     Storage     Dashboard      Charts       Theme         UIapp.refresh()
-├── refreshStorage()
-├── refreshDashboard()
-├── refreshCharts()
-├── refreshTheme()
-└── refreshUI()
+└── assets/
