@@ -1,69 +1,41 @@
-core/
-├── state.js
-├── constants.js
-├── events.js
-├── eventNames.js
-├── helpers.js
-└── config.js                 Browser
-                    │
-                    ▼
-                 main.js
-                    │
-                    ▼
-                  app.js
-                    │
-        ┌───────────┼───────────┐
-        ▼           ▼           ▼
-    Features     Services     Shared
-        │           │           │
-        └───────────┼───────────┘
-                    ▼
-                  CoreTransaction Added
-        │
-        ▼
-Update Core State
-        │
-        ▼
-app.refresh()
-        │
-        ├── refreshStorage()
-        ├── refreshDashboard()
-        ├── refreshCharts()
-        ├── refreshTheme()
-        └── refreshUI()
-                 │
-                 ▼
-        emit(DASHBOARD_UPDATED)
-                 │
-     ┌───────────┼───────────┐
-     ▼           ▼           ▼
- Logger     Analytics   Notificationsexport function refresh(mode = "full") {
-    const options = REFRESH[mode] ?? REFRESH.full;
+src/
+│
+├── main.js
+├── app.js
+│
+├── core/
+│   ├── state.js
+│   ├── constants.js
+│   ├── events.js
+│   ├── eventNames.js
+│   ├── helpers.js
+│   └── config.js
+│
+├── services/
+│
+├── shared/
+│
+├── features/
+│
+└── assets/app.js
+├──► Features
+├──► Services
+├──► Shared
+└──► Core
 
-    if (options.storage) refreshStorage();
-    if (options.dashboard) refreshDashboard();
-    if (options.charts) refreshCharts();
-    if (options.theme) refreshTheme();
-    if (options.ui) refreshUI();
-}✓ on()
-✓ off()
-✓ once()
-✓ emit()
-✓ clear()dashboard:updated
-charts:rendered
-storage:saved
+Features
+├──► Services
+├──► Shared
+└──► Core
 
-transaction:added
-transaction:updated
-transaction:deleted
+Services
+└──► Core
 
-budget:created
+Shared
+└──► Core
 
-theme:changed
-
-export:finishedrefresh:dashboard
-refresh:charts
-refresh:storageBrowser
+Core
+└──► (nothing)Browser
     │
     ▼
 main.js
@@ -71,11 +43,11 @@ main.js
     ▼
 app.initialize()
     │
-    ▼
-Application
-    │
-    ▼
-User Interaction
+    ├── Load state
+    ├── Apply theme
+    ├── Calculate dashboard
+    ├── Render charts
+    └── Render UIUser
     │
     ▼
 Feature
@@ -90,10 +62,60 @@ app.refresh()
     ├── Dashboard Service
     ├── Charts Service
     ├── Theme Service
-    └── UI Renderer
-             │
-             ▼
-      Semantic Events
-             │
-      Logger / Analytics /
-      Notifications / DevTools
+    └── UI Rendererexport function refresh(mode = "full") {
+    const options = REFRESH[mode] ?? REFRESH.full;
+
+    if (options.storage) refreshStorage();
+    if (options.dashboard) refreshDashboard();
+    if (options.charts) refreshCharts();
+    if (options.theme) refreshTheme();
+    if (options.ui) refreshUI();
+}refreshDashboard()
+        │
+        ▼
+dashboard updated
+        │
+        ▼
+emit(DASHBOARD_UPDATED)app.refresh()
+        │
+        ▼
+emit(refresh:dashboard)on()
+off()
+once()
+emit()
+clear()transaction:added
+transaction:updated
+transaction:deleted
+
+budget:created
+budget:updated
+budget:deleted
+
+goal:completed
+
+storage:saved
+dashboard:updated
+charts:rendered
+theme:changed
+ui:rendered
+
+export:finished
+import:finishedrefresh:dashboard
+refresh:charts
+refresh:storageDashboard updated
+        │
+        ▼
+emit(dashboard:updated)
+        │
+        ├── Logger
+        ├── Analytics
+        ├── Notifications
+        └── Developer ToolsTransaction added
+        │
+        ▼
+emit(transaction:added)
+        │
+        ├── Save storage
+        ├── Update dashboard
+        ├── Update charts
+        └── Render UI
