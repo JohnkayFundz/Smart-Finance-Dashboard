@@ -1,48 +1,44 @@
-Browser
-   │
-   ▼
-main.js
-   │
-   ▼
-app.js
-(Initialize + Refresh)
-   │
-   ├───────────────┬────────────────┐
-   ▼               ▼                ▼
-Features       Services         Shared
-   │               │                ▲
-   └───────────────┼────────────────┘
-                   ▼
-                 Core
-      (State • Storage • Constants • Helpers)app.js
- ├──► Features
- ├──► Services
- ├──► Shared
- └──► Core
+                     Browser
+                        │
+                        ▼
+                     main.js
+                        │
+                        ▼
+                     app.js
+             (Initialize / Refresh)
+                        │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+    Features         Services         Shared
+        │               │                ▲
+        └───────────────┼────────────────┘
+                        ▼
+                      Core
+        (State • Storage • Constants • Helpers)app.js
+├──► Features
+├──► Services
+├──► Shared
+└──► Core
 
 Features
- ├──► Core
- ├──► Services
- └──► Shared
+├──► Core
+├──► Services
+└──► Shared
 
 Services
- └──► Core
+└──► Core
 
 Shared
- └──► Core (only when necessary)Core ─────────► Features
-Core ─────────► Services
-
-Services ─────► Features
-
-Shared ───────► Features
-
-Feature A ────► Feature BFeature A
+└──► Core (only when needed)Feature A
      │
      ▼
-   app.refresh()
+Update State
+     │
+     ▼
+app.refresh()
      ▲
      │
-Feature BBrowser
+Feature B automatically re-rendersBrowser
     │
     ▼
 main.js
@@ -64,13 +60,13 @@ Feature UI
 Feature Logic
      │
      ▼
-Update State
+Update Core State
      │
      ▼
 app.refresh()
      │
-     ├── Save state
-     ├── Recalculate dashboard
+     ├── Persist state
+     ├── Update dashboard
      ├── Update charts
      ├── Apply theme
      └── Render affected UIsrc/
@@ -82,27 +78,32 @@ app.refresh()
 │   ├── state.js
 │   ├── storage.js
 │   ├── constants.js
-│   ├── events.js
 │   ├── helpers.js
-│   └── config.js
+│   ├── config.js
+│   └── events.js        // optional
 │
 ├── services/
 │   ├── dashboard.js
 │   ├── charts.js
+│   ├── theme.js
 │   ├── export.js
 │   ├── import.js
-│   └── theme.js
+│   └── reports.js
 │
 ├── shared/
 │   ├── ui.js
 │   ├── modal.js
 │   ├── table.js
 │   ├── form.js
-│   ├── validation.js
-│   └── formatter.js
+│   ├── formatter.js
+│   └── validation.js
 │
 ├── features/
 │   ├── transactions/
+│   │   ├── transactions.js
+│   │   ├── transactionForm.js
+│   │   └── transactionTable.js
+│   │
 │   ├── budgets/
 │   ├── goals/
 │   ├── categories/
