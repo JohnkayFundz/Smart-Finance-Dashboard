@@ -1,105 +1,17 @@
-                     Browser
-                        │
-                        ▼
-                     main.js
-                        │
-                        ▼
-                     app.js
-             (Initialize / Refresh)
-                        │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
-    Features         Services         Shared
-        │               │                ▲
-        └───────────────┼────────────────┘
-                        ▼
-                      Core
-        (State • Storage • Constants • Helpers)app.js
-├──► Features
-├──► Services
-├──► Shared
-└──► Core
-
-Features
-├──► Core
-├──► Services
-└──► Shared
-
-Services
-└──► Core
-
-Shared
-└──► CoreCore ───────► Features
-Core ───────► Services
-
-Services ───► Features
-
-Shared ─────► Features
-
-Feature A ──► Feature BBrowser
-    │
-    ▼
-main.js
-    │
-    ▼
-app.initialize()
-    │
-    ├── Load persisted state
-    ├── Initialize services
-    ├── Apply theme
-    ├── Calculate dashboard
-    ├── Render charts
-    └── Render UIUser Action
-     │
-     ▼
-Feature UI
-     │
-     ▼
-Feature Logic
-     │
-     ▼
-Update Core State
-     │
-     ▼
-app.refresh()
-     │
-     ├── Persist state
-     ├── Update dashboard
-     ├── Update charts
-     ├── Apply theme
-     └── Render affected UIUser
-   │
-   ▼
-Feature
-   │
-   ▼
-Core State
-   │
-   ▼
-app.refresh()Core State
-      │
-      ├──► Features
-      ├──► Services
-      └──► Sharedapp.refresh()
-│
-├── refreshStorage()
-├── refreshDashboard()
-├── refreshCharts()
-├── refreshTheme()
-└── refreshUI()src/
+src/
 │
 ├── main.js
 ├── app.js
 │
 ├── core/
 │   ├── state.js
-│   ├── storage.js
 │   ├── constants.js
 │   ├── helpers.js
 │   ├── config.js
-│   └── events.js        // optional
+│   └── events.js
 │
 ├── services/
+│   ├── storage.js
 │   ├── dashboard.js
 │   ├── charts.js
 │   ├── reports.js
@@ -122,4 +34,22 @@ app.refresh()Core State
 │   ├── categories/
 │   └── settings/
 │
-└── assets/
+└── assets/app.refresh()
+│
+├── services.storage.save(state)
+├── services.dashboard.calculate(state)
+├── services.charts.render(state)
+├── services.theme.apply(state)
+└── shared.ui.render(state)app.refresh({
+  storage: true,
+  dashboard: true,
+  charts: false,
+  theme: false,
+  ui: true
+});export function refresh(options = {}) {
+    if (options.storage) refreshStorage();
+    if (options.dashboard) refreshDashboard();
+    if (options.charts) refreshCharts();
+    if (options.theme) refreshTheme();
+    if (options.ui) refreshUI();
+}
