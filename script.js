@@ -1,108 +1,50 @@
-refresh("transaction");
-refresh("budget");
-refresh("theme");
-refresh("settings");
-refresh("full");const REFRESH = {
-    full: {
-        storage: true,
-        dashboard: true,
-        charts: true,
-        theme: true,
-        ui: true
-    },
+// core/events.js
+const listeners = {};
 
-    transaction: {
-        storage: true,
-        dashboard: true,
-        charts: true,
-        ui: true
-    },
+export function on(event, handler) {
+  (listeners[event] ||= []).push(handler);
+}
 
-    budget: {
-        storage: true,
-        dashboard: true,
-        charts: true,
-        ui: true
-    },
-
-    theme: {
-        storage: true,
-        theme: true,
-        ui: true
-    },
-
-    settings: {
-        storage: true,
-        theme: true,
-        ui: true
-    }
-};
+export function emit(event, payload) {
+  (listeners[event] || []).forEach(handler => handler(payload));
+}
+import { emit } from "./core/events.js";
 
 export function refresh(mode = "full") {
-    const options = REFRESH[mode];
+    const options = REFRESH[mode] || REFRESH.full;
 
-    if (options.storage) refreshStorage();
-    if (options.dashboard) refreshDashboard();
-    if (options.charts) refreshCharts();
-    if (options.theme) refreshTheme();
-    if (options.ui) refreshUI();
-}addTransaction(transaction);
+    if (options.storage) {
+        refreshStorage();
+        emit("refresh:storage", state);
+    }
+    if (options.dashboard) {
+        refreshDashboard();
+        emit("refresh:dashboard", state);
+    }
+    if (options.charts) {
+        refreshCharts();
+        emit("refresh:charts", state);
+    }
+    if (options.theme) {
+        refreshTheme();
+        emit("refresh:theme", state);
+    }
+    if (options.ui) {
+        refreshUI();
+        emit("refresh:ui", state);
+    }
 
-refresh("transaction");shared/
-│
-├── ui/
-│   ├── dashboard.js
-│   ├── sidebar.js
-│   ├── navbar.js
-│   ├── tables.js
-│   ├── cards.js
-│   └── index.js
-│
-├── modal.js
-├── form.js
-├── formatter.js
-└── validation.jsrefreshUI();renderDashboard();
-renderSidebar();
-renderTables();
-renderCards();src/
-│
-├── main.js
-├── app.js
-│
-├── core/
-│   ├── state.js
-│   ├── constants.js
-│   ├── config.js
-│   ├── helpers.js
-│   └── events.js
-│
-├── services/
-│   ├── storage.js
-│   ├── dashboard.js
-│   ├── charts.js
-│   ├── reports.js
-│   ├── theme.js
-│   ├── export.js
-│   └── import.js
-│
-├── shared/
-│   ├── ui/
-│   │   ├── dashboard.js
-│   │   ├── tables.js
-│   │   ├── cards.js
-│   │   ├── sidebar.js
-│   │   └── index.js
-│   │
-│   ├── modal.js
-│   ├── form.js
-│   ├── formatter.js
-│   └── validation.js
-│
-├── features/
-│   ├── transactions/
-│   ├── budgets/
-│   ├── goals/
-│   ├── categories/
-│   └── settings/
-│
-└── assets/
+    // Always emit a general event
+    emit(`refresh:${mode}`, state);
+    emit("refresh:all", { mode, state });
+}
+import { on } from "../core/events.js";
+
+on("refresh:charts", (state) => {
+    updateCharts(state);
+});
+import { on } from "../../core/events.js";
+
+on("refresh:budget", (state) => {
+    renderBudgetUI(state.budgets);
+});
