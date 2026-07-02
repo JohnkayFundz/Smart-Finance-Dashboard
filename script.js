@@ -1,66 +1,27 @@
-core/
-├── state.js
-├── constants.js
-├── events.js      // Event bus
-├── eventNames.js  // Event constants
-├── helpers.js
-└── config.jsimport { emit } from "../core/events.js";
-import { EVENTS } from "../core/eventNames.js";
-
-emit(EVENTS.DASHBOARD_UPDATED, dashboard);export function clear(event) {
-    if (event) {
-        listeners.delete(event);
-    } else {
-        listeners.clear();
-    }
-}export function emit(event, payload) {
-    const handlers = [...(listeners.get(event) ?? [])];
-
-    for (const handler of handlers) {
-        try {
-            handler(payload);
-        } catch (error) {
-            console.error(`Error handling "${event}"`, error);
-        }
-    }
-}export function on(event, handler) {
-    if (!listeners.has(event)) {
-        listeners.set(event, new Set());
-    }
-
-    listeners.get(event).add(handler);
-
-    return () => off(event, handler);
-}const unsubscribe = on(EVENTS.DASHBOARD_UPDATED, updateDashboard);
-
-// Later...
-unsubscribe();Transaction Added
-        │
-        ▼
-Update State
-        │
-        ▼
-app.refresh()
-        │
-        ▼
-dashboard.js
-        │
-        ▼
-emit(DASHBOARD_UPDATED)
-        │
-        ▼
-Logger
-Analytics
-NotificationTransaction Added
-        │
-        ▼
-emit(TRANSACTION_ADDED)
-        │
-        ▼
-Dashboard updates itself
-Storage saves itself
-Charts update themselves
-Theme updates itselfexport function refresh(mode = "full") {
+src/
+│
+├── main.js
+├── app.js
+│
+├── core/
+│   ├── state.js
+│   ├── constants.js
+│   ├── helpers.js
+│   └── config.js
+│
+├── events/
+│   ├── bus.js
+│   └── names.js
+│
+├── services/
+├── shared/
+├── features/
+└── assets/import { emit } from "../events/bus.js";
+import { EVENTS } from "../events/names.js";on()
+off()
+once()
+emit()
+clear()export function refresh(mode = "full") {
     const options = REFRESH[mode] ?? REFRESH.full;
 
     if (options.storage) refreshStorage();
@@ -68,30 +29,44 @@ Theme updates itselfexport function refresh(mode = "full") {
     if (options.charts) refreshCharts();
     if (options.theme) refreshTheme();
     if (options.ui) refreshUI();
-}Browser
-    │
-    ▼
-main.js
-    │
-    ▼
-app.js
-    │
-    ├───────────── Refresh Pipeline ─────────────┐
-    ▼                                            │
-Features ─────► Core State                       │
-    │                                            │
-    └──────────────► refresh()                   │
-                         │                       │
-                         ▼                       │
-                 Storage Service                │
-                 Dashboard Service              │
-                 Charts Service                 │
-                 Theme Service                  │
-                 UI Renderer                    │
-                         │
-                         ▼
-                  Semantic Events
-                         │
-         ┌───────────────┼────────────────┐
-         ▼               ▼                ▼
-     Notifications   Analytics        Developer Tools
+}const pipeline = [
+    ["storage", refreshStorage],
+    ["dashboard", refreshDashboard],
+    ["charts", refreshCharts],
+    ["theme", refreshTheme],
+    ["ui", refreshUI]
+];
+
+export function refresh(mode = "full") {
+    const options = REFRESH[mode] ?? REFRESH.full;
+
+    for (const [key, task] of pipeline) {
+        if (options[key]) {
+            task();
+        }
+    }
+}                     Browser
+                        │
+                        ▼
+                     main.js
+                        │
+                        ▼
+                     app.js
+              (Application Lifecycle)
+                        │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+    Features         Services         Shared
+        │               │                │
+        └───────────────┼────────────────┘
+                        ▼
+                      Core
+                 (Application State)
+
+             ───────────────────────
+
+                  Event Bus Layer
+              (Notifications Only)
+
+             Logger • Analytics •
+             Notifications • DevTools
