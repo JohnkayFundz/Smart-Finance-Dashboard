@@ -1,75 +1,66 @@
-const listeners = new Map();
+core/
+├── state.js
+├── constants.js
+├── events.js      // Event bus
+├── eventNames.js  // Event constants
+├── helpers.js
+└── config.jsimport { emit } from "../core/events.js";
+import { EVENTS } from "../core/eventNames.js";
 
-export function on(event, handler) {
-    if (!listeners.has(event)) {
-        listeners.set(event, new Set());
+emit(EVENTS.DASHBOARD_UPDATED, dashboard);export function clear(event) {
+    if (event) {
+        listeners.delete(event);
+    } else {
+        listeners.clear();
     }
+}export function emit(event, payload) {
+    const handlers = [...(listeners.get(event) ?? [])];
 
-    listeners.get(event).add(handler);
-}
-
-export function off(event, handler) {
-    listeners.get(event)?.delete(handler);
-}
-
-export function once(event, handler) {
-    function wrapper(payload) {
-        off(event, wrapper);
-        handler(payload);
-    }
-
-    on(event, wrapper);
-}
-
-export function emit(event, payload) {
-    listeners.get(event)?.forEach(handler => {
+    for (const handler of handlers) {
         try {
             handler(payload);
         } catch (error) {
             console.error(`Error handling "${event}"`, error);
         }
-    });
-}emit(EVENTS.DASHBOARD_UPDATED, dashboard);export const EVENTS = Object.freeze({
-    STORAGE_SAVED: "storage:saved",
+    }
+}export function on(event, handler) {
+    if (!listeners.has(event)) {
+        listeners.set(event, new Set());
+    }
 
-    DASHBOARD_UPDATED: "dashboard:updated",
+    listeners.get(event).add(handler);
 
-    CHARTS_RENDERED: "charts:rendered",
+    return () => off(event, handler);
+}const unsubscribe = on(EVENTS.DASHBOARD_UPDATED, updateDashboard);
 
-    THEME_CHANGED: "theme:changed",
-
-    UI_RENDERED: "ui:rendered",
-
-    TRANSACTION_ADDED: "transaction:added",
-    TRANSACTION_UPDATED: "transaction:updated",
-    TRANSACTION_DELETED: "transaction:deleted",
-
-    BUDGET_CREATED: "budget:created",
-    BUDGET_UPDATED: "budget:updated",
-    BUDGET_DELETED: "budget:deleted",
-
-    GOAL_COMPLETED: "goal:completed",
-
-    EXPORT_FINISHED: "export:finished",
-    IMPORT_FINISHED: "import:finished"
-});transaction:added
-transaction:deleted
-
-budget:updated
-
-dashboard:updated
-
-charts:rendered
-
-storage:saved
-
-theme:changed
-
-export:finished
-
-import:finishedrefresh:dashboard
-refresh:charts
-refresh:storageexport function refresh(mode = "full") {
+// Later...
+unsubscribe();Transaction Added
+        │
+        ▼
+Update State
+        │
+        ▼
+app.refresh()
+        │
+        ▼
+dashboard.js
+        │
+        ▼
+emit(DASHBOARD_UPDATED)
+        │
+        ▼
+Logger
+Analytics
+NotificationTransaction Added
+        │
+        ▼
+emit(TRANSACTION_ADDED)
+        │
+        ▼
+Dashboard updates itself
+Storage saves itself
+Charts update themselves
+Theme updates itselfexport function refresh(mode = "full") {
     const options = REFRESH[mode] ?? REFRESH.full;
 
     if (options.storage) refreshStorage();
@@ -77,29 +68,30 @@ refresh:storageexport function refresh(mode = "full") {
     if (options.charts) refreshCharts();
     if (options.theme) refreshTheme();
     if (options.ui) refreshUI();
-}Transaction added
-        │
-        ▼
-Update state
-        │
-        ▼
-app.refresh()
-        │
-        ├── refreshStorage()
-        ├── refreshDashboard()
-        ├── refreshCharts()
-        ├── refreshTheme()
-        └── refreshUI()
-
-dashboard.js
-        │
-        ▼
-emit("dashboard:updated")
-
-Notification module
-Analytics module
-Logger module
-Developer tools
-        ▲
-        │
-listen if interested
+}Browser
+    │
+    ▼
+main.js
+    │
+    ▼
+app.js
+    │
+    ├───────────── Refresh Pipeline ─────────────┐
+    ▼                                            │
+Features ─────► Core State                       │
+    │                                            │
+    └──────────────► refresh()                   │
+                         │                       │
+                         ▼                       │
+                 Storage Service                │
+                 Dashboard Service              │
+                 Charts Service                 │
+                 Theme Service                  │
+                 UI Renderer                    │
+                         │
+                         ▼
+                  Semantic Events
+                         │
+         ┌───────────────┼────────────────┐
+         ▼               ▼                ▼
+     Notifications   Analytics        Developer Tools
