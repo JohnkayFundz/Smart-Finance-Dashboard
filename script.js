@@ -1,5 +1,5 @@
 Browser
-    │
+    │ 
     ▼
 main.js
     │
