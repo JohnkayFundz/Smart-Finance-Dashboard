@@ -1,32 +1,37 @@
-import {
-    getTotalEvents,
-    getAverageRefreshTime,
-    getLastEvent,
-    getEventsPerSecond
-} from "./statistics.js";
+const modal = document.getElementById("budgetModal");
+const content = modal.querySelector(".modal-content");
 
-export function renderPanels() {
-    document.getElementById("total-events").textContent =
-        getTotalEvents();
+let previousFocus = null;
 
-    document.getElementById("avg-refresh").textContent =
-        `${getAverageRefreshTime()} ms`;
+export function openBudgetModal() {
+    previousFocus = document.activeElement;
 
-    document.getElementById("last-event").textContent =
-        getLastEvent()?.events?.at(-1)?.event ??
-        getLastEvent()?.event ??
-        "None";
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
 
-    document.getElementById("fps").textContent =
-        getEventsPerSecond();
-}+--------------------------------------------------------------+
-| Total Events | Avg Refresh | Last Event | FPS | Active Cycle |
-+--------------------------------------------------------------+
+    content.focus();
+}
 
-+--------------------------------------------------------------+
-| Fastest Refresh | Slowest Refresh | Avg Events/Cycle         |
-+--------------------------------------------------------------+
+export function closeBudgetModal() {
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
 
-+--------------------------------------------------------------+
-| Memory Usage | Event Queue | Timeline Size | Last Refresh    |
-+--------------------------------------------------------------+
+    previousFocus?.focus();
+}modal.addEventListener("click", event => {
+    if (event.target === modal) {
+        closeBudgetModal();
+    }
+});document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        modal.classList.contains("show")
+    ) {
+        closeBudgetModal();
+    }
+});content.addEventListener("click", event => {
+    event.stopPropagation();
+});openBudgetModal();
+emitEvent(EVENTS.MODAL_OPENED, { id: "budget" });
+
+closeBudgetModal();
+emitEvent(EVENTS.MODAL_CLOSED, { id: "budget" });
