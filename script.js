@@ -1,31 +1,34 @@
 devtools/
 │
-├── dashboard.html          # UI layout
+├── dashboard.html          # Layout
 ├── dashboard.js            # Coordinator
 │
-├── timeline.js             # Event history
-├── statistics.js           # Metrics
+├── timeline.js             # Event store
+├── statistics.js           # Derived metrics
 │
 ├── charts/
 │   ├── timelineChart.js
 │   ├── eventTypeChart.js
 │   └── waterfallChart.js
 │
-├── table.js
-└── panels.js               # Summary cardsEvent Bus
-     │
-     ▼
+├── panels.js               # Summary cards
+├── table.js                # Event table
+└── utils.js                # Shared helpers (optional)Event Bus
+    │
+    ▼
 on("*")
-     │
-     ▼
-timeline.push()
-     │
-     ├────────────┐
-     ▼            ▼
-Statistics    Dashboard
-     │            │
-     ▼            ▼
-Metrics      Charts/Tableexport const timeline = [];
+    │
+    ▼
+timeline.addEvent()
+    │
+    ├───────────────┐
+    ▼               ▼
+statistics      dashboard
+    │               │
+    ▼               ▼
+metrics      charts / panels / tableconst MAX_EVENTS = 1000;
+
+export const timeline = [];
 
 export function addEvent(event, data, timestamp) {
     timeline.push({
@@ -33,6 +36,18 @@ export function addEvent(event, data, timestamp) {
         data,
         timestamp
     });
+
+    if (timeline.length > MAX_EVENTS) {
+        timeline.shift();
+    }
+}
+
+export function getTimeline() {
+    return timeline;
+}
+
+export function clearTimeline() {
+    timeline.length = 0;
 }export function getTotalEvents() {}
 
 export function getEventCounts() {}
@@ -41,7 +56,13 @@ export function getAverageRefreshTime() {}
 
 export function getLastEvent() {}
 
-export function getRefreshHistory() {}on("*", ({ data, timestamp }, event) => {
+export function getRefreshHistory() {}
+
+export function getEventsPerSecond() {}
+
+export function getSlowestRefresh() {}
+
+export function getFastestRefresh() {}on("*", ({ data, timestamp }, event) => {
 
     addEvent(event, data, timestamp);
 
@@ -60,40 +81,38 @@ export function getRefreshHistory() {}on("*", ({ data, timestamp }, event) => {
 ────────────
 324
 
-
 Average Refresh
 ───────────────
 18 ms
-
 
 Last Event
 ──────────
 ui:rendered
 
-
 FPS
 ───
 60Time
 │
-│      ●
-│         ●
-│             ●
-│                 ●
-└──────────────────────────────►
- transaction
- dashboard
- charts
- uitransaction:added     ████████████
+│       ●
+│          ●
+│              ●
+│                  ●
+└────────────────────────────►
 
-dashboard:updated     █████████
+transaction
+storage
+dashboard
+uitransaction:added     ████████████
 
 storage:saved         █████████
 
+dashboard:updated     ████████
+
 charts:rendered       ███████
 
-theme:changed         ███
+ui:rendered           ███████
 
-ui:rendered           ████████Transaction Added
+theme:changed         ███Transaction Added
         │
         ▼
 Storage Saved
@@ -108,26 +127,29 @@ Charts Rendered
 Theme Changed
         │ 1 ms
         ▼
-UI Rendered{
-    data,
-    timestamp
-}const duration =
+UI Renderedconst duration =
     current.timestamp - previous.timestamp;Time        Event                 Data
-────────────────────────────────────────────────────
+──────────────────────────────────────────────────
 20:31:12    transaction:added     {...}
 
-20:31:12    storage:saved         {key}
+20:31:12    storage:saved         { key }
 
 20:31:12    dashboard:updated     {...}
 
-20:31:12    charts:rendered       {chartId}
+20:31:12    charts:rendered       { chartId }
 
-20:31:12    ui:rendered           nullconst MAX_EVENTS = 1000;
-
-export function addEvent(event, data, timestamp) {
-    timeline.push({ event, data, timestamp });
-
-    if (timeline.length > MAX_EVENTS) {
-        timeline.shift();
-    }
-}
+20:31:12    ui:rendered           nullState
+    │
+    ▼
+Services
+    │
+    ▼
+UITimeline
+    │
+    ▼
+Statistics
+    │
+    ▼
+Visualizationon("*", ({ data, timestamp }, event) => {
+    addEvent(event, data, timestamp);
+});
