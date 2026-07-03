@@ -1,68 +1,35 @@
-devtools/
+on("*", updateTimelineChart);
+on("*", updateEventTypeChart);
+on("*", updateWaterfallChart);
+on("*", updatePanels);
+on("*", updateTable);devtools/
 │
-├── dashboard.html          # Layout
-├── dashboard.js            # Coordinator
+├── dashboard.html
+├── dashboard.js          ← Coordinator
 │
-├── timeline.js             # Event store
-├── statistics.js           # Derived metrics
+├── timeline.js           ← Event store
+├── statistics.js         ← Metrics
 │
 ├── charts/
 │   ├── timelineChart.js
 │   ├── eventTypeChart.js
 │   └── waterfallChart.js
 │
-├── panels.js               # Summary cards
-├── table.js                # Event table
-└── utils.js                # Shared helpers (optional)Event Bus
+├── panels.js
+├── table.js
+└── utils.jsEvent Bus
     │
     ▼
-on("*")
+dashboard.js
     │
     ▼
 timeline.addEvent()
     │
-    ├───────────────┐
-    ▼               ▼
-statistics      dashboard
-    │               │
-    ▼               ▼
-metrics      charts / panels / tableconst MAX_EVENTS = 1000;
-
-export const timeline = [];
-
-export function addEvent(event, data, timestamp) {
-    timeline.push({
-        event,
-        data,
-        timestamp
-    });
-
-    if (timeline.length > MAX_EVENTS) {
-        timeline.shift();
-    }
-}
-
-export function getTimeline() {
-    return timeline;
-}
-
-export function clearTimeline() {
-    timeline.length = 0;
-}export function getTotalEvents() {}
-
-export function getEventCounts() {}
-
-export function getAverageRefreshTime() {}
-
-export function getLastEvent() {}
-
-export function getRefreshHistory() {}
-
-export function getEventsPerSecond() {}
-
-export function getSlowestRefresh() {}
-
-export function getFastestRefresh() {}on("*", ({ data, timestamp }, event) => {
+    ▼
+statistics
+    │
+    ▼
+Render UIon("*", ({ data, timestamp }, event) => {
 
     addEvent(event, data, timestamp);
 
@@ -75,81 +42,88 @@ export function getFastestRefresh() {}on("*", ({ data, timestamp }, event) => {
     renderWaterfallChart();
 
     renderTable();
-});+------------------------------------------------------+
-| Total Events | Avg Refresh | Last Event | FPS        |
-+------------------------------------------------------+Total Events
-────────────
-324
+
+});const MAX_EVENTS = 1000;
+
+export const timeline = [];
+
+export function addEvent(event, data, timestamp) {
+
+    timeline.push({
+        event,
+        data,
+        timestamp
+    });
+
+    if (timeline.length > MAX_EVENTS) {
+        timeline.shift();
+    }
+
+}getTotalEvents()
+
+getEventCounts()
+
+getAverageRefreshTime()
+
+getLastEvent()
+
+getRefreshHistory()
+
+getEventsPerSecond()
+
+getSlowestRefresh()
+
+getFastestRefresh()export function renderTimelineChart() {
+
+    const events = getTimeline();
+
+    // draw chart
+
+}export function renderEventTypeChart() {
+
+    const counts = getEventCounts();
+
+    // draw chart
+
+}Total Events
 
 Average Refresh
-───────────────
-18 ms
 
 Last Event
-──────────
-ui:rendered
 
-FPS
-───
-60Time
-│
-│       ●
-│          ●
-│              ●
-│                  ●
-└────────────────────────────►
+FPSrenderPanels()getTotalEvents()
 
-transaction
-storage
-dashboard
-uitransaction:added     ████████████
+getAverageRefreshTime()
 
-storage:saved         █████████
+getLastEvent()
 
-dashboard:updated     ████████
-
-charts:rendered       ███████
-
-ui:rendered           ███████
-
-theme:changed         ███Transaction Added
-        │
-        ▼
-Storage Saved
-        │ 4 ms
-        ▼
-Dashboard Updated
-        │ 3 ms
-        ▼
-Charts Rendered
-        │ 2 ms
-        ▼
-Theme Changed
-        │ 1 ms
-        ▼
-UI Renderedconst duration =
-    current.timestamp - previous.timestamp;Time        Event                 Data
-──────────────────────────────────────────────────
-20:31:12    transaction:added     {...}
-
-20:31:12    storage:saved         { key }
-
-20:31:12    dashboard:updated     {...}
-
-20:31:12    charts:rendered       { chartId }
-
-20:31:12    ui:rendered           nullState
+getEventsPerSecond()renderTable();getTimeline()             Event Bus
+                 │
+                 ▼
+           dashboard.js
+                 │
+      ┌──────────┴──────────┐
+      ▼                     ▼
+ timeline.js         statistics.js
+      │                     │
+      └──────────┬──────────┘
+                 ▼
+      Charts • Panels • TableFeature
+    │
+    ▼
+Core State
     │
     ▼
 Services
     │
     ▼
-UITimeline
+UIEvents
+    │
+    ▼
+Timeline
     │
     ▼
 Statistics
     │
     ▼
-Visualizationon("*", ({ data, timestamp }, event) => {
-    addEvent(event, data, timestamp);
-});
+Visualization
