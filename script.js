@@ -39,7 +39,7 @@ export function registerModal(modal) {
     });
 }
 
-// Attach one global Escape handler
+// One global Escape handler
 document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
         const openModalEl = document.querySelector(".modal.show");
