@@ -1,62 +1,67 @@
-const modal = document.getElementById("budgetModal");
-const content = modal.querySelector(".modal-content");
+const previousFocus = new WeakMap();
 
-let previousFocus = null;
+export function openModal(modal) {
+    const content = modal.querySelector(".modal-content");
 
-export function openBudgetModal() {
-    previousFocus = document.activeElement;
+    previousFocus.set(modal, document.activeElement);
 
     modal.classList.add("show");
     modal.setAttribute("aria-hidden", "false");
 
-    content.focus();
+    content?.focus();
 }
 
-export function closeBudgetModal() {
+export function closeModal(modal) {
     modal.classList.remove("show");
     modal.setAttribute("aria-hidden", "true");
 
-    previousFocus?.focus();
+    previousFocus.get(modal)?.focus();
 }
 
-modal.addEventListener("click", event => {
-    if (event.target === modal) {
-        closeBudgetModal();
-    }
-});
+export function registerModal(modal) {
+    const content = modal.querySelector(".modal-content");
 
-content.addEventListener("click", event => {
-    event.stopPropagation();
-});
-
-document.addEventListener("keydown", event => {
-    if (
-        event.key === "Escape" &&
-        modal.classList.contains("show")
-    ) {
-        closeBudgetModal();
-    }
-});import { openBudgetModal } from "./modal.js";
-import { emitEvent } from "../core/events.js";
-import { EVENTS } from "../core/eventNames.js";
-
-function handleAddBudget() {
-    openBudgetModal();
-
-    emitEvent(EVENTS.MODAL_OPENED, {
-        id: "budget"
+    modal.addEventListener("click", event => {
+        if (event.target === modal) {
+            closeModal(modal);
+        }
     });
-}import { closeBudgetModal } from "./modal.js";
 
-function handleCloseBudget() {
-    closeBudgetModal();
-
-    emitEvent(EVENTS.MODAL_CLOSED, {
-        id: "budget"
+    content?.addEventListener("click", event => {
+        event.stopPropagation();
     });
-}export function openModal(modal) { ... }
 
-export function closeModal(modal) { ... }openModal(budgetModal);
-openModal(transactionModal);
-openModal(settingsModal);
-openModal(importModal);
+    document.addEventListener("keydown", event => {
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains("show")
+        ) {
+            closeModal(modal);
+        }
+    });
+}import {
+    openModal,
+    closeModal,
+    registerModal
+} from "../shared/modal/modal.js";
+
+const budgetModal = document.getElementById("budgetModal");
+
+registerModal(budgetModal);openModal(budgetModal);
+
+emitEvent(EVENTS.MODAL_OPENED, {
+    id: "budget"
+});closeModal(budgetModal);
+
+emitEvent(EVENTS.MODAL_CLOSED, {
+    id: "budget"
+});const transactionModal =
+    document.getElementById("transactionModal");
+
+registerModal(transactionModal);
+
+openModal(transactionModal);registerModal(modal);
+
+openModal(modal);
+
+closeModal(modal);
