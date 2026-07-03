@@ -1,9 +1,3 @@
-<!-- Trigger button -->
-<button type="button" id="openBudgetModal">
-  Open Budget Modal
-</button>
-
-<!-- Modal -->
 <div
     id="budgetModal"
     class="modal"
@@ -13,11 +7,14 @@
     aria-describedby="budgetModalDescription"
     aria-hidden="true">
 
-    <div class="modal-content" tabindex="-1">
+    <div
+        class="modal-content"
+        tabindex="-1">
 
         <header class="modal-header">
-            <h2 id="budgetModalTitle">Budget</h2>
-            <p id="budgetModalDescription">Create or edit a budget.</p>
+            <h2 id="budgetModalTitle">
+                Budget
+            </h2>
 
             <button
                 type="button"
@@ -29,8 +26,15 @@
         </header>
 
         <div class="modal-body">
+
+            <p id="budgetModalDescription" class="sr-only">
+                Create or edit a budget.
+            </p>
+
             <!-- Form goes here -->
+
         </div>
 
     </div>
+
 </div>
