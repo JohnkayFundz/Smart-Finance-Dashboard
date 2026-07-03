@@ -4,41 +4,32 @@
                      main.js
                         │
                         ▼
-                     app.js
-                 (Lifecycle)
+                  app.initialize()
                         │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
-    Features         Services         Shared
-        │               │                │
-        └───────────────┼────────────────┘
                         ▼
-                      Core
-              (Single Source of Truth)
-                        ▲
+                  User Interaction
                         │
-                  Update State
+                        ▼
+                     Features
                         │
-                    app.refresh()
+                        ▼
+                Update Core State
+                        │
+                        ▼
+                   app.refresh()
                         │
         ┌───────────────┼────────────────────────────┐
         ▼               ▼              ▼            ▼
  Storage Service   Dashboard      Charts        Theme
         │            Service       Service      Service
         │               │              │            │
+        ▼               ▼              ▼            ▼
+ storage:saved   dashboard:updated  charts:rendered theme:changed
         │               │              │            │
- emit(storage:saved)    │      emit(charts:rendered)
+        └───────────────┴──────────────┴────────────┘
                         │
-            emit(dashboard:updated)
-                        │
+                        ▼
+              Optional Event Listeners
         ┌───────────────┼──────────────────────────┐
         ▼               ▼              ▼           ▼
-    Logger         Analytics     Notifications   DevToolsdashboard:updated
-    Emitter:
-        dashboard.js
-
-    Listeners:
-        analytics.js
-        logger.js
-        devtools.js
-        notifications.js
+     Logger        Analytics     Notifications   DevTools
