@@ -6,22 +6,38 @@
     aria-labelledby="budgetModalTitle"
     aria-hidden="true">
 
-    <div class="modal-content" tabindex="-1">
+    <div
+        class="modal-content"
+        tabindex="-1">
 
-        <div class="modal-header">
-            <h2 id="budgetModalTitle">Budget</h2>
+        <header class="modal-header">
+            <h2 id="budgetModalTitle">
+                Budget
+            </h2>
 
             <button
+                type="button"
                 id="closeBudgetModal"
                 class="close-btn"
                 aria-label="Close dialog">
                 ×
             </button>
-        </div>
+        </header>
 
         <div class="modal-body">
             <!-- Form goes here -->
         </div>
 
     </div>
+
 </div>
+<button type="button">
+<header class="modal-header">
+<p id="budgetModalDescription">
+    Create or edit a budget.
+</p>
+<div
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="budgetModalTitle"
+    aria-describedby="budgetModalDescription">
