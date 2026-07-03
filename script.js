@@ -1,5 +1,5 @@
 Browser
-    │ 
+    │
     ▼
 main.js
     │
@@ -22,7 +22,16 @@ app.refresh()
     ├── Dashboard Service
     ├── Charts Service
     ├── Theme Service
-    └── UI RendererDashboard Service
+    └── UI RendererFeature
+    │
+    ▼
+Core State
+    │
+    ▼
+Services read state
+    │
+    ▼
+UI renders stateDashboard Service
         │
         ▼
 dashboard:updated
@@ -30,16 +39,53 @@ dashboard:updated
         ├── Logger
         ├── Analytics
         ├── Notifications
-        └── DevToolsdashboard:updated
+        └── DevTools✓ Feature
+      │
+      ▼
+state.transactions.push(...)✗ Dashboard Service
 
-Emitter:
-    services/dashboard.js
+✗ Charts Service
 
-Listeners:
-    analytics.js
-    logger.js
-    devtools.js
-    notifications.js| Event                 | Emitter                                 |
+✗ UI Renderer
+
+✗ Loggerapp.refresh()
+    │
+    ├── Storage
+    ├── Dashboard
+    ├── Charts
+    ├── Theme
+    └── UIDashboard
+    │
+    ▼
+Charts
+
+Charts
+    │
+    ▼
+Storage
+
+Storage
+    │
+    ▼
+ThemeDashboard updated
+        │
+        ▼
+emit(dashboard:updated)
+        │
+        ▼
+AnalyticsDashboard updated
+        │
+        ▼
+emit(dashboard:updated)
+        │
+        ▼
+Storage.save()
+
+Charts.render()
+
+Theme.apply()
+
+UI.render()| Event                 | Emitter                                 |
 | --------------------- | --------------------------------------- |
 | `transaction:added`   | `features/transactions/transactions.js` |
 | `transaction:updated` | `features/transactions/transactions.js` |
@@ -57,3 +103,11 @@ Listeners:
 | `ui:rendered`       | `shared/ui/index.js`    |
 | `export:finished`   | `services/export.js`    |
 | `import:finished`   | `services/import.js`    |
+emit(EVENTS.DASHBOARD_UPDATED, {
+    dashboard,
+    timestamp: Date.now()
+});emit(EVENTS.TRANSACTION_ADDED, {
+    transaction,
+    source: "transactions",
+    timestamp: Date.now()
+});
