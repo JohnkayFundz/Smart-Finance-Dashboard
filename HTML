@@ -1,24 +1,21 @@
-<strong class="${remaining < 0 ? 'danger-text' : 'success-text'}">
-    ${remainingText}
-</strong>
+<div class="panels">
+    <section class="panel" id="panel-total-events">
+        <h3>Total Events</h3>
+        <p id="total-events">0</p>
+    </section>
 
-<div class="budget-info">
-    <span>Budget</span>
-    <strong>${currency.format(Number(budget.amount) || 0)}</strong>
-</div>
+    <section class="panel" id="panel-average-refresh">
+        <h3>Average Refresh</h3>
+        <p id="avg-refresh">0 ms</p>
+    </section>
 
-<div class="budget-actions">
-    <button
-        class="edit-budget"
-        data-id="${budget.id}"
-        aria-label="Edit ${budget.name} budget">
-        ✏ Edit
-    </button>
+    <section class="panel" id="panel-last-event">
+        <h3>Last Event</h3>
+        <p id="last-event">None</p>
+    </section>
 
-    <button
-        class="delete-budget"
-        data-id="${budget.id}"
-        aria-label="Delete ${budget.name} budget">
-        🗑 Delete
-    </button>
+    <section class="panel" id="panel-fps">
+        <h3>FPS</h3>
+        <p id="fps">0</p>
+    </section>
 </div>
