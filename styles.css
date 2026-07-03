@@ -1,21 +1,21 @@
 #budgetModal {
-  display: none;
-  opacity: 0;
-  transition: opacity .3s ease;
-}
-
-#budgetModal.show {
-  display: block;
-  opacity: 1;
-}#budgetModal {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
 }
 
 #budgetModal.show {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+}
+
+#budgetModal .modal-content {
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.3s ease;
+}
+
+#budgetModal.show .modal-content {
+    transform: translateY(0) scale(1);
 }
