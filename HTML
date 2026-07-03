@@ -1,19 +1,23 @@
+<!-- Trigger button -->
+<button type="button" id="openBudgetModal">
+  Open Budget Modal
+</button>
+
+<!-- Modal -->
 <div
     id="budgetModal"
     class="modal"
     role="dialog"
     aria-modal="true"
     aria-labelledby="budgetModalTitle"
+    aria-describedby="budgetModalDescription"
     aria-hidden="true">
 
-    <div
-        class="modal-content"
-        tabindex="-1">
+    <div class="modal-content" tabindex="-1">
 
         <header class="modal-header">
-            <h2 id="budgetModalTitle">
-                Budget
-            </h2>
+            <h2 id="budgetModalTitle">Budget</h2>
+            <p id="budgetModalDescription">Create or edit a budget.</p>
 
             <button
                 type="button"
@@ -29,15 +33,4 @@
         </div>
 
     </div>
-
 </div>
-<button type="button">
-<header class="modal-header">
-<p id="budgetModalDescription">
-    Create or edit a budget.
-</p>
-<div
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="budgetModalTitle"
-    aria-describedby="budgetModalDescription">
