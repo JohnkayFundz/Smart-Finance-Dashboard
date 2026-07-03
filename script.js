@@ -7,8 +7,12 @@ export function openModal(modal) {
 
     modal.classList.add("show");
     modal.setAttribute("aria-hidden", "false");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
 
     content?.focus();
+
+    emitEvent(EVENTS.MODAL_OPENED, { id: modal.id });
 }
 
 export function closeModal(modal) {
@@ -16,6 +20,9 @@ export function closeModal(modal) {
     modal.setAttribute("aria-hidden", "true");
 
     previousFocus.get(modal)?.focus();
+    previousFocus.delete(modal);
+
+    emitEvent(EVENTS.MODAL_CLOSED, { id: modal.id });
 }
 
 export function registerModal(modal) {
@@ -32,36 +39,21 @@ export function registerModal(modal) {
     });
 
     document.addEventListener("keydown", event => {
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("show")
-        ) {
+        if (event.key === "Escape" && modal.classList.contains("show")) {
             closeModal(modal);
         }
     });
-}import {
-    openModal,
-    closeModal,
-    registerModal
-} from "../shared/modal/modal.js";
+}
+import { openModal, closeModal, registerModal } from "../shared/modal/modal.js";
 
 const budgetModal = document.getElementById("budgetModal");
+registerModal(budgetModal);
 
-registerModal(budgetModal);openModal(budgetModal);
+// Open when needed
+openModal(budgetModal);
 
-emitEvent(EVENTS.MODAL_OPENED, {
-    id: "budget"
-});closeModal(budgetModal);
+// Close when needed
+closeModal(budgetModal);
 
-emitEvent(EVENTS.MODAL_CLOSED, {
-    id: "budget"
-});const transactionModal =
-    document.getElementById("transactionModal");
-
+const transactionModal = document.getElementById("transactionModal");
 registerModal(transactionModal);
-
-openModal(transactionModal);registerModal(modal);
-
-openModal(modal);
-
-closeModal(modal);
