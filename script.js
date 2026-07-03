@@ -1,20 +1,54 @@
-import { openModal, closeModal, registerModal } from "../shared/modal/modal.js";
+export function registerModal(modal) {
+    const content = modal.querySelector(".modal-content");
+    const closeButton = modal.querySelector(".close-btn");
 
-const budgetModal = document.getElementById("budgetModal");
-registerModal(budgetModal);
+    modal.addEventListener("click", event => {
+        if (event.target === modal) {
+            closeModal(modal);
+        }
+    });
 
-const transactionModal = document.getElementById("transactionModal");
-registerModal(transactionModal);
+    content?.addEventListener("click", event => {
+        event.stopPropagation();
+    });
 
-// Example: open on button click
-document.getElementById("openBudgetBtn").addEventListener("click", () => {
-    openModal(budgetModal);
-});
+    closeButton?.addEventListener("click", () => {
+        closeModal(modal);
+    });
 
-document.getElementById("closeBudgetBtn").addEventListener("click", () => {
-    closeModal(budgetModal);
-});
+    document.addEventListener("keydown", event => {
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains("show")
+        ) {
+            closeModal(modal);
+        }
+    });
+}openModal(budgetModal);
+openModal(transactionModal);
+openModal(settingsModal);document.addEventListener("click", event => {
 
-document.getElementById("openTransactionBtn").addEventListener("click", () => {
-    openModal(transactionModal);
-});
+    const trigger = event.target.closest("[data-open-modal]");
+
+    if (!trigger) {
+        return;
+    }
+
+    const modal = document.getElementById(
+        trigger.dataset.openModal
+    );
+
+    if (modal) {
+        openModal(modal);
+    }
+
+});document
+    .querySelectorAll(".modal")
+    .forEach(registerModal);
+    .forEach(registerModal);import {
+    registerAllModals,
+    initModalTriggers
+} from "../shared/modal/modal.js";
+
+registerAllModals();
+initModalTriggers();
