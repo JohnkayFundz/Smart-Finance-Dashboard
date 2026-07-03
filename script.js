@@ -4,32 +4,47 @@
                      main.js
                         │
                         ▼
-                  app.initialize()
+                     app.js
+                 (Lifecycle)
                         │
+        ┌───────────────┼────────────────┐
+        ▼               ▼                ▼
+    Features         Services         Shared
+        │               │                │
+        └───────────────┼────────────────┘
                         ▼
-                  User Interaction
+                      Core
+              (Single Source of Truth)
+                        ▲
                         │
-                        ▼
-                     Features
+                  Update State
                         │
-                        ▼
-                Update Core State
+                    app.refresh()
                         │
-                        ▼
-                   app.refresh()
-                        │
-        ┌───────────────┼────────────────────────────┐
-        ▼               ▼              ▼            ▼
- Storage Service   Dashboard      Charts        Theme
-        │            Service       Service      Service
-        │               │              │            │
-        ▼               ▼              ▼            ▼
- storage:saved   dashboard:updated  charts:rendered theme:changed
-        │               │              │            │
-        └───────────────┴──────────────┴────────────┘
+ ┌─────────────┬─────────────┬────────────┬────────────┬─────────────┐
+ ▼             ▼             ▼            ▼            ▼
+Storage    Dashboard      Charts       Theme     UI Renderer
+Service     Service       Service      Service      (Shared)
+ │             │             │            │            │
+ │             │             │            │            │
+emit(...)   emit(...)     emit(...)   emit(...)   emit(ui:rendered)
+ │             │             │            │            │
+ └─────────────┴─────────────┴────────────┴────────────┘
                         │
                         ▼
               Optional Event Listeners
         ┌───────────────┼──────────────────────────┐
         ▼               ▼              ▼           ▼
-     Logger        Analytics     Notifications   DevTools
+     Logger        Analytics     Notifications   DevTools| Event                 | Emitter                                 |
+| --------------------- | --------------------------------------- |
+| `transaction:added`   | `features/transactions/transactions.js` |
+| `transaction:updated` | `features/transactions/transactions.js` |
+| `budget:created`      | `features/budgets/budgets.js`           |
+| `goal:completed`      | `features/goals/goals.js`               |
+| `storage:saved`       | `services/storage.js`                   |
+| `dashboard:updated`   | `services/dashboard.js`                 |
+| `charts:rendered`     | `services/charts.js`                    |
+| `theme:changed`       | `services/theme.js`                     |
+| `ui:rendered`         | `shared/ui/index.js`                    |
+| `export:finished`     | `services/export.js`                    |
+| `import:finished`     | `services/import.js`                    |
