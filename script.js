@@ -1,80 +1,65 @@
-// devtools/timeline.js
-import { on } from "../core/events.js";
-
-const timeline = [];
-let currentCycle = null;
+{
+    mode: "transaction",
+    startedAt: 1720000000,
+    endedAt: 1720000012,
+    duration: 12,
+    events: [
+        {
+            event: "storage:saved",
+            data: ...,
+            timestamp: 1720000003
+        },
+        {
+            event: "dashboard:updated",
+            data: ...,
+            timestamp: 1720000006
+        }
+    ]
+}timestampconsole.clear();
+console.table(...);addEvent(...)emitEvent(EVENTS.DEVTOOLS_UPDATED);renderTable();
+renderTimelineChart();
+renderPanels();let cycleId = 0;
 
 export function startCycle(mode) {
-  currentCycle = {
-    mode,
-    events: [],
-    startedAt: Date.now()
-  };
-  timeline.push(currentCycle);
-}
+    currentCycle = {
+        id: ++cycleId,
+        mode,
+        startedAt: performance.now(),
+        events: []
+    };
 
-export function endCycle() {
-  if (currentCycle) {
-    currentCycle.endedAt = Date.now();
-    currentCycle.duration = currentCycle.endedAt - currentCycle.startedAt;
-    currentCycle = null;
-  }
-}
+    timeline.push(currentCycle);
+}startedAt: performance.now(){
+    startedAt: performance.now(),
+    startedTime: Date.now()
+}Transaction Refresh
 
-export function initTimelineLogger(events) {
-  events.forEach(event => {
-    on(event, ({ data, timestamp }) => {
-      const entry = { event, data, timestamp: new Date(timestamp).toLocaleTimeString() };
-
-      if (currentCycle) {
-        currentCycle.events.push(entry);
-      } else {
-        timeline.push(entry);
-      }
-
-      console.clear();
-      console.table(timeline.map(t => ({
-        mode: t.mode || "-",
-        eventCount: t.events ? t.events.length : 1,
-        duration: t.duration || "-",
-        lastEvent: t.events ? t.events[t.events.length - 1]?.event : t.event,
-        timestamp: t.endedAt ? new Date(t.endedAt).toLocaleTimeString() : t.timestamp
-      })));
-    });
-  });
-}
-
-export function getTimeline() {
-  return timeline;
-}
-import { startCycle, endCycle, initTimelineLogger } from "./devtools/timeline.js";
-import { EVENTS } from "./core/constants.js";
-
-initTimelineLogger([
-  EVENTS.TRANSACTION_ADDED,
-  EVENTS.TRANSACTION_UPDATED,
-  EVENTS.BUDGET_UPDATED,
-  EVENTS.DASHBOARD_UPDATED,
-  EVENTS.CHARTS_RENDERED,
-  EVENTS.THEME_CHANGED,
-  EVENTS.UI_RENDERED
-]);
-
-export function refresh(mode = "full") {
-  startCycle(mode);
-
-  // existing refresh pipeline
-  if (options.storage) refreshStorage();
-  if (options.dashboard) refreshDashboard();
-  if (options.charts) refreshCharts();
-  if (options.theme) refreshTheme();
-  if (options.ui) refreshUI();
-
-  endCycle();
-}
-┌─────────┬───────────────┬─────────────┬───────────────┬───────────────┐
-│ (index) │     mode      │ eventCount  │   duration    │   lastEvent   │
-├─────────┼───────────────┼─────────────┼───────────────┼───────────────┤
-│    0    │ 'transaction' │      4      │    12 ms      │ 'ui:rendered' │
-│    1    │ 'budget'      │      3      │    9 ms       │ 'charts:rendered' │
-└─────────┴───────────────┴─────────────┴───────────────┴───────────────┘
+Storage       ███ 2 ms
+Dashboard     █████ 5 ms
+Charts        ██ 1 ms
+Theme         █ 0.5 ms
+UI            ████ 4 msFeature
+    │
+    ▼
+Core State
+    │
+    ▼
+Refresh Pipeline
+    │
+    ▼
+Refresh Cycle
+    │
+    ├── storage:saved
+    ├── dashboard:updated
+    ├── charts:rendered
+    ├── theme:changed
+    └── ui:rendered
+    │
+    ▼
+Timeline Store
+    │
+    ▼
+Statistics
+    │
+    ▼
+Charts • Panels • Table
