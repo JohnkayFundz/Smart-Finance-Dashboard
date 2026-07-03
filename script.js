@@ -13,10 +13,15 @@ clear(event?)export function emitEvent(event, data = null) {
     });
 }emitEvent(EVENTS.TRANSACTION_ADDED, transaction);
 emitEvent(EVENTS.TRANSACTION_UPDATED, transaction);
+
 emitEvent(EVENTS.BUDGET_UPDATED, budget);
+
 emitEvent(EVENTS.DASHBOARD_UPDATED, dashboard);
+
 emitEvent(EVENTS.THEME_CHANGED, theme);
+
 emitEvent(EVENTS.GOAL_COMPLETED, goal);
+
 emitEvent(EVENTS.UI_RENDERED);on(EVENTS.TRANSACTION_ADDED, ({ data, timestamp }) => {
     console.log(data);
 });on(EVENTS.DASHBOARD_UPDATED, ({ data, timestamp }) => {
