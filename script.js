@@ -1,45 +1,72 @@
-                     Browser
-                        │
-                        ▼
-                     main.js
-                        │
-                        ▼
-                     app.js
-                 (Lifecycle)
-                        │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
-    Features         Services         Shared
-        │               │                │
-        └───────────────┼────────────────┘
-                        ▼
-                      Core
-              (Single Source of Truth)
-                        ▲
-                        │
-                  Update State
-                        │
-                    app.refresh()
-                        │
- ┌─────────────┬─────────────┬────────────┬────────────┬─────────────┐
- ▼             ▼             ▼            ▼            ▼
-Storage    Dashboard      Charts       Theme     UI Renderer
-Service     Service       Service      Service      (Shared)
- │             │             │            │            │
- │             │             │            │            │
-emit(...)   emit(...)     emit(...)   emit(...)   emit(ui:rendered)
- │             │             │            │            │
- └─────────────┴─────────────┴────────────┴────────────┘
-                        │
-                        ▼
-              Optional Event Listeners
-        ┌───────────────┼──────────────────────────┐
-        ▼               ▼              ▼           ▼
-     Logger        Analytics     Notifications   DevTools| Event                 | Emitter                                 |
+Browser
+    │
+    ▼
+main.js
+    │
+    ▼
+app.initialize()
+    │
+    ▼
+User Action
+    │
+    ▼
+Feature
+    │
+    ▼
+Update Core State
+    │
+    ▼
+app.refresh()app.refresh()
+    │
+    ├── Storage Service
+    ├── Dashboard Service
+    ├── Charts Service
+    ├── Theme Service
+    └── UI RendererStorage Service
+    │
+    ▼
+storage:saved
+
+Dashboard Service
+    │
+    ▼
+dashboard:updated
+
+Charts Service
+    │
+    ▼
+charts:rendered
+
+Theme Service
+    │
+    ▼
+theme:changed
+
+UI Renderer
+    │
+    ▼
+ui:rendereddashboard:updated
+        │
+        ├── Logger
+        ├── Analytics
+        ├── Notifications
+        └── DevToolsdashboard:updated
+
+Emitter:
+    services/dashboard.js
+
+Listeners:
+    analytics.js
+    logger.js
+    devtools.js
+    notifications.js| Event                 | Emitter                                 |
 | --------------------- | --------------------------------------- |
 | `transaction:added`   | `features/transactions/transactions.js` |
 | `transaction:updated` | `features/transactions/transactions.js` |
+| `transaction:deleted` | `features/transactions/transactions.js` |
 | `budget:created`      | `features/budgets/budgets.js`           |
+| `budget:updated`      | `features/budgets/budgets.js`           |
+| `budget:deleted`      | `features/budgets/budgets.js`           |
 | `goal:completed`      | `features/goals/goals.js`               |
 | `storage:saved`       | `services/storage.js`                   |
 | `dashboard:updated`   | `services/dashboard.js`                 |
