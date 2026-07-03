@@ -37,23 +37,26 @@ export function registerModal(modal) {
     content?.addEventListener("click", event => {
         event.stopPropagation();
     });
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape" && modal.classList.contains("show")) {
-            closeModal(modal);
-        }
-    });
 }
+
+// Attach one global Escape handler
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        const openModalEl = document.querySelector(".modal.show");
+        if (openModalEl) {
+            closeModal(openModalEl);
+        }
+    }
+});
 import { openModal, closeModal, registerModal } from "../shared/modal/modal.js";
 
 const budgetModal = document.getElementById("budgetModal");
 registerModal(budgetModal);
 
-// Open when needed
-openModal(budgetModal);
-
-// Close when needed
-closeModal(budgetModal);
-
 const transactionModal = document.getElementById("transactionModal");
 registerModal(transactionModal);
+
+// Example: open on button click
+document.getElementById("openBudgetBtn").addEventListener("click", () => {
+    openModal(budgetModal);
+});
