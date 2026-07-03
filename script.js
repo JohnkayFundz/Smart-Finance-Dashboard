@@ -1,101 +1,133 @@
 devtools/
 │
-├── dashboard.html
-├── dashboard.js
-├── timelineChart.js
-├── eventTypeChart.js
+├── dashboard.html          # UI layout
+├── dashboard.js            # Coordinator
+│
+├── timeline.js             # Event history
+├── statistics.js           # Metrics
+│
+├── charts/
+│   ├── timelineChart.js
+│   ├── eventTypeChart.js
+│   └── waterfallChart.js
+│
 ├── table.js
-└── timeline.js// timeline.js
+└── panels.js               # Summary cardsEvent Bus
+     │
+     ▼
+on("*")
+     │
+     ▼
+timeline.push()
+     │
+     ├────────────┐
+     ▼            ▼
+Statistics    Dashboard
+     │            │
+     ▼            ▼
+Metrics      Charts/Tableexport const timeline = [];
 
-export const timeline = [];on("*", ({ data, timestamp }, event) => {
+export function addEvent(event, data, timestamp) {
     timeline.push({
         event,
         data,
         timestamp
     });
+}export function getTotalEvents() {}
 
-    updateTimelineChart();
-    updateEventTypeChart();
-    updateTable();
-});Time
+export function getEventCounts() {}
+
+export function getAverageRefreshTime() {}
+
+export function getLastEvent() {}
+
+export function getRefreshHistory() {}on("*", ({ data, timestamp }, event) => {
+
+    addEvent(event, data, timestamp);
+
+    renderPanels();
+
+    renderTimelineChart();
+
+    renderEventTypeChart();
+
+    renderWaterfallChart();
+
+    renderTable();
+});+------------------------------------------------------+
+| Total Events | Avg Refresh | Last Event | FPS        |
++------------------------------------------------------+Total Events
+────────────
+324
+
+
+Average Refresh
+───────────────
+18 ms
+
+
+Last Event
+──────────
+ui:rendered
+
+
+FPS
+───
+60Time
 │
-│    ●
-│       ●
-│          ●
+│      ●
+│         ●
 │             ●
-└──────────────────────►
+│                 ●
+└──────────────────────────────►
  transaction
  dashboard
- storage
- uitransaction:added      ███████████
-dashboard:updated      ██████
-storage:saved          ██████
-ui:rendered            ██████
-theme:changed          ██tbody.innerHTML = "";
+ charts
+ uitransaction:added     ████████████
 
-timeline.forEach(({ event, data, timestamp }) => {
-    tbody.insertAdjacentHTML(
-        "beforeend",
-        `
-        <tr>
-            <td>${new Date(timestamp).toLocaleTimeString()}</td>
-            <td>${event}</td>
-            <td>${JSON.stringify(data)}</td>
-        </tr>
-        `
-    );
-});Total Events:           324
+dashboard:updated     █████████
 
-Transactions:            82
+storage:saved         █████████
 
-Dashboard Updates:       82
+charts:rendered       ███████
 
-Charts Rendered:         82
+theme:changed         ███
 
-Storage Saved:           82
-
-UI Rendered:             82
-
-Average Refresh:        18 mstransaction:added
-
-│
-
-storage:saved
-████
-
-dashboard:updated
-██████
-
-charts:rendered
-███████
-
-theme:changed
-████████
-
-ui:rendered
-██████████+------------------------------------------------------+
-| Event Dashboard                                      |
-+------------------------------------------------------+
-
-+------------------------------------------------------+
-| Total Events | Avg Refresh | Last Event | FPS        |
-+------------------------------------------------------+
-
-+----------------------+-------------------------------+
-| Timeline Chart       | Event Type Chart              |
-+----------------------+-------------------------------+
-
-+------------------------------------------------------+
-| Refresh Waterfall                                 |
-+------------------------------------------------------+
-
-+------------------------------------------------------+
-| Live Event Table                                    |
-|------------------------------------------------------|
-| Time | Event | Data                                |
-|----------------------------------------------- ------|
-| ...                                              ... |
-+------------------------------------------------------+{
+ui:rendered           ████████Transaction Added
+        │
+        ▼
+Storage Saved
+        │ 4 ms
+        ▼
+Dashboard Updated
+        │ 3 ms
+        ▼
+Charts Rendered
+        │ 2 ms
+        ▼
+Theme Changed
+        │ 1 ms
+        ▼
+UI Rendered{
     data,
     timestamp
+}const duration =
+    current.timestamp - previous.timestamp;Time        Event                 Data
+────────────────────────────────────────────────────
+20:31:12    transaction:added     {...}
+
+20:31:12    storage:saved         {key}
+
+20:31:12    dashboard:updated     {...}
+
+20:31:12    charts:rendered       {chartId}
+
+20:31:12    ui:rendered           nullconst MAX_EVENTS = 1000;
+
+export function addEvent(event, data, timestamp) {
+    timeline.push({ event, data, timestamp });
+
+    if (timeline.length > MAX_EVENTS) {
+        timeline.shift();
+    }
 }
