@@ -1,63 +1,80 @@
-export function getAverageRefreshTime() {
-    const history = getRefreshHistory();
+// devtools/timeline.js
+import { on } from "../core/events.js";
 
-    if (history.length < 2) {
-        return 0;
-    }
+const timeline = [];
+let currentCycle = null;
 
-    let total = 0;
+export function startCycle(mode) {
+  currentCycle = {
+    mode,
+    events: [],
+    startedAt: Date.now()
+  };
+  timeline.push(currentCycle);
+}
 
-    for (let i = 1; i < history.length; i++) {
-        total += history[i].timestamp - history[i - 1].timestamp;
-    }
+export function endCycle() {
+  if (currentCycle) {
+    currentCycle.endedAt = Date.now();
+    currentCycle.duration = currentCycle.endedAt - currentCycle.startedAt;
+    currentCycle = null;
+  }
+}
 
-    return Math.round(total / (history.length - 1));
-}export function getSlowestRefresh() {
-    const history = getRefreshHistory();
+export function initTimelineLogger(events) {
+  events.forEach(event => {
+    on(event, ({ data, timestamp }) => {
+      const entry = { event, data, timestamp: new Date(timestamp).toLocaleTimeString() };
 
-    if (history.length < 2) {
-        return null;
-    }
+      if (currentCycle) {
+        currentCycle.events.push(entry);
+      } else {
+        timeline.push(entry);
+      }
 
-    let slowest = 0;
+      console.clear();
+      console.table(timeline.map(t => ({
+        mode: t.mode || "-",
+        eventCount: t.events ? t.events.length : 1,
+        duration: t.duration || "-",
+        lastEvent: t.events ? t.events[t.events.length - 1]?.event : t.event,
+        timestamp: t.endedAt ? new Date(t.endedAt).toLocaleTimeString() : t.timestamp
+      })));
+    });
+  });
+}
 
-    for (let i = 1; i < history.length; i++) {
-        slowest = Math.max(
-            slowest,
-            history[i].timestamp - history[i - 1].timestamp
-        );
-    }
+export function getTimeline() {
+  return timeline;
+}
+import { startCycle, endCycle, initTimelineLogger } from "./devtools/timeline.js";
+import { EVENTS } from "./core/constants.js";
 
-    return slowest;
-}export function getFastestRefresh() {
-    const history = getRefreshHistory();
+initTimelineLogger([
+  EVENTS.TRANSACTION_ADDED,
+  EVENTS.TRANSACTION_UPDATED,
+  EVENTS.BUDGET_UPDATED,
+  EVENTS.DASHBOARD_UPDATED,
+  EVENTS.CHARTS_RENDERED,
+  EVENTS.THEME_CHANGED,
+  EVENTS.UI_RENDERED
+]);
 
-    if (history.length < 2) {
-        return null;
-    }
+export function refresh(mode = "full") {
+  startCycle(mode);
 
-    let fastest = Infinity;
+  // existing refresh pipeline
+  if (options.storage) refreshStorage();
+  if (options.dashboard) refreshDashboard();
+  if (options.charts) refreshCharts();
+  if (options.theme) refreshTheme();
+  if (options.ui) refreshUI();
 
-    for (let i = 1; i < history.length; i++) {
-        fastest = Math.min(
-            fastest,
-            history[i].timestamp - history[i - 1].timestamp
-        );
-    }
-
-    return fastest;
-}import { getTimeline } from "./timeline.js";const timeline = getTimeline();statistics.js
-│
-├── Basic
-│   ├── getTotalEvents()
-│   ├── getLastEvent()
-│   └── getEventCounts()
-│
-├── Timeline
-│   ├── getRefreshHistory()
-│   ├── getAverageRefreshTime()
-│   ├── getFastestRefresh()
-│   └── getSlowestRefresh()
-│
-└── Performance
-    └── getEventsPerSecond()
+  endCycle();
+}
+┌─────────┬───────────────┬─────────────┬───────────────┬───────────────┐
+│ (index) │     mode      │ eventCount  │   duration    │   lastEvent   │
+├─────────┼───────────────┼─────────────┼───────────────┼───────────────┤
+│    0    │ 'transaction' │      4      │    12 ms      │ 'ui:rendered' │
+│    1    │ 'budget'      │      3      │    9 ms       │ 'charts:rendered' │
+└─────────┴───────────────┴─────────────┴───────────────┴───────────────┘
