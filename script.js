@@ -1,58 +1,39 @@
-const listeners = {};
+// devtools.js
+import { on } from "../core/events.js";
 
-export function on(event, handler) {
-  (listeners[event] ||= []).push(handler);
-}
+on("transaction:added", ({ transaction, timestamp }) => {
+  console.log("[DevTools] Transaction added:", transaction, "at", new Date(timestamp));
+});
 
-export function emit(event, payload) {
-  (listeners[event] || []).forEach(handler => handler(payload));
-}
-import { emit } from "../../core/events.js";
-import { state } from "../../core/state.js";
+on("dashboard:updated", ({ dashboard, timestamp }) => {
+  console.log("[DevTools] Dashboard recalculated:", dashboard, "at", new Date(timestamp));
+});
 
-export function addTransaction(transaction) {
-  state.transactions.push(transaction);
-
-  emit("transaction:added", {
+on("ui:rendered", ({ timestamp }) => {
+  console.log("[DevTools] UI rendered at", new Date(timestamp));
+});
+emit(EVENTS.DASHBOARD_UPDATED, {
+    dashboard,
+    timestamp: Date.now()
+});
+emit(EVENTS.TRANSACTION_ADDED, {
     transaction,
     source: "transactions",
     timestamp: Date.now()
-  });
-
-  refresh("transaction");
-}
-import { emit } from "../core/events.js";
-
-export function refreshDashboard() {
-  const dashboard = calculateDashboard();
-  emit("dashboard:updated", {
-    dashboard,
-    timestamp: Date.now()
-  });
-}
-import { emit } from "../../core/events.js";
-
-export function refreshUI() {
-  renderDashboard();
-  renderSidebar();
-  renderTables();
-  renderCards();
-
-  emit("ui:rendered", { timestamp: Date.now() });
-}
-| Event | Emitter |
-| --- | --- |
-| ``transaction:added`` | ``features/transactions/transactions.js`` |
-| ``transaction:updated`` | ``features/transactions/transactions.js`` |
-| ``transaction:deleted`` | ``features/transactions/transactions.js`` |
-| ``budget:created`` | ``features/budgets/budgets.js`` |
-| ``budget:updated`` | ``features/budgets/budgets.js`` |
-| ``budget:deleted`` | ``features/budgets/budgets.js`` |
-| ``goal:completed`` | ``features/goals/goals.js`` |
-| ``storage:saved`` | ``services/storage.js`` |
-| ``dashboard:updated`` | ``services/dashboard.js`` |
-| ``charts:rendered`` | ``services/charts.js`` |
-| ``theme:changed`` | ``services/theme.js`` |
-| ``ui:rendered`` | ``shared/ui/index.js`` |
-| ``export:finished`` | ``services/export.js`` |
-| ``import:finished`` | ``services/import.js`` |
+});
+| Event | Emitter | Typical Payload |
+| --- | --- | --- |
+| ``transaction:added`` | ``features/transactions/transactions.js`` | ``{transaction, ``source, ``timestamp}`` |
+| ``transaction:updated`` | ``features/transactions/transactions.js`` | ``{transaction, ``timestamp}`` |
+| ``transaction:deleted`` | ``features/transactions/transactions.js`` | ``{id, ``timestamp}`` |
+| ``budget:created`` | ``features/budgets/budgets.js`` | ``{budget, ``timestamp}`` |
+| ``budget:updated`` | ``features/budgets/budgets.js`` | ``{budget, ``timestamp}`` |
+| ``budget:deleted`` | ``features/budgets/budgets.js`` | ``{id, ``timestamp}`` |
+| ``goal:completed`` | ``features/goals/goals.js`` | ``{goal, ``timestamp}`` |
+| ``storage:saved`` | ``services/storage.js`` | ``{key, ``timestamp}`` |
+| ``dashboard:updated`` | ``services/dashboard.js`` | ``{dashboard, ``timestamp}`` |
+| ``charts:rendered`` | ``services/charts.js`` | ``{chartId, ``timestamp}`` |
+| ``theme:changed`` | ``services/theme.js`` | ``{theme, ``timestamp}`` |
+| ``ui:rendered`` | ``shared/ui/index.js`` | ``{timestamp}`` |
+| ``export:finished`` | ``services/export.js`` | ``{file, ``timestamp}`` |
+| ``import:finished`` | ``services/import.js`` | ``{file, ``timestamp}`` |
