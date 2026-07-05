@@ -1,10 +1,10 @@
 ## 🌐 Live Demo
 
-Try the application online:
+Experience the Smart Finance Dashboard without installing anything.
 
-👉 **https://your-demo-url.com**
+🚀 **Live Demo:** *Coming Soon*
 
-> **Coming Soon:** The application will be deployed to GitHub Pages, Netlify, or Vercel.
+> The application will be deployed to **GitHub Pages**, **Netlify**, or **Vercel**.
 
 ---
 
@@ -18,16 +18,16 @@ git clone https://github.com/JohnkayFundz/Smart-Finance-Dashboard.git
 cd Smart-Finance-Dashboard
 ```
 
-Then either:
+Launch the application by either:
 
-* Open `index.html` in your browser, or
-* Launch the project using the **VS Code Live Server** extension.
+* Opening `index.html` directly in your browser, or
+* Running the project with the **VS Code Live Server** extension.
 
 ---
 
 ## 🏛 Architecture
 
-The application follows a modular architecture that separates business logic, shared utilities, UI rendering, and data persistence.
+The Smart Finance Dashboard is built using a modular architecture that promotes scalability, maintainability, and separation of concerns. Business logic, reusable UI components, shared utilities, and data persistence are organized into independent modules.
 
 ```text
 Browser
@@ -38,7 +38,7 @@ main.js
    ▼
 app.js
    │
- ┌───────────────┬───────────────┐
+ ┌───────────────┬───────────────┬───────────────┐
  ▼               ▼               ▼
 Features      Services        Shared
  │               │               │
@@ -57,13 +57,13 @@ Features      Services        Shared
 ```text
 src/
 ├── app/               # Application bootstrap
-├── core/              # State management, helpers, constants
+├── core/              # State management, constants, helpers
 ├── features/          # Budgets, dashboard, transactions
-├── services/          # Storage services
+├── services/          # Local storage and data services
 ├── shared/
 │   ├── components/    # Reusable UI components
 │   ├── modal/         # Modal system
-│   ├── utils/         # Shared utilities
+│   ├── utils/         # Shared helper functions
 │   └── validators/    # Form validation
 └── main.js            # Application entry point
 ```
@@ -73,9 +73,7 @@ src/
 ## 📊 Repository Statistics
 
 ![GitHub Stars](https://img.shields.io/github/stars/JohnkayFundz/Smart-Finance-Dashboard?style=for-the-badge)
-
 ![GitHub Forks](https://img.shields.io/github/forks/JohnkayFundz/Smart-Finance-Dashboard?style=for-the-badge)
-
 ![Last Commit](https://img.shields.io/github/last-commit/JohnkayFundz/Smart-Finance-Dashboard?style=for-the-badge)
 
 ---
@@ -84,12 +82,24 @@ src/
 
 ### 🏠 Dashboard Overview
 
+A real-time overview of your budgets, income, expenses, and remaining balance.
+
+```md
 ![Dashboard](assets/screenshots/dashboard.png)
+```
 
 ### 💳 Budget Management
 
+Create, edit, and manage budgets with automatic remaining balance calculations.
+
+```md
 ![Budgets](assets/screenshots/budgets.png)
+```
 
-### 💸 Transaction History
+### 💸 Transaction Management
 
+Track income and expenses with a clean, organized transaction history.
+
+```md
 ![Transactions](assets/screenshots/transactions.png)
+```
