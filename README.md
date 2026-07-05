@@ -1,26 +1,15 @@
-## 📸 Screenshots
+## 🌐 Live Demo
 
-### Dashboard
+Try the application online:
 
-![Dashboard](assets/screenshots/dashboard.png)
+👉 **https://your-demo-url.com**
 
-### Budget Management
+> No installation required.## 🏛 Architecture
 
-![Budgets](assets/screenshots/budgets.png)
+The application follows a modular architecture that separates business logic, shared utilities, UI rendering, and data persistence.
 
-### Transactions
-
-![Transactions](assets/screenshots/transactions.png)## 🌐 Live Demo
-
-https://your-demo-url.com## 🚀 Highlights
-
-- Built with Vanilla JavaScript (ES6 Modules)
-- Fully modular architecture
-- Persistent local storage
-- Responsive UI
-- Reusable components
-- Clean separation of concerns
-- No external frameworksBrowser
+```text
+Browser
    │
    ▼
 main.js
@@ -37,79 +26,29 @@ Features     Services
      Core State
         │
         ▼
-   Local Storage## 🏗 Design Principles
-
-- Single Responsibility Principle
-- Modular Architecture
-- Separation of Concerns
-- Reusable Components
-- Event Delegation
-- Immutable Constants
-- Clean Code Practices## 🔮 Future Enhancements
-
-- Analytics Dashboard
-- Monthly Reports
-- Charts
-- Cloud Synchronization
-- User Authentication
-- Categories
-- Recurring Transactions
-- Budget Notifications## 💡 Skills Demonstrated
-
-- DOM Manipulation
-- ES6 Modules
-- State Management
-- Form Validation
-- Local Storage API
-- Event Delegation
-- Component-Based Design
-- Responsive Design
-- Code Organization## ⚡ Performance
-
-- Lightweight
-- No external libraries
-- Fast rendering
-- Modular loading
-- Optimized event listeners## 🎯 Why I Built This
-
-I built Smart Finance Dashboard to strengthen my JavaScript skills by creating a real-world application with a scalable architecture. The project focuses on clean code, modular design, reusable components, and maintainable software practices rather than relying on frameworks.src/
+   Local Storage
+```src/
 ├── app/           # Application bootstrap
-├── core/          # State and utilities
-├── features/      # Business features
+├── core/          # State management, helpers, constants
+├── features/      # Budgets, dashboard, transactions
 ├── services/      # Storage services
-├── shared/        # Reusable UI and helpers
-└── main.js        # Entry pointjavascript
-finance
-budget
-dashboard
-expense-tracker
-money
-vanilla-js
-frontend
-responsive
-localstorage
-es6
-modules![GitHub stars](...)
-![GitHub forks](...)
-![Last commit](...)## ♿ Accessibility
+├── shared/        # Components, modals, validators, utilities
+└── main.js        # Application entry point![Stars](https://img.shields.io/github/stars/JohnkayFundz/Smart-Finance-Dashboard)
+![Forks](https://img.shields.io/github/forks/JohnkayFundz/Smart-Finance-Dashboard)
+![Last Commit](https://img.shields.io/github/last-commit/JohnkayFundz/Smart-Finance-Dashboard)## 📸 Screenshots
 
-- Semantic HTML
-- Keyboard navigation
-- ARIA labels
-- Responsive layouts## 📚 What I Learned
+### Dashboard Overview
 
-Building this project improved my understanding of:
+### Budget Management
 
-- Modular JavaScript
-- Application architecture
-- State management
-- UI rendering
-- Form validation
-- Local Storage
-- Event delegation## 💬 Feedback
+### Transaction History## ⚡ Quick Start
 
-Feedback and suggestions are always welcome.
+```bash
+git clone https://github.com/JohnkayFundz/Smart-Finance-Dashboard.git
 
-If you have ideas for improvements, feel free to open an issue or submit a pull request.
+cd Smart-Finance-Dashboard
 
-Thank you for checking out Smart Finance Dashboard!
+# Open index.html
+```
+
+Or launch the project with the VS Code Live Server extension.
