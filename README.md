@@ -1,16 +1,16 @@
 ## 🌐 Live Demo
 
-Experience the application without any installation.
+Try the application online:
 
-👉 **Live Demo:** https://your-demo-url.com
+👉 **https://your-demo-url.com**
 
-> *Coming soon. The application will be deployed to GitHub Pages, Netlify, or Vercel.*
+> **Coming Soon:** The application will be deployed to GitHub Pages, Netlify, or Vercel.
 
 ---
 
 ## ⚡ Quick Start
 
-Clone the repository and run the project locally.
+Clone the repository:
 
 ```bash
 git clone https://github.com/JohnkayFundz/Smart-Finance-Dashboard.git
@@ -27,7 +27,7 @@ Then either:
 
 ## 🏛 Architecture
 
-The Smart Finance Dashboard follows a modular architecture that separates application logic into focused, maintainable modules. Features, services, shared utilities, and core state management work together to keep the codebase scalable and easy to extend.
+The application follows a modular architecture that separates business logic, shared utilities, UI rendering, and data persistence.
 
 ```text
 Browser
@@ -57,43 +57,15 @@ Features      Services        Shared
 ```text
 src/
 ├── app/               # Application bootstrap
-├── core/              # State management, constants, helpers
+├── core/              # State management, helpers, constants
 ├── features/          # Budgets, dashboard, transactions
-├── services/          # Data persistence and storage
+├── services/          # Storage services
 ├── shared/
 │   ├── components/    # Reusable UI components
 │   ├── modal/         # Modal system
 │   ├── utils/         # Shared utilities
 │   └── validators/    # Form validation
 └── main.js            # Application entry point
-```
-
----
-
-## 📸 Screenshots
-
-### Dashboard Overview
-
-*Main dashboard displaying total budget, income, expenses, and remaining balance.*
-
-```md
-![Dashboard](assets/screenshots/dashboard.png)
-```
-
-### Budget Management
-
-*Create, edit, and manage budgets with real-time calculations.*
-
-```md
-![Budgets](assets/screenshots/budgets.png)
-```
-
-### Transaction History
-
-*Track income and expenses with an organized transaction list.*
-
-```md
-![Transactions](assets/screenshots/transactions.png)
 ```
 
 ---
@@ -105,3 +77,19 @@ src/
 ![GitHub Forks](https://img.shields.io/github/forks/JohnkayFundz/Smart-Finance-Dashboard?style=for-the-badge)
 
 ![Last Commit](https://img.shields.io/github/last-commit/JohnkayFundz/Smart-Finance-Dashboard?style=for-the-badge)
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Dashboard Overview
+
+![Dashboard](assets/screenshots/dashboard.png)
+
+### 💳 Budget Management
+
+![Budgets](assets/screenshots/budgets.png)
+
+### 💸 Transaction History
+
+![Transactions](assets/screenshots/transactions.png)
