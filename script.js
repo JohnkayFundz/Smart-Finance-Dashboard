@@ -1,13 +1,4 @@
-const focusableElements = modal.querySelectorAll(
-    `
-    button,
-    input,
-    select,
-    textarea,
-    a[href],
-    [tabindex]:not([tabindex="-1"])
-    `
-);const focusable = [...focusableElements].filter(element => {
+function isFocusable(element) {
     const style = getComputedStyle(element);
 
     return (
@@ -18,4 +9,4 @@ const focusableElements = modal.querySelectorAll(
         style.display !== "none" &&
         style.visibility !== "hidden"
     );
-});
+}
