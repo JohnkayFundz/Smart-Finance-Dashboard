@@ -1,22 +1,27 @@
-.modal {
-    position: fixed;
-    inset: 0;
+.modal-content {
+    position: relative;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: min(500px, 90vw);
+    max-height: 90vh;
+    overflow-y: auto;
 
-    visibility: hidden;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+
     opacity: 0;
-    pointer-events: none;
+    transform: translateY(16px);
 
-    transition: opacity 250ms ease;
+    transition:
+        opacity 250ms ease-out,
+        transform 250ms ease-out;
 
-    z-index: 1000;
+    z-index: 1;
 }
 
-.modal.show {
-    visibility: visible;
+.modal.show .modal-content {
     opacity: 1;
-    pointer-events: auto;
+    transform: translateY(0);
 }
