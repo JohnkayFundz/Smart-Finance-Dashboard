@@ -1,4 +1,16 @@
-export function openModal(modal) {
+function getFocusableElements(modal) {
+    return [...modal.querySelectorAll(`
+        a[href],
+        button:not([disabled]),
+        textarea:not([disabled]),
+        input:not([disabled]),
+        select:not([disabled]),
+        [tabindex]:not([tabindex="-1"])
+    `)].filter(element => {
+        return !element.hasAttribute("disabled") &&
+               element.getAttribute("aria-hidden") !== "true";
+    });
+}export function openModal(modal) {
     if (!modal) return;
 
     lastFocusedElement = document.activeElement;
@@ -11,47 +23,50 @@ export function openModal(modal) {
     activeModal = modal;
 
     const focusable = getFocusableElements(modal);
-    focusable[0]?.focus();
-}function getFocusableElements(modal) {
-    return [...modal.querySelectorAll(`
-        a[href],
-        button:not([disabled]),
-        textarea:not([disabled]),
-        input:not([disabled]),
-        select:not([disabled]),
-        [tabindex]:not([tabindex="-1"])
-    `)].filter(element => {
-        return !element.hasAttribute("disabled") &&
-               element.getAttribute("aria-hidden") !== "true";
-    });
-}const focusable = getFocusableElements(modal);
 
-if (focusable.length > 0) {
-    focusable[0].focus();
-} else {
-    modal.querySelector(".modal-content")?.focus();
-}lastFocusedElement?.focus();const current = document.activeElement;
+    if (focusable.length > 0) {
+        focusable[0].focus();
+    } else {
+        modal.querySelector(".modal-content")?.focus();
+    }
+}export function closeModal(modal) {
+    if (!modal) return;
 
-if (event.shiftKey) {
-    if (current === first) {
-        event.preventDefault();
-        last.focus();
-    }
-} else {
-    if (current === last) {
-        event.preventDefault();
-        first.focus();
-    }
-}const current = document.activeElement;
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
 
-if (event.shiftKey) {
-    if (current === first) {
-        event.preventDefault();
-        last.focus();
+    document.body.classList.remove("modal-open");
+
+    activeModal = null;
+
+    lastFocusedElement?.focus();
+}document.addEventListener("keydown", (event) => {
+    if (!activeModal) return;
+
+    if (event.key === "Escape") {
+        closeModal(activeModal);
+        return;
     }
-} else {
-    if (current === last) {
-        event.preventDefault();
-        first.focus();
+
+    if (event.key !== "Tab") return;
+
+    const focusable = getFocusableElements(activeModal);
+
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const current = document.activeElement;
+
+    if (event.shiftKey) {
+        if (current === first) {
+            event.preventDefault();
+            last.focus();
+        }
+    } else {
+        if (current === last) {
+            event.preventDefault();
+            first.focus();
+        }
     }
-}
+});
