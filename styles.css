@@ -1,23 +1,10 @@
 :root {
-    --modal-backdrop-color: 0 0 0;
-    --modal-backdrop-opacity: 0.5;
+    --modal-backdrop: rgb(0 0 0 / 50%);
     --modal-backdrop-blur: 4px;
 }
 
 .modal {
-    background: rgb(
-        var(--modal-backdrop-color) /
-        var(--modal-backdrop-opacity)
-    );
-
-    backdrop-filter: blur(var(--modal-backdrop-blur));
-}:root {
-    --modal-backdrop-opacity: 0.3;
-}.modal {
-    background: rgb(
-        var(--modal-backdrop-color) /
-        var(--modal-backdrop-opacity)
-    );
+    background: var(--modal-backdrop);
 }
 
 @supports (backdrop-filter: blur(4px)) {
