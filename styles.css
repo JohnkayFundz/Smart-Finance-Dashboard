@@ -1,12 +1,9 @@
-:root {
-    --modal-divider: rgb(0 0 0 / 8%);
-}
-
 .modal-content {
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
+
     max-height: 90vh;
 
     opacity: 0;
@@ -40,4 +37,8 @@
     .modal-content {
         transition: none;
     }
+}:root {
+    --modal-max-height: 90vh;
+}.modal-content {
+    max-height: var(--modal-max-height);
 }
