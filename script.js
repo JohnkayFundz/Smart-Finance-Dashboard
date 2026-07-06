@@ -19,4 +19,10 @@ export function initModalTriggers() {
 
         openModal(modal);
     });
-}
+}import {
+    registerAllModals,
+    initModalTriggers
+} from "./shared/modal/modal.js";
+
+registerAllModals();
+initModalTriggers();
