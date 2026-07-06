@@ -1,14 +1,21 @@
 :root {
+    --modal-duration: 250ms;
+
+    --modal-radius: 12px;
+    --modal-shadow: 0 12px 32px rgb(0 0 0 / 20%);
+
+    --modal-max-width: 500px;
+    --modal-max-height: 90vh;
+
+    --modal-background: #fff;
+
     --modal-backdrop: rgb(0 0 0 / 50%);
     --modal-backdrop-blur: 4px;
-}
+}.modal-content {
+    width: min(var(--modal-max-width), 90vw);
+    max-height: var(--modal-max-height);
 
-.modal {
-    background: var(--modal-backdrop);
-}
-
-@supports (backdrop-filter: blur(4px)) {
-    .modal {
-        backdrop-filter: blur(var(--modal-backdrop-blur));
-    }
+    background: var(--modal-background);
+    border-radius: var(--modal-radius);
+    box-shadow: var(--modal-shadow);
 }
