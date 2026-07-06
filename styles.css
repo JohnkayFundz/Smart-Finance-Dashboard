@@ -1,35 +1,7 @@
-.modal {
-    position: fixed;
-    inset: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: rgb(0 0 0 / 50%);
-    backdrop-filter: blur(4px);
-
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-
-    transition:
-        opacity var(--modal-duration) ease,
-        visibility 0s linear var(--modal-duration);
-
-    z-index: 1000;
-}
-
-.modal.show {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-
-    transition:
-        opacity var(--modal-duration) ease,
-        visibility 0s;
-}@supports (backdrop-filter: blur(4px)) {
-    .modal {
-        backdrop-filter: blur(4px);
-    }
+:root {
+    --modal-backdrop: rgb(0 0 0 / 50%);
+    --modal-backdrop-blur: 4px;
+}.modal {
+    background: var(--modal-backdrop);
+    backdrop-filter: blur(var(--modal-backdrop-blur));
 }
