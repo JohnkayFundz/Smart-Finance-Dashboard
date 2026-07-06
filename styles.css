@@ -1,39 +1,25 @@
-:root {
-    --modal-duration: 250ms;
-    --modal-radius: 1rem;
-    --modal-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
-    --modal-padding: 1.5rem;
-
-    --modal-max-width: 32rem;
-    --modal-large-width: 48rem;
-    --modal-max-height: 90vh;
-
-    --modal-bg: #fff;
-    --modal-border: 1px solid rgb(0 0 0 / 8%);
-    --modal-divider: rgb(0 0 0 / 8%);
-}.modal-content {
-    width: min(90vw, var(--modal-max-width));
-    max-height: var(--modal-max-height);
+.modal {
+    position: fixed;
+    inset: 0;
 
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    box-sizing: border-box;
+    background: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(4px);
 
-    background: var(--modal-bg);
-    border: var(--modal-border);
-    border-radius: var(--modal-radius);
-    box-shadow: var(--modal-shadow);
-
-    overflow: hidden;
-    isolation: isolate;
-
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(1rem);
+    pointer-events: none;
 
-    transition:
-        opacity var(--modal-duration) ease-out,
-        transform var(--modal-duration) ease-out;
-}.modal-content.large {
-    max-width: var(--modal-large-width);
+    transition: opacity var(--modal-duration);
+
+    z-index: 1000;
+}
+
+.modal.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
