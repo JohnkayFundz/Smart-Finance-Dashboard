@@ -1,54 +1,71 @@
-export function registerModal(modal) {
-    const content = modal.querySelector(".modal-content");
-    const closeButton = modal.querySelector(".close-btn");
+let activeModal = null;
+let lastFocusedElement = null;
 
-    modal.addEventListener("click", event => {
-        if (event.target === modal) {
-            closeModal(modal);
-        }
-    });
+export function openModal(modal) {
+    if (!modal) return;
 
-    content?.addEventListener("click", event => {
-        event.stopPropagation();
-    });
+    lastFocusedElement = document.activeElement;
 
-    closeButton?.addEventListener("click", () => {
-        closeModal(modal);
-    });
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
 
-    document.addEventListener("keydown", event => {
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("show")
-        ) {
-            closeModal(modal);
-        }
-    });
-}openModal(budgetModal);
-openModal(transactionModal);
-openModal(settingsModal);document.addEventListener("click", event => {
+    document.body.classList.add("modal-open");
 
-    const trigger = event.target.closest("[data-open-modal]");
+    activeModal = modal;
 
-    if (!trigger) {
-        return;
-    }
-
-    const modal = document.getElementById(
-        trigger.dataset.openModal
+    const firstFocusable = modal.querySelector(
+        'button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
     );
 
-    if (modal) {
-        openModal(modal);
-    }
+    firstFocusable?.focus();
+}
 
-});document
-    .querySelectorAll(".modal")
-    .forEach(registerModal);
-    .forEach(registerModal);import {
+export function closeModal(modal) {
+    if (!modal) return;
+
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("modal-open");
+
+    lastFocusedElement?.focus();
+
+    activeModal = null;
+}
+
+export function registerModal(modal) {
+    if (!modal) return;
+
+    modal
+        .querySelectorAll("[data-close-modal]")
+        .forEach(element => {
+            element.addEventListener("click", () => {
+                closeModal(modal);
+            });
+        });
+}
+
+export function registerAllModals() {
+    document
+        .querySelectorAll(".modal")
+        .forEach(registerModal);
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && activeModal) {
+        closeModal(activeModal);
+    }
+});import {
     registerAllModals,
-    initModalTriggers
-} from "../shared/modal/modal.js";
+    openModal
+} from "./shared/modal/modal.js";
 
 registerAllModals();
-initModalTriggers();
+
+const budgetModal = document.getElementById("budgetModal");
+
+document
+    .getElementById("openBudgetModal")
+    .addEventListener("click", () => {
+        openModal(budgetModal);
+    });
