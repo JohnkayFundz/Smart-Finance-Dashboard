@@ -1,33 +1,22 @@
-.modal-content {
-    position: relative;
+.modal {
+    position: fixed;
+    inset: 0;
 
-    width: min(500px, 90vw);
-    max-height: 90vh;
-    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-
-    transform: translateY(16px);
-    transition: transform 250ms ease-out;
-
-    z-index: 1;
-}
-
-.modal.show .modal-content {
-    transform: translateY(0);
-}.modal-content {
+    visibility: hidden;
     opacity: 0;
-    transform: translateY(16px);
-    transition:
-        transform 250ms ease-out,
-        opacity 250ms ease-out;
+    pointer-events: none;
+
+    transition: opacity 250ms ease;
+
+    z-index: 1000;
 }
 
-.modal.show .modal-content {
+.modal.show {
+    visibility: visible;
     opacity: 1;
-    transform: translateY(0);
+    pointer-events: auto;
 }
