@@ -1,57 +1,67 @@
-<div
-    id="budgetModal"
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="budgetModalTitle"
-    aria-describedby="budgetModalDescription"
-    aria-hidden="true">
+<form id="budgetForm" novalidate>
 
-    <div class="modal-overlay" data-close-modal></div>
+    <div class="form-group">
+        <label for="budgetName">
+            Budget Name
+        </label>
 
-    <div class="modal-content" tabindex="-1">
+        <input
+            id="budgetName"
+            name="budgetName"
+            type="text"
+            placeholder="e.g. Food"
+            required
+            maxlength="50"
+            autocomplete="off">
+    </div>
 
-        <header class="modal-header">
-            <h2 id="budgetModalTitle">Budget</h2>
+    <div class="form-group">
+        <label for="budgetAmount">
+            Budget Amount
+        </label>
 
-            <button
-                type="button"
-                class="close-btn"
-                data-close-modal
-                aria-label="Close dialog">
-                &times;
-            </button>
-        </header>
+        <input
+            id="budgetAmount"
+            name="budgetAmount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+            required>
+    </div>
 
-        <div class="modal-body">
+    <div class="form-group">
+        <label for="budgetCategory">
+            Category
+        </label>
 
-            <p id="budgetModalDescription" class="sr-only">
-                Create or edit a budget.
-            </p>
+        <select
+            id="budgetCategory"
+            name="budgetCategory"
+            required>
 
-            <form id="budgetForm" novalidate>
+            <option value="">
+                Select a category
+            </option>
 
-                <!-- Inputs -->
+        </select>
+    </div>
 
-                <div class="modal-footer">
-                    <button
-                        type="submit"
-                        class="btn-primary">
-                        Save Budget
-                    </button>
+    <div class="modal-footer">
 
-                    <button
-                        type="button"
-                        class="btn-secondary"
-                        data-close-modal>
-                        Cancel
-                    </button>
-                </div>
+        <button
+            type="submit"
+            class="btn-primary">
+            Save Budget
+        </button>
 
-            </form>
-
-        </div>
+        <button
+            type="button"
+            class="btn-secondary"
+            data-close-modal>
+            Cancel
+        </button>
 
     </div>
 
-</div>
+</form>
