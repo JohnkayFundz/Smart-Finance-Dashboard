@@ -1,18 +1,8 @@
 .modal {
-    position: fixed;
-    inset: 0;
-
     display: flex;
-    justify-content: center;
-    align-items: center;
-
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-
-    transition: opacity 250ms ease-out;
-
-    z-index: 1000;
 }
 
 .modal.show {
