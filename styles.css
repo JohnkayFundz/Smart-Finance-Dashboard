@@ -1,11 +1,38 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
 .modal-content {
+    position: relative;
+    width: min(500px, 90vw);
     max-height: 90vh;
     overflow-y: auto;
-}.modal-content {
+
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-}width: min(500px, 90vw);.modal-content {
+
     transform: translateY(16px);
-    transition: transform .25s ease;
+    transition: transform 0.25s ease;
+
+    z-index: 1;
 }
 
 .modal.show .modal-content {
