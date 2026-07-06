@@ -13,7 +13,9 @@
     opacity: 0;
     pointer-events: none;
 
-    transition: opacity var(--modal-duration);
+    transition:
+        opacity var(--modal-duration) ease,
+        visibility 0s linear var(--modal-duration);
 
     z-index: 1000;
 }
@@ -22,4 +24,12 @@
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+
+    transition:
+        opacity var(--modal-duration) ease,
+        visibility 0s;
+}@supports (backdrop-filter: blur(4px)) {
+    .modal {
+        backdrop-filter: blur(4px);
+    }
 }
