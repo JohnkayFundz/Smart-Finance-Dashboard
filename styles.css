@@ -1,51 +1,11 @@
-.modal {
-    position: fixed;
-    inset: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-
-    transition:
-        opacity .25s ease,
-        visibility .25s ease;
-
-    z-index: 1000;
-}
-
-.modal.show {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, .5);
-}
-
 .modal-content {
-    position: relative;
-
-    width: min(500px, 90vw);
     max-height: 90vh;
     overflow-y: auto;
-
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-
-    transform: translateY(20px);
+}.modal-content {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}width: min(500px, 90vw);.modal-content {
+    transform: translateY(16px);
     transition: transform .25s ease;
-
-    box-shadow: 0 12px 40px rgba(0,0,0,.2);
-
-    z-index: 1;
 }
 
 .modal.show .modal-content {
