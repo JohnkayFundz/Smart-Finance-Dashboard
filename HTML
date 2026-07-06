@@ -1,4 +1,12 @@
-<div class="modal" id="budgetModal" aria-hidden="true">
+<div
+    class="modal"
+    id="budgetModal"
+    aria-hidden="true">
+
+    <div
+        class="modal-overlay"
+        data-close-modal></div>
+
     <div
         class="modal-content"
         role="dialog"
@@ -11,8 +19,9 @@
             <button
                 class="modal-close"
                 type="button"
+                data-close-modal
                 aria-label="Close modal">
-                ✕
+                &times;
             </button>
         </header>
 
@@ -25,4 +34,11 @@
         </footer>
 
     </div>
-</div>
+
+</div><div class="modal-overlay" data-close-modal></div><button
+    class="modal-close"
+    type="button"
+    data-close-modal
+    aria-label="Close modal">
+    &times;
+</button>
