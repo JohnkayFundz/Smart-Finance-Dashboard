@@ -68,4 +68,10 @@ document
     .getElementById("openBudgetModal")
     .addEventListener("click", () => {
         openModal(budgetModal);
+    });const openBudgetButton = document.getElementById("openBudgetModal");
+
+if (openBudgetButton && budgetModal) {
+    openBudgetButton.addEventListener("click", () => {
+        openModal(budgetModal);
     });
+}
