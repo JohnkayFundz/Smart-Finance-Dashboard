@@ -19,6 +19,7 @@
 
 .modal-content {
     position: relative;
+
     width: min(500px, 90vw);
     max-height: 90vh;
     overflow-y: auto;
