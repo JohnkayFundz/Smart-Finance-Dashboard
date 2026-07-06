@@ -11,8 +11,8 @@
     pointer-events: none;
 
     transition:
-        opacity 250ms ease-out,
-        visibility 250ms ease-out;
+        opacity 250ms ease,
+        visibility 250ms ease;
 
     z-index: 1000;
 }
@@ -21,4 +21,44 @@
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgb(0 0 0 / 50%);
+}
+
+.modal-content {
+    position: relative;
+
+    width: min(32rem, 90vw);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--surface-color, #fff);
+    border-radius: 1rem;
+
+    transform: translateY(1rem) scale(.98);
+    opacity: 0;
+
+    transition:
+        transform 250ms ease,
+        opacity 250ms ease;
+
+    z-index: 1;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal-content {
+        transition: none;
+    }
 }
