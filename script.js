@@ -3,7 +3,15 @@ import {
     initModalTriggers
 } from "./shared/modal/modal.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+function initApp() {
     registerAllModals();
     initModalTriggers();
-});
+
+    // Future initializers
+    // initTheme();
+    // initDropdowns();
+    // initToasts();
+    // initCharts();
+}
+
+document.addEventListener("DOMContentLoaded", initApp);
