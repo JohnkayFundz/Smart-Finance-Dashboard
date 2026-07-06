@@ -1,8 +1,21 @@
-const style = window.getComputedStyle(element);
+const focusableElements = modal.querySelectorAll(
+    `
+    button,
+    input,
+    select,
+    textarea,
+    a[href],
+    [tabindex]:not([tabindex="-1"])
+    `
+);const focusable = [...focusableElements].filter(element => {
+    const style = getComputedStyle(element);
 
-return (
-    !element.hasAttribute("disabled") &&
-    element.getAttribute("aria-hidden") !== "true" &&
-    style.display !== "none" &&
-    style.visibility !== "hidden"
-);
+    return (
+        !element.disabled &&
+        !element.hidden &&
+        !element.hasAttribute("inert") &&
+        element.getAttribute("aria-hidden") !== "true" &&
+        style.display !== "none" &&
+        style.visibility !== "hidden"
+    );
+});
