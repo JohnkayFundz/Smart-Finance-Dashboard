@@ -1,20 +1,18 @@
-:root {
-    --modal-duration: 250ms;
-    --modal-radius: 1rem;
-    --modal-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
-    --modal-padding: 1.5rem;
-    --modal-max-width: 32rem;
-    --modal-max-height: 90vh;
-    --modal-bg: #fff;
-    --modal-border: 1px solid rgb(0 0 0 / 8%);
-    --modal-divider: rgb(0 0 0 / 8%);
-}max-height: var(--modal-max-height);.modal-content {
-    box-sizing: border-box;
+.modal-content {
+    width: min(90vw, var(--modal-max-width));
 
+    background: var(--modal-bg);
+    border: var(--modal-border);
+    border-radius: var(--modal-radius);
+    box-shadow: var(--modal-shadow);
+
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 
     max-height: var(--modal-max-height);
+    overflow: hidden;
+    isolation: isolate;
 
     opacity: 0;
     transform: translateY(1rem);
@@ -22,11 +20,4 @@
     transition:
         opacity var(--modal-duration) ease-out,
         transform var(--modal-duration) ease-out;
-}.modal-content {
-    overflow: hidden;
-}:root {
-    --modal-max-width: 32rem;
-    --modal-large-width: 48rem;
-}.modal-content.large {
-    max-width: var(--modal-large-width);
 }
