@@ -1,7 +1,35 @@
 .modal-content {
-    box-shadow:
-        0 1rem 3rem rgb(0 0 0 / 20%);
-}.modal-header {
+    position: relative;
+
+    width: min(32rem, 90vw);
+    max-height: 90vh;
+
+    background: var(--surface-color, #fff);
+    border-radius: 1rem;
+
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+
+    overflow: hidden;
+    isolation: isolate;
+
+    transform: translateY(1rem) scale(.98);
+    opacity: 0;
+
+    transition:
+        transform var(--modal-duration),
+        opacity var(--modal-duration);
+
+    z-index: 1;
+}:root {
+    --modal-duration: 250ms;
+}
+
+.modal,
+.modal-content {
+    transition-duration: var(--modal-duration);
+}
+
+.modal-header {
     padding: 1.5rem;
 }
 
@@ -11,17 +39,22 @@
 
 .modal-footer {
     padding: 1rem 1.5rem;
-}.modal-content {
-    overflow: hidden;
-}.modal-content {
-    isolation: isolate;
-}body.modal-open {
+}
+
+body.modal-open {
     overflow: hidden;
 }:root {
     --modal-duration: 250ms;
+    --modal-radius: 1rem;
+    --modal-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+    --modal-max-width: 32rem;
+    --modal-overlay: rgb(0 0 0 / 50%);
+}.modal-overlay {
+    background: var(--modal-overlay);
 }
 
-.modal,
 .modal-content {
-    transition-duration: var(--modal-duration);
+    width: min(var(--modal-max-width), 90vw);
+    border-radius: var(--modal-radius);
+    box-shadow: var(--modal-shadow);
 }
