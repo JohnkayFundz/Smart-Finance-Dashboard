@@ -1,20 +1,59 @@
-<form id="budgetForm" novalidate>
+<div
+    id="budgetModal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="budgetModalTitle"
+    aria-describedby="budgetModalDescription"
+    aria-hidden="true">
 
-    <!-- Inputs -->
+    <!-- Background Overlay -->
+    <div class="modal-overlay" data-close-modal></div>
 
-    <div class="modal-footer">
-        <button type="submit" class="btn-primary">
-            Save Budget
-        </button>
+    <!-- Dialog -->
+    <div class="modal-content" tabindex="-1">
 
-        <button
-            type="button"
-            class="btn-secondary"
-            data-close-modal>
-            Cancel
-        </button>
+        <header class="modal-header">
+            <h2 id="budgetModalTitle">Budget</h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                data-close-modal
+                aria-label="Close dialog">
+                &times;
+            </button>
+        </header>
+
+        <div class="modal-body">
+
+            <p id="budgetModalDescription" class="sr-only">
+                Create or edit a budget.
+            </p>
+
+            <form id="budgetForm" novalidate>
+
+                <!-- Inputs -->
+
+                <div class="modal-footer">
+                    <button
+                        type="submit"
+                        class="btn-primary">
+                        Save Budget
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-secondary"
+                        data-close-modal>
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
-</form><div class="modal-overlay"></div>
-
-<div class="modal-content">
+</div>
