@@ -1,4 +1,7 @@
 showToast({
-    type: "error",
-    message: "Unable to save budget."
+    type: "success",
+    title: "Success",
+    message: "Budget created successfully.",
+    duration: 5000,
+    closable: true
 });
