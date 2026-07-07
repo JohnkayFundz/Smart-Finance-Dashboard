@@ -1,34 +1,49 @@
+const TOAST_ANIMATION_DURATION = 500; 
 const validTypes = ["success", "error", "warning", "info"];
 
-if (!validTypes.includes(type)) {
+function showToast({ type = "info", title = "", message = "", duration = 4000, closable = false }) {
+  if (!validTypes.includes(type)) {
     throw new Error(`Unknown toast type: ${type}`);
-}function removeToast(toast) {
-    if (!toast.isConnected) return;
+  }
 
-    toast.classList.remove("visible");
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <strong>${title}</strong>
+    <p>${message}</p>
+  `;
 
-    setTimeout(() => {
-        toast.remove();
-    }, TOAST_ANIMATION_DURATION);
-}const timeoutId =
-    duration > 0
-        ? setTimeout(() => removeToast(toast), duration)
-        : null;button.addEventListener("click", () => {
-    if (timeoutId) {
-        clearTimeout(timeoutId);
-    }
+  if (closable) {
+    const button = document.createElement("button");
+    button.textContent = "×";
+    button.className = "toast-close";
+    toast.appendChild(button);
 
-    removeToast(toast);
-});button.textContent = "×";function removeToast(toast) {
-    if (!toast.isConnected || toast.dataset.removing) {
-        return;
-    }
+    button.addEventListener("click", () => {
+      if (toast.dataset.timeoutId) {
+        clearTimeout(toast.dataset.timeoutId);
+      }
+      removeToast(toast);
+    });
+  }
 
-    toast.dataset.removing = "true";
+  document.querySelector(".toast-container")?.appendChild(toast);
 
-    toast.classList.remove("visible");
+  setTimeout(() => toast.classList.add("visible"), 50);
 
-    setTimeout(() => {
-        toast.remove();
-    }, TOAST_ANIMATION_DURATION);
+  if (duration > 0) {
+    const timeoutId = setTimeout(() => removeToast(toast), duration);
+    toast.dataset.timeoutId = timeoutId;
+  }
+}
+
+function removeToast(toast) {
+  if (!toast.isConnected || toast.dataset.removing) return;
+
+  toast.dataset.removing = "true";
+  toast.classList.remove("visible");
+
+  setTimeout(() => {
+    toast.remove();
+  }, TOAST_ANIMATION_DURATION);
 }
