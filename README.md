@@ -1,4 +1,4 @@
-🚀 **[Open Smart Finance Dashboard](https://johnkayfundz.github.io/Smart-Finance-Dashboard/
+🚀 **[Open Smart Finance Dashboard](https://johnkayfundz.github.io/Smart-Finance-Dashboard/)**
 
 ---
 
@@ -24,14 +24,4 @@
 
 ## 📦 Version
 
-**Current Version:** v1.0.0
-
-## 💡 Challenges & Lessons Learned
-
-Building this project helped me strengthen my understanding of modern frontend development. During development, I learned how to:
-
-- Organize a large JavaScript application using ES modules.
-- Design reusable UI components that improve maintainability.
-- Manage application state in a structured and predictable way.
-- Build accessible modal dialogs with keyboard navigation, focus management, and ARIA support.
-- Structure code for scalability, readability, and long-term maintenance.
+**Current Version:** **v1.0.0**
