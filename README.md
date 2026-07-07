@@ -34,7 +34,9 @@ Building this project helped me strengthen my understanding of modern frontend d
 - Build accessible modal dialogs with proper keyboard navigation and focus management.
 - Structure code for scalability, readability, and long-term maintenance.
 
-- ## 🚀 Future Enhancements
+---
+
+## 🚀 Future Enhancements
 
 Planned improvements include:
 
@@ -46,4 +48,19 @@ Planned improvements include:
 - Dark mode
 - Enhanced financial analytics
 
-- 
+- ## 🛠️ Tech Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript (ES2022)
+
+### APIs & Browser Features
+- Local Storage API
+- DOM API
+- Fetch API (if applicable)
+
+### Development Tools
+- Git
+- GitHub
+- Visual Studio Code
