@@ -1,21 +1,29 @@
-:root {
-    --modal-duration: 250ms;
+.toast-container {
+    position: fixed;
 
-    --modal-radius: 12px;
-    --modal-shadow: 0 12px 32px rgb(0 0 0 / 20%);
+    top: 1rem;
+    right: 1rem;
 
-    --modal-max-width: 500px;
-    --modal-max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
 
-    --modal-background: #fff;
+    z-index: 1100;
 
-    --modal-backdrop: rgb(0 0 0 / 50%);
-    --modal-backdrop-blur: 4px;
-}.modal-content {
-    width: min(var(--modal-max-width), 90vw);
-    max-height: var(--modal-max-height);
+    pointer-events: none;
+}.toast {
+    min-width: 20rem;
+    max-width: 24rem;
 
-    background: var(--modal-background);
-    border-radius: var(--modal-radius);
-    box-shadow: var(--modal-shadow);
-}
+    padding: 1rem;
+
+    border-radius: .75rem;
+
+    background: white;
+    box-shadow: 0 .5rem 1.5rem rgb(0 0 0 / 15%);
+
+    pointer-events: auto;
+}.toast.success { }
+.toast.error { }
+.toast.warning { }
+.toast.info { }
