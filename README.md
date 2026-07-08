@@ -12,6 +12,10 @@ Experience the Smart Finance Dashboard instantly in your browser.
 
 No installation required—just open the link and start exploring.
 
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+
 ---
 
 ## ✨ Key Features
@@ -143,4 +147,4 @@ This dashboard demonstrates frontend engineering skills, a focus on user experie
 * **GitHub:** https://github.com/JohnkayFundz
 * **LinkedIn:** *Add your LinkedIn profile once available.*
 * **Portfolio:** *Add your portfolio website once available.*
-* **Email:** johnkayfundz@gmail.com/ deejayjohnkay@gmail.com
+* **Email:** deejayjohnkay@gmail.com
