@@ -1,140 +1,56 @@
-// ===============================
-// Smart Finance Dashboard
-// Main Application Script
-// ===============================
+const descriptionInput = document.getElementById("description");
+const amountInput = document.getElementById("amount");
+const typeInput = document.getElementById("type");const description = descriptionInput.value.trim();
+const amount = Number(amountInput.value);
+const type = typeInput.value;button.dataset.id = transaction.id;transactionList.addEventListener("click", (event) => {
 
-// ---------- DOM Elements ----------
-const transactionForm = document.getElementById("transactionForm");
-const transactionList = document.getElementById("transactionList");
+    if (!event.target.matches(".delete-btn")) return;
 
-const balanceElement = document.getElementById("balance");
-const incomeElement = document.getElementById("income");
-const expenseElement = document.getElementById("expense");
+    deleteTransaction(event.target.dataset.id);
 
-// ---------- Application State ----------
-let transactions = [];
-
-// ---------- Initialize App ----------
-document.addEventListener("DOMContentLoaded", initialize);
-
-function initialize() {
-    loadTransactions();
-    renderTransactions();
-    updateDashboard();
-
-    transactionForm.addEventListener("submit", handleTransactionSubmit);
-}
-
-// ---------- Add Transaction ----------
-function handleTransactionSubmit(event) {
-    event.preventDefault();
-
-    const description = document.getElementById("description").value.trim();
-    const amount = Number(document.getElementById("amount").value);
-    const type = document.getElementById("type").value;
-
-    if (!description || amount <= 0) {
-        alert("Please enter valid data.");
-        return;
-    }
-
-    const transaction = {
+});function createTransaction(description, amount, type) {
+    return {
         id: crypto.randomUUID(),
         description,
         amount,
         type
     };
+}const transaction = createTransaction(description, amount, type);function saveTransactions() {
 
-    transactions.push(transaction);
+    try {
 
+        localStorage.setItem(
+            "transactions",
+            JSON.stringify(transactions)
+        );
+
+    } catch (error) {
+
+        console.error("Unable to save transactions:", error);
+
+    }
+
+}const STORAGE_KEY = "transactions";localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));function refreshApp() {
     saveTransactions();
-
     renderTransactions();
-
     updateDashboard();
+}transactions.push(transaction);
 
-    transactionForm.reset();
-}
+refreshApp();transactions = transactions.filter(...);
 
-// ---------- Render Transactions ----------
-function renderTransactions() {
+refreshApp();if (
+    description === "" ||
+    Number.isNaN(amount) ||
+    amount <= 0
+) {
+    alert("Please enter valid data.");
+    return;
+}function calculateTotals() {
+    // return income, expense, balance
+}function updateDashboard() {
+    const totals = calculateTotals();
 
-    transactionList.innerHTML = "";
-
-    transactions.forEach(transaction => {
-
-        const li = document.createElement("li");
-
-        li.innerHTML = `
-            <span>${transaction.description}</span>
-            <span>${formatCurrency(transaction.amount)}</span>
-            <button onclick="deleteTransaction('${transaction.id}')">
-                Delete
-            </button>
-        `;
-
-        transactionList.appendChild(li);
-
-    });
-
-}
-
-// ---------- Delete ----------
-function deleteTransaction(id) {
-
-    transactions = transactions.filter(item => item.id !== id);
-
-    saveTransactions();
-
-    renderTransactions();
-
-    updateDashboard();
-
-}
-
-// ---------- Dashboard ----------
-function updateDashboard() {
-
-    const income = transactions
-        .filter(t => t.type === "income")
-        .reduce((sum, t) => sum + t.amount, 0);
-
-    const expense = transactions
-        .filter(t => t.type === "expense")
-        .reduce((sum, t) => sum + t.amount, 0);
-
-    balanceElement.textContent = formatCurrency(income - expense);
-
-    incomeElement.textContent = formatCurrency(income);
-
-    expenseElement.textContent = formatCurrency(expense);
-
-}
-
-// ---------- Storage ----------
-function saveTransactions() {
-
-    localStorage.setItem(
-        "transactions",
-        JSON.stringify(transactions)
-    );
-
-}
-
-function loadTransactions() {
-
-    const saved = localStorage.getItem("transactions");
-
-    transactions = saved ? JSON.parse(saved) : [];
-
-}
-
-// ---------- Utilities ----------
-function formatCurrency(value) {
-
-    return new Intl.NumberFormat("en-NG", {
-        style: "currency",
-        currency: "NGN"
-    }).format(value);
-
+    balanceElement.textContent = formatCurrency(totals.balance);
+    incomeElement.textContent = formatCurrency(totals.income);
+    expenseElement.textContent = formatCurrency(totals.expense);
 }
