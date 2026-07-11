@@ -1,63 +1,104 @@
-## 📂 Project Structure
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
 
-```text
-Smart-Finance-Dashboard/
-├── .github/
-├── assets/
-├── docs/
-├── scripts/
-├── src/
-├── index.html
-├── README.md
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
-└── LICENSE
-```
-Explore the latest deployed version of Smart Finance Dashboard directly in your browser—no installation or setup required.
+## 🤝 Contributing
 
-## 📸 Preview
+Contributions are welcome!
 
-![Dashboard](assets/screenshots/dashboard.png)
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting pull requests.
 
-![Analytics](assets/screenshots/analytics.png)
+Please also follow our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
-![Transactions](assets/screenshots/transactions.png)
+## 📜 License
 
-## 🗺️ Roadmap
+This project is licensed under the MIT License.
 
-- [x] Transaction management
-- [x] Analytics dashboard
-- [x] Responsive layout
-- [x] Accessible modals
-- [ ] Dark mode
-- [ ] CSV export
-- [ ] PDF reports
-- [ ] Budget planner
-- [ ] Multi-currency support
-- [ ] Progressive Web App
-      GitHub: https://github.com/JohnkayFundz
-LinkedIn: https://www.linkedin.com/in/john-kalumba-96b437323/
-Portfolio: https://johnkayfundz.github.io/portfolio-website/
-Live Demo: https://johnkayfundz.github.io/Smart-Finance-Dashboard/
-
-GitHub Pages
-Last Commit
-Repo Size
-Issues
-Stars (optional)
-
-## 🏛️ Architecture
+See the [LICENSE](LICENSE) file for details.
 
 ```mermaid
-flowchart TD
-    UI[User Interface]
-    UI --> Components
-    Components --> State
-    State --> LocalStorage
-    State --> Dashboard
-    Dashboard --> Charts
-```## 🙏 Acknowledgements
+flowchart LR
 
-This project was inspired by modern personal finance applications and built using open web standards, with a focus on accessibility, responsive design, and maintainable JavaScript architecture.
+A[User]
+
+A --> B[UI Components]
+
+B --> C[Application State]
+
+C --> D[Transactions]
+
+C --> E[Budgets]
+
+C --> F[Analytics]
+
+D --> G[Local Storage]
+
+E --> G
+
+F --> H[Charts]
+
+H --> I[Dashboard]
+```
+
+Smart-Finance-Dashboard/
+│
+├── assets/
+├── css/
+├── js/
+│   ├── core/
+│   ├── features/
+│   ├── services/
+│   └── shared/
+├── index.html
+├── README.md
+└── LICENSE
+
+## 🛠 Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript (ES6 Modules)
+- Local Storage API
+- Chart.js
+
+- ## ♿ Accessibility
+
+- Keyboard navigation
+- Focus trapping
+- ARIA labels
+- Screen reader support
+- Reduced motion support
+- Semantic HTML
+
+## ⚡ Performance
+
+- Zero build tools
+- No frameworks
+- Fast page load
+- Modular architecture
+- Lightweight assets
+
+- ## 🚀 Roadmap
+
+- [x] Transaction Manager
+- [x] Analytics Dashboard
+- [x] Dark Mode
+- [x] Responsive Layout
+- [ ] Budget Planner
+- [ ] CSV Export
+- [ ] PDF Reports
+- [ ] Multi-currency
+- [ ] Recurring Transactions
+- [ ] Cloud Sync
+
+- [ ] ## 👨‍💻 Author
+
+**John Kalumba**
+
+- GitHub: https://github.com/JohnkayFundz
+- Portfolio: https://johnkayfundz.github.io/portfolio-website/
+- LinkedIn: https://www.linkedin.com/in/john-kalumba-96b437323/
+
+- 
