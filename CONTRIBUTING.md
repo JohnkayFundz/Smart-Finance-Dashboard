@@ -77,3 +77,26 @@ Feature requests should include:
 By participating in this project, you agree to follow the project's Code of Conduct.
 
 Thank you for helping improve Smart Finance Dashboard!
+| Section | Task | Done |
+| --- | --- | --- |
+| **Code of Conduct** | Be respectful, inclusive, and constructive | ☐ |
+|  | Accept and give feedback gracefully | ☐ |
+|  | Avoid harassment, discrimination, or personal attacks | ☐ |
+|  | Keep reports confidential and handle promptly | ☐ |
+| **Workflow** | Fork the repo and create a feature branch | ☐ |
+|  | Follow code style (ES modules, semantic HTML, responsive CSS) | ☐ |
+|  | Write clear commit messages (imperative mood, <50 chars) | ☐ |
+|  | Run linting and tests before submitting | ☐ |
+|  | Submit pull request with linked issues and clear description | ☐ |
+| **Review Etiquette** | Give constructive, respectful feedback | ☐ |
+|  | Focus on code, not contributor | ☐ |
+|  | Explain reasoning when disagreeing | ☐ |
+|  | Collaborate for improvement, not perfection | ☐ |
+| **Community** | Follow Code of Conduct | ☐ |
+|  | Help newcomers and share knowledge | ☐ |
+|  | Celebrate contributions big or small | ☐ |
+| **Getting Started** | Clone repo → ``git ``clone ``<repo-url>`` | ☐ |
+|  | Install dependencies → ``npm ``install`` | ☐ |
+|  | Run locally → ``npm ``start`` | ☐ |
+|  | Write tests for new features | ☐ |
+|  | Submit via pull request | ☐ |
