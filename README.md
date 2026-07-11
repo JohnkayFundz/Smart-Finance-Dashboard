@@ -3,8 +3,8 @@
 - [📸 Preview](#-preview)
 - [🎥 Walkthrough](#-walkthrough)
 - [🚀 Quick Start](#-quick-start)
-- [✨ Features](#-features)
 - [🏗️ Architecture](#️-architecture)
+- [✨ Features](#-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [♿ Accessibility](#-accessibility)
 - [⚡ Performance](#-performance)
@@ -77,27 +77,6 @@ flowchart LR
 
 ---
 
-## ♿ Accessibility
-
-- Keyboard navigation
-- Focus trapping
-- ARIA labels
-- Screen reader support
-- Reduced motion support
-- Semantic HTML
-
----
-
-## ⚡ Performance
-
-- Zero build tools
-- No frameworks
-- Fast page load
-- Modular architecture
-- Lightweight assets
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome!
@@ -129,3 +108,65 @@ See the [LICENSE](LICENSE) file for details.
 ⭐ If you found this project useful, consider giving it a **⭐ Star** on GitHub.
 
 Made with ❤️ by **John Kalumba**.
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/JohnkayFundz/Smart-Finance-Dashboard.git
+cd Smart-Finance-Dashboard
+```
+
+Open `index.html` in your preferred web browser to launch the application.
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| HTML5 | Semantic page structure |
+| CSS3 | Responsive styling and layouts |
+| JavaScript (ES6 Modules) | Application logic and interactivity |
+| Local Storage API | Persistent client-side data |
+| Chart.js | Financial charts and analytics |
+
+## 📂 Project Structure
+
+```text
+Smart-Finance-Dashboard/
+├── assets/
+├── css/
+├── js/
+│   ├── core/
+│   ├── features/
+│   ├── services/
+│   └── shared/
+├── index.html
+├── README.md
+└── LICENSE
+```
+
+## ♿ Accessibility
+
+- Keyboard navigation
+- Focus management
+- Focus trapping in modals
+- ARIA labels and roles
+- Semantic HTML
+- Reduced motion support
+
+- ## ⚡ Performance
+
+- Lightweight and framework-free
+- Modular ES6 architecture
+- Fast loading
+- Minimal dependencies
+- Client-side storage
+
+- ## 🎯 About
+
+Smart Finance Dashboard is a frontend portfolio project built to demonstrate modern JavaScript development, responsive design, accessibility best practices, and a clean application architecture, all without relying on external frameworks.
+
+## 🌐 Live Demo
+
+🔗 https://johnkayfundz.github.io/Smart-Finance-Dashboard/
