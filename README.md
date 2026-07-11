@@ -1,23 +1,5 @@
 # 💰 Smart Finance Dashboard
 
-- [🎯 About](#-about)
-- [🌐 Live Demo](#-live-demo)
-- [✨ Features](#-features)
-- [📦 Installation](#-installation)
-- [🚀 Quick Start](#-quick-start)
-- [🏗️ Architecture](#️-architecture)
-- [📂 Project Structure](#-project-structure)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [♿ Accessibility](#-accessibility)
-- [⚡ Performance](#-performance)
-- [🚀 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
-- [👨‍💻 Author](#-author)
-- [⭐ Support](#-support)
-
-
-
 ![Version](https://img.shields.io/badge/version-v1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -30,37 +12,16 @@
 
 A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Vanilla JavaScript**. Track income and expenses, visualize financial data, and manage your finances with a clean, accessible, and responsive interface.
 
----
-
-## 📸 Preview
-
-![Dashboard Screenshot](assets/preview.png)
 
 ### 🌐 Live Demo
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://johnkayfundz.github.io/Smart-Finance-Dashboard/)
 
-## 📋 Requirements
-
-- A modern web browser (Chrome, Edge, Firefox, Safari)
-- No additional dependencies or installation required
-
-- ## 🌍 Browser Support
-
-| Browser | Supported |
-|----------|:---------:|
-| Chrome | ✅ |
-| Edge | ✅ |
-| Firefox | ✅ |
-| Safari | ✅ |
-
-## 🙏 Acknowledgements
-
-- Chart.js for data visualization
-- GitHub Pages for hosting
-- Shields.io for project badges
-
 ---
+
+## 📸 Preview
+
+![Dashboard Screenshot](assets/preview.png)
 
 ## 🎥 Walkthrough
 
@@ -80,7 +41,24 @@ A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Va
 
 ![Responsive](assets/responsive.gif)
 
-## 🎯 About
+## 📑 Table of Contents
+- [🎯 About](#-about)
+- [🌐 Live Demo](#-live-demo)
+- [✨ Features](#-features)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [🏗️ Architecture](#️-architecture)
+- [📂 Project Structure](#-project-structure)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [♿ Accessibility](#-accessibility)
+- [⚡ Performance](#-performance)
+- [🚀 Roadmap](#-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+- [👨‍💻 Author](#-author)
+- [⭐ Support](#-support)
+
+  ## 🎯 About
 
 Smart Finance Dashboard demonstrates modern frontend development using vanilla JavaScript. It emphasizes clean architecture, responsive design, accessibility, modular code organization, and maintainability without relying on frontend frameworks.
 
@@ -110,6 +88,21 @@ Smart Finance Dashboard demonstrates modern frontend development using vanilla J
 - Recurring Transactions
 - Cloud Synchronization
 - User Authentication
+
+
+## 📋 Requirements
+
+- A modern web browser (Chrome, Edge, Firefox, Safari)
+- No additional dependencies or installation required
+
+## 🌍 Browser Support
+
+| Browser | Supported |
+|----------|:---------:|
+| Chrome | ✅ |
+| Edge | ✅ |
+| Firefox | ✅ |
+| Safari | ✅ |
 
 ---
 
@@ -247,6 +240,15 @@ Smart-Finance-Dashboard/
 - [ ] User Authentication
 
 ---
+## 🙏 Acknowledgements
+
+
+
+- Chart.js for data visualization
+
+- GitHub Pages for hosting
+
+- Shields.io for project badges
 
 ## 🤝 Contributing
 
@@ -276,14 +278,11 @@ See the **LICENSE** file for details.
 
 **John Kalumba**
 
-🌐 Portfolio  
-https://johnkayfundz.github.io/portfolio-website/
+🌐 Portfolio: <https://johnkayfundz.github.io/portfolio-website/>
 
-💻 GitHub  
-https://github.com/JohnkayFundz
+💻 GitHub: <https://github.com/JohnkayFundz>
 
-💼 LinkedIn  
-https://www.linkedin.com/in/john-kalumba-96b437323/
+💼 LinkedIn: <https://www.linkedin.com/in/john-kalumba-96b437323/>
 
 ---
 
