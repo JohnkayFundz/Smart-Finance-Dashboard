@@ -1,5 +1,7 @@
 # 💰 Smart Finance Dashboard
 
+> A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Vanilla JavaScript**.
+
 ![Version](https://img.shields.io/badge/version-v1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -10,10 +12,11 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/JohnkayFundz/Smart-Finance-Dashboard)
 ![GitHub stars](https://img.shields.io/github/stars/JohnkayFundz/Smart-Finance-Dashboard?style=social)
 
-A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Vanilla JavaScript**. Track income and expenses, visualize financial data, and manage your finances with a clean, accessible, and responsive interface.
+Track income and expenses, visualize financial data, and manage your finances through a clean, accessible, and responsive interface.
 
+---
 
-### 🌐 Live Demo
+## 🌐 Live Demo
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://johnkayfundz.github.io/Smart-Finance-Dashboard/)
 
@@ -22,6 +25,8 @@ A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Va
 ## 📸 Preview
 
 ![Dashboard Screenshot](assets/preview.png)
+
+---
 
 ## 🎥 Walkthrough
 
@@ -41,26 +46,44 @@ A modern, responsive personal finance dashboard built with **HTML5, CSS3, and Va
 
 ![Responsive](assets/responsive.gif)
 
+---
+
 ## 📑 Table of Contents
+
 - [🎯 About](#-about)
-- [🌐 Live Demo](#-live-demo)
 - [✨ Features](#-features)
+- [📋 Requirements](#-requirements)
+- [🌍 Browser Support](#-browser-support)
 - [📦 Installation](#-installation)
 - [🚀 Quick Start](#-quick-start)
-- [🏗️ Architecture](#️-architecture)
+- [🏗️ Architecture](#-architecture)
 - [📂 Project Structure](#-project-structure)
-- [🛠️ Tech Stack](#️-tech-stack)
+- [🛠️ Tech Stack](#-tech-stack)
 - [♿ Accessibility](#-accessibility)
 - [⚡ Performance](#-performance)
 - [🚀 Roadmap](#-roadmap)
+- [🙏 Acknowledgements](#-acknowledgements)
 - [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
 - [👨‍💻 Author](#-author)
 - [⭐ Support](#-support)
 
-  ## 🎯 About
+---
 
-Smart Finance Dashboard demonstrates modern frontend development using vanilla JavaScript. It emphasizes clean architecture, responsive design, accessibility, modular code organization, and maintainability without relying on frontend frameworks.
+## 🎯 About
+
+Smart Finance Dashboard is a modern frontend application built with **Vanilla JavaScript**, **HTML5**, and **CSS3**.
+
+The project demonstrates:
+
+- Responsive Web Design
+- Modular JavaScript Architecture
+- Accessibility Best Practices
+- Local Storage Persistence
+- Interactive Financial Analytics
+- Maintainable and Scalable Code
+
+The goal is to showcase practical frontend engineering without relying on external frameworks.
 
 ---
 
@@ -70,30 +93,34 @@ Smart Finance Dashboard demonstrates modern frontend development using vanilla J
 
 - Income & Expense Tracking
 - Transaction History
-- Dashboard Analytics
 - Financial Summary Cards
+- Interactive Analytics Dashboard
+- Expense Charts
+- Search & Filter
 - Local Storage Persistence
+- Dark Mode
 - Responsive Design
 - Accessible Modal Dialogs
-- Dark Mode
-- Search & Filtering
-- Interactive Charts
 
-### 🚀 Upcoming Features
+### 🚀 Planned Features
 
 - Budget Planner
 - CSV Export
 - PDF Reports
 - Multi-Currency Support
 - Recurring Transactions
-- Cloud Synchronization
 - User Authentication
+- Cloud Synchronization
 
+---
 
 ## 📋 Requirements
 
-- A modern web browser (Chrome, Edge, Firefox, Safari)
-- No additional dependencies or installation required
+- Modern Web Browser
+- No installation required
+- No backend server required
+
+---
 
 ## 🌍 Browser Support
 
@@ -112,11 +139,10 @@ Clone the repository.
 
 ```bash
 git clone https://github.com/JohnkayFundz/Smart-Finance-Dashboard.git
-
 cd Smart-Finance-Dashboard
 ```
 
-Open **index.html** in your preferred web browser.
+Open `index.html`.
 
 ---
 
@@ -127,7 +153,7 @@ Open **index.html** in your preferred web browser.
 3. Add income and expense transactions.
 4. View analytics.
 5. Switch between Light and Dark Mode.
-6. Your data is automatically saved using Local Storage.
+6. Data is automatically saved using Local Storage.
 
 ---
 
@@ -137,23 +163,17 @@ Open **index.html** in your preferred web browser.
 flowchart LR
 
 A[User]
-
 A --> B[UI Components]
-
 B --> C[Application State]
 
 C --> D[Transactions]
-
 C --> E[Budgets]
-
 C --> F[Analytics]
 
 D --> G[Local Storage]
-
 E --> G
 
 F --> H[Charts]
-
 H --> I[Dashboard]
 ```
 
@@ -188,15 +208,15 @@ Smart-Finance-Dashboard/
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
 | HTML5 | Semantic page structure |
 | CSS3 | Responsive layouts and styling |
 | JavaScript (ES6 Modules) | Application logic |
-| Local Storage API | Persistent data storage |
-| Chart.js | Analytics and visualization |
+| Local Storage API | Persistent client-side storage |
+| Chart.js | Interactive financial charts |
 
 ---
 
@@ -219,7 +239,7 @@ Smart-Finance-Dashboard/
 - Fast Initial Load
 - Optimized DOM Updates
 - Minimal Runtime Dependencies
-- Efficient Local Storage Persistence
+- Efficient Local Storage Usage
 
 ---
 
@@ -230,25 +250,24 @@ Smart-Finance-Dashboard/
 - [x] Responsive Design
 - [x] Dark Mode
 - [x] Local Storage
-- [x] Accessible Modals
+- [x] Accessible Modal Dialogs
 - [ ] Budget Planner
 - [ ] CSV Export
 - [ ] PDF Reports
-- [ ] Multi-Currency
+- [ ] Multi-Currency Support
 - [ ] Recurring Transactions
-- [ ] Cloud Sync
+- [ ] Cloud Synchronization
 - [ ] User Authentication
 
 ---
+
 ## 🙏 Acknowledgements
 
+- **Chart.js** for financial data visualization.
+- **GitHub Pages** for hosting the live demo.
+- **Shields.io** for dynamic project badges.
 
-
-- Chart.js for data visualization
-
-- GitHub Pages for hosting
-
-- Shields.io for project badges
+---
 
 ## 🤝 Contributing
 
@@ -268,7 +287,7 @@ Please follow our **CODE_OF_CONDUCT.md**.
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
 See the **LICENSE** file for details.
 
@@ -278,20 +297,25 @@ See the **LICENSE** file for details.
 
 **John Kalumba**
 
-🌐 Portfolio: <https://johnkayfundz.github.io/portfolio-website/>
+🌐 Portfolio  
+<https://johnkayfundz.github.io/portfolio-website/>
 
-💻 GitHub: <https://github.com/JohnkayFundz>
+💻 GitHub  
+<https://github.com/JohnkayFundz>
 
-💼 LinkedIn: <https://www.linkedin.com/in/john-kalumba-96b437323/>
+💼 LinkedIn  
+<https://www.linkedin.com/in/john-kalumba-96b437323/>
 
 ---
 
 ## ⭐ Support
 
-If you found this project useful, please consider giving it a ⭐ on GitHub.
+If you found this project useful, consider giving it a ⭐ on GitHub.
 
 Your support helps improve the project and encourages future development.
 
 ---
 
-Made with ❤️ by **John Kalumba**
+> Built with ❤️ using **HTML5**, **CSS3**, and **Vanilla JavaScript**.
+
+© 2026 John Kalumba
